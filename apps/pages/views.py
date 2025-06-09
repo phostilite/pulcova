@@ -13,3 +13,10 @@ class AboutView(TemplateView):
     Class-based view for the about page.
     """
     template_name = 'pages/about.html'
+    
+    
+class PortfolioView(TemplateView):
+    """
+    Class-based view for the portfolio page.
+    """
+    template_name = 'pages/portfolio.html'

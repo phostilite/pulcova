@@ -1,0 +1,588 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Portfolio - Pulcova | Full Stack Software Engineer{% endblock %}
+{% block meta_description %}Explore my portfolio of web applications, APIs, and software solutions. From e-commerce platforms to AI integrations, see how I transform ideas into reality.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden">
+    <div class="absolute inset-0 bg-grid-gray-100 dark:bg-grid-gray-800 opacity-50"></div>
+    
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 animate-fade-in">
+                My Portfolio
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300 animate-slide-up">
+                Showcasing innovative solutions and successful project deliveries
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Filter Section -->
+<section class="sticky top-16 z-40 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex flex-col lg:flex-row gap-4 items-center justify-between">
+            <!-- Filter Tabs -->
+            <div class="flex flex-wrap gap-2">
+                <button data-filter="all" class="filter-btn active px-4 py-2 rounded-lg text-sm font-medium transition-all">
+                    All Projects
+                </button>
+                <button data-filter="web" class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all">
+                    Web Applications
+                </button>
+                <button data-filter="api" class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all">
+                    APIs & Backend
+                </button>
+                <button data-filter="mobile" class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all">
+                    Mobile Apps
+                </button>
+                <button data-filter="ai" class="filter-btn px-4 py-2 rounded-lg text-sm font-medium transition-all">
+                    AI/ML Projects
+                </button>
+            </div>
+            
+            <!-- Additional Filters -->
+            <div class="flex gap-3">
+                <!-- Technology Dropdown -->
+                <div class="relative">
+                    <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500" id="tech-menu-button" aria-expanded="false" data-dropdown-toggle="tech-dropdown">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                        Technology
+                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    
+                    <!-- Dropdown menu -->
+                    <div id="tech-dropdown" class="hidden absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-lg bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <div class="py-1">
+                            <label class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                                <input type="checkbox" class="tech-filter mr-3 rounded text-primary-600" value="react">
+                                React
+                            </label>
+                            <label class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                                <input type="checkbox" class="tech-filter mr-3 rounded text-primary-600" value="django">
+                                Django
+                            </label>
+                            <label class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                                <input type="checkbox" class="tech-filter mr-3 rounded text-primary-600" value="nodejs">
+                                Node.js
+                            </label>
+                            <label class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                                <input type="checkbox" class="tech-filter mr-3 rounded text-primary-600" value="python">
+                                Python
+                            </label>
+                            <label class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                                <input type="checkbox" class="tech-filter mr-3 rounded text-primary-600" value="vue">
+                                Vue.js
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Year Dropdown -->
+                <div class="relative">
+                    <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500" id="year-menu-button" aria-expanded="false" data-dropdown-toggle="year-dropdown">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        Year
+                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    
+                    <!-- Dropdown menu -->
+                    <div id="year-dropdown" class="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-lg bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <div class="py-1">
+                            <button class="year-filter block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" data-year="2025">2025</button>
+                            <button class="year-filter block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" data-year="2024">2024</button>
+                            <button class="year-filter block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" data-year="2023">2023</button>
+                            <button class="year-filter block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" data-year="2022">2022</button>
+                            <button class="year-filter block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" data-year="older">Older</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Grid -->
+<section class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Results Count -->
+        <div class="mb-8 text-center">
+            <p class="text-gray-600 dark:text-gray-400">
+                Showing <span id="results-count" class="font-semibold text-gray-900 dark:text-white">12</span> projects
+            </p>
+        </div>
+        
+        <!-- Projects Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto" id="projects-grid">
+            <!-- Project Card 1 -->
+            <article class="project-card group bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1" 
+                     data-category="web" 
+                     data-tech="react,nodejs,postgresql" 
+                     data-year="2025">
+                <!-- Project Thumbnail -->
+                <div class="relative aspect-w-16 aspect-h-10 overflow-hidden bg-gray-200 dark:bg-gray-700">
+                    <img src="https://via.placeholder.com/600x400" alt="E-Commerce Platform" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="absolute bottom-4 left-4 right-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                        <span class="inline-flex items-center px-3 py-1 bg-white/90 dark:bg-gray-800/90 text-sm font-medium rounded-full">
+                            <svg class="w-4 h-4 mr-1 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            Live Project
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Project Content -->
+                <div class="p-6">
+                    <!-- Category Badge -->
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="inline-flex items-center px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-xs font-medium">
+                            Web Application
+                        </span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">2025</span>
+                    </div>
+                    
+                    <!-- Title -->
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                        Modern E-Commerce Platform
+                    </h3>
+                    
+                    <!-- Description -->
+                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                        A scalable e-commerce solution handling 10K+ daily transactions with real-time inventory management, payment processing, and advanced analytics.
+                    </p>
+                    
+                    <!-- Tech Stack -->
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">React</span>
+                        <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">Node.js</span>
+                        <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">PostgreSQL</span>
+                        <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">+3</span>
+                    </div>
+                    
+                    <!-- Action Links -->
+                    <div class="flex items-center justify-between">
+                        <a href="/portfolio/modern-ecommerce-platform" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm">
+                            View Details
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                        <div class="flex gap-3">
+                            <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400" title="View Live Demo">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                            </a>
+                            <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400" title="View Source Code">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Project Card 2 -->
+            <article class="project-card group bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1" 
+                     data-category="api" 
+                     data-tech="django,python,redis" 
+                     data-year="2024">
+                <!-- Project Thumbnail -->
+                <div class="relative aspect-w-16 aspect-h-10 overflow-hidden bg-gray-200 dark:bg-gray-700">
+                    <img src="https://via.placeholder.com/600x400" alt="Real-time Analytics API" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                
+                <!-- Project Content -->
+                <div class="p-6">
+                    <!-- Category Badge -->
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="inline-flex items-center px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs font-medium">
+                            API & Backend
+                        </span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">2024</span>
+                    </div>
+                    
+                    <!-- Title -->
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                        Real-time Analytics API
+                    </h3>
+                    
+                    <!-- Description -->
+                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                        High-performance API processing millions of events daily with sub-second response times and real-time data aggregation.
+                    </p>
+                    
+                    <!-- Tech Stack -->
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">Django</span>
+                        <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">Python</span>
+                        <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">Redis</span>
+                        <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">+2</span>
+                    </div>
+                    
+                    <!-- Action Links -->
+                    <div class="flex items-center justify-between">
+                        <a href="/portfolio/realtime-analytics-api" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm">
+                            View Details
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                        <div class="flex gap-3">
+                            <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400" title="View API Documentation">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </a>
+                            <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400" title="View Source Code">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Project Card 3 -->
+            <article class="project-card group bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1" 
+                     data-category="ai" 
+                     data-tech="python,tensorflow" 
+                     data-year="2024">
+                <!-- Project Thumbnail -->
+                <div class="relative aspect-w-16 aspect-h-10 overflow-hidden bg-gray-200 dark:bg-gray-700">
+                    <img src="https://via.placeholder.com/600x400" alt="AI Content Generator" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                
+                <!-- Project Content -->
+                <div class="p-6">
+                    <!-- Category Badge -->
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="inline-flex items-center px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-medium">
+                            AI/ML Project
+                        </span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">2024</span>
+                    </div>
+                    
+                    <!-- Title -->
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                        AI Content Generator
+                    </h3>
+                    
+                    <!-- Description -->
+                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                        Advanced content generation platform using GPT-4 and custom fine-tuned models for creating SEO-optimized articles and marketing copy.
+                    </p>
+                    
+                    <!-- Tech Stack -->
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">Python</span>
+                        <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">TensorFlow</span>
+                        <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">GPT-4</span>
+                    </div>
+                    
+                    <!-- Action Links -->
+                    <div class="flex items-center justify-between">
+                        <a href="/portfolio/ai-content-generator" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm">
+                            View Details
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                        <div class="flex gap-3">
+                            <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400" title="View Demo">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Add more project cards here following the same pattern -->
+            <!-- For brevity, I'll show 3 more cards with different categories -->
+            
+            <!-- Project Card 4 -->
+            <article class="project-card group bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1" 
+                     data-category="mobile" 
+                     data-tech="react,nodejs" 
+                     data-year="2023">
+                <div class="relative aspect-w-16 aspect-h-10 overflow-hidden bg-gray-200 dark:bg-gray-700">
+                    <img src="https://via.placeholder.com/600x400" alt="Mobile Banking App" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="inline-flex items-center px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-xs font-medium">
+                           Mobile App
+                       </span>
+                       <span class="text-xs text-gray-500 dark:text-gray-400">2023</span>
+                   </div>
+                   
+                   <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                       Mobile Banking App
+                   </h3>
+                   
+                   <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                       Secure mobile banking solution with biometric authentication, real-time transactions, and advanced fraud detection.
+                   </p>
+                   
+                   <div class="flex flex-wrap gap-2 mb-4">
+                       <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">React Native</span>
+                       <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">Node.js</span>
+                       <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">MongoDB</span>
+                   </div>
+                   
+                   <div class="flex items-center justify-between">
+                       <a href="/portfolio/mobile-banking-app" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm">
+                           View Details
+                           <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                           </svg>
+                       </a>
+                       <div class="flex gap-3">
+                           <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400" title="App Store">
+                               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                               </svg>
+                           </a>
+                       </div>
+                   </div>
+               </div>
+           </article>
+           
+           <!-- Add more cards to reach 12 total -->
+       </div>
+       
+       <!-- Load More Button -->
+       <div class="mt-12 text-center">
+           <button class="inline-flex items-center px-6 py-3 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-900 dark:text-white font-medium rounded-lg border border-gray-300 dark:border-gray-700 transition-all">
+               Load More Projects
+               <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+               </svg>
+           </button>
+       </div>
+   </div>
+</section>
+
+<!-- No Results Message (Initially Hidden) -->
+<div id="no-results" class="hidden py-20 text-center">
+   <svg class="w-24 h-24 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+   </svg>
+   <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">No projects found</h3>
+   <p class="text-gray-600 dark:text-gray-400">Try adjusting your filters or search criteria</p>
+</div>
+
+<!-- Custom Styles -->
+<style>
+/* Filter Button Styles */
+.filter-btn {
+   background-color: transparent;
+   color: #6b7280;
+   border: 1px solid #e5e7eb;
+}
+
+.dark .filter-btn {
+   color: #9ca3af;
+   border-color: #374151;
+}
+
+.filter-btn:hover {
+   background-color: #f3f4f6;
+   color: #111827;
+}
+
+.dark .filter-btn:hover {
+   background-color: #374151;
+   color: #f3f4f6;
+}
+
+.filter-btn.active {
+   background-color: #2563eb;
+   color: white;
+   border-color: #2563eb;
+}
+
+.dark .filter-btn.active {
+   background-color: #3b82f6;
+   border-color: #3b82f6;
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+   overflow: hidden;
+   display: -webkit-box;
+   -webkit-line-clamp: 2;
+   -webkit-box-orient: vertical;
+}
+
+/* Aspect ratio for images */
+.aspect-w-16 {
+   position: relative;
+   padding-bottom: 62.5%;
+}
+
+.aspect-w-16 > img {
+   position: absolute;
+   height: 100%;
+   width: 100%;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+}
+
+/* Grid background pattern */
+.bg-grid-gray-100 {
+   background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239ca3af' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.dark .bg-grid-gray-800 {
+   background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236b7280' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+</style>
+
+<!-- Filter JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+   // Get all filter elements
+   const categoryFilters = document.querySelectorAll('.filter-btn');
+   const techFilters = document.querySelectorAll('.tech-filter');
+   const yearFilters = document.querySelectorAll('.year-filter');
+   const projectCards = document.querySelectorAll('.project-card');
+   const resultsCount = document.getElementById('results-count');
+   const noResults = document.getElementById('no-results');
+   const projectsGrid = document.getElementById('projects-grid');
+   
+   // Active filters state
+   let activeCategory = 'all';
+   let activeTechs = [];
+   let activeYear = null;
+   
+   // Category filter functionality
+   categoryFilters.forEach(btn => {
+       btn.addEventListener('click', function() {
+           // Remove active class from all buttons
+           categoryFilters.forEach(b => b.classList.remove('active'));
+           // Add active class to clicked button
+           this.classList.add('active');
+           
+           activeCategory = this.dataset.filter;
+           filterProjects();
+       });
+   });
+   
+   // Technology filter functionality
+   techFilters.forEach(checkbox => {
+       checkbox.addEventListener('change', function() {
+           if (this.checked) {
+               activeTechs.push(this.value);
+           } else {
+               activeTechs = activeTechs.filter(tech => tech !== this.value);
+           }
+           filterProjects();
+       });
+   });
+   
+   // Year filter functionality
+   yearFilters.forEach(btn => {
+       btn.addEventListener('click', function() {
+           activeYear = this.dataset.year;
+           // Update button text to show selected year
+           document.getElementById('year-menu-button').innerHTML = `
+               <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+               </svg>
+               ${this.textContent}
+               <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+               </svg>
+           `;
+           filterProjects();
+       });
+   });
+   
+   // Filter projects function
+   function filterProjects() {
+       let visibleCount = 0;
+       
+       projectCards.forEach(card => {
+           let showCard = true;
+           
+           // Check category filter
+           if (activeCategory !== 'all' && card.dataset.category !== activeCategory) {
+               showCard = false;
+           }
+           
+           // Check technology filters
+           if (activeTechs.length > 0) {
+               const cardTechs = card.dataset.tech.split(',');
+               const hasMatchingTech = activeTechs.some(tech => cardTechs.includes(tech));
+               if (!hasMatchingTech) {
+                   showCard = false;
+               }
+           }
+           
+           // Check year filter
+           if (activeYear) {
+               const cardYear = card.dataset.year;
+               if (activeYear === 'older' && parseInt(cardYear) >= 2022) {
+                   showCard = false;
+               } else if (activeYear !== 'older' && cardYear !== activeYear) {
+                   showCard = false;
+               }
+           }
+           
+           // Show/hide card with animation
+           if (showCard) {
+               card.style.display = 'block';
+               setTimeout(() => {
+                   card.style.opacity = '1';
+                   card.style.transform = 'scale(1)';
+               }, 10);
+               visibleCount++;
+           } else {
+               card.style.opacity = '0';
+               card.style.transform = 'scale(0.9)';
+               setTimeout(() => {
+                   card.style.display = 'none';
+               }, 300);
+           }
+       });
+       
+       // Update results count
+       resultsCount.textContent = visibleCount;
+       
+       // Show/hide no results message
+       if (visibleCount === 0) {
+           projectsGrid.style.display = 'none';
+           noResults.classList.remove('hidden');
+       } else {
+           projectsGrid.style.display = 'grid';
+           noResults.classList.add('hidden');
+       }
+   }
+});
+</script>
+{% endblock %}
