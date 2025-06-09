@@ -34,3 +34,10 @@ class SolutionsView(TemplateView):
     Class-based view for the solutions page.
     """
     template_name = 'pages/solutions.html'
+
+
+class ServicesView(TemplateView):
+    """
+    Class-based view for the services page.
+    """
+    template_name = 'pages/services.html'
