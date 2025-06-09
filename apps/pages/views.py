@@ -41,3 +41,10 @@ class ServicesView(TemplateView):
     Class-based view for the services page.
     """
     template_name = 'pages/services.html'
+    
+    
+class ContactView(TemplateView):
+    """
+    Class-based view for the contact page.
+    """
+    template_name = 'pages/contact.html'
