@@ -1,0 +1,766 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}GDPR Notice - Pulcova{% endblock %}
+{% block meta_description %}Learn about your data protection rights under GDPR. Detailed information about how Pulcova processes personal data and your rights as a data subject in the European Union.{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+                    GDPR Notice
+                </h1>
+                <p class="text-lg text-gray-600 dark:text-gray-400 mb-6">
+                    Your data protection rights under the General Data Protection Regulation (GDPR) and how we protect your personal information.
+                </p>
+                <div class="inline-flex items-center px-4 py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded-lg">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                    </svg>
+                    Last Updated: {{ last_updated }}
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                <div class="p-8 md:p-12 space-y-12">
+                    
+                    <!-- Quick Summary -->
+                    <section class="border-l-4 border-primary-500 pl-6 bg-primary-50 dark:bg-primary-900/20 p-6 rounded-r-lg">
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                            📋 GDPR Compliance Summary
+                        </h2>
+                        <div class="text-gray-700 dark:text-gray-300 space-y-2">
+                            <p>• We respect your privacy rights under GDPR if you're located in the European Union</p>
+                            <p>• You have full control over your personal data - access, rectify, erase, or port it</p>
+                            <p>• We process data lawfully with clear legal bases and explicit consent where needed</p>
+                            <p>• Data is minimized, secured, and retained only as long as necessary</p>
+                            <p>• You can withdraw consent at any time and lodge complaints with supervisory authorities</p>
+                        </div>
+                    </section>
+
+                    <!-- Data Controller Information -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            🏢 Data Controller Information
+                        </h2>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h3 class="font-semibold text-gray-900 dark:text-white mb-3">Data Controller</h3>
+                                    <div class="text-gray-700 dark:text-gray-300 space-y-1">
+                                        <p><strong>Business Name:</strong> Pulcova</p>
+                                        <p><strong>Type:</strong> Individual Software Engineer/Freelancer</p>
+                                        <p><strong>Location:</strong> Operating globally, based remotely</p>
+                                        <p><strong>Contact:</strong> hello@pulcova.com</p>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="font-semibold text-gray-900 dark:text-white mb-3">Data Protection Officer</h3>
+                                    <div class="text-gray-700 dark:text-gray-300 space-y-1">
+                                        <p><strong>Email:</strong> privacy@pulcova.com</p>
+                                        <p><strong>Purpose:</strong> Handle privacy-related inquiries</p>
+                                        <p><strong>Response Time:</strong> Within 30 days</p>
+                                        <p><strong>Languages:</strong> English</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Your Rights Under GDPR -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            ⚖️ Your Rights Under GDPR
+                        </h2>
+                        
+                        <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6 mb-6">
+                            <div class="flex items-center mb-3">
+                                <svg class="w-6 h-6 text-green-600 dark:text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <h3 class="text-lg font-semibold text-green-800 dark:text-green-300">
+                                    Guaranteed Rights for EU Residents
+                                </h3>
+                            </div>
+                            <p class="text-green-700 dark:text-green-300">
+                                As an individual located in the European Union, you have specific rights regarding your personal data under GDPR.
+                            </p>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-6 rounded-lg">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                                    <svg class="w-5 h-5 mr-2 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    Right of Access (Article 15)
+                                </h3>
+                                <p class="text-gray-700 dark:text-gray-300 text-sm mb-3">
+                                    You can request confirmation of whether we process your data and obtain a copy of your personal data.
+                                </p>
+                                <ul class="text-gray-600 dark:text-gray-400 text-xs space-y-1">
+                                    <li>• What data we have about you</li>
+                                    <li>• Why we're processing it</li>
+                                    <li>• Who we share it with</li>
+                                    <li>• How long we keep it</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-6 rounded-lg">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                                    <svg class="w-5 h-5 mr-2 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                                    </svg>
+                                    Right of Rectification (Article 16)
+                                </h3>
+                                <p class="text-gray-700 dark:text-gray-300 text-sm mb-3">
+                                    You can request correction of inaccurate personal data and completion of incomplete data.
+                                </p>
+                                <ul class="text-gray-600 dark:text-gray-400 text-xs space-y-1">
+                                    <li>• Correct wrong information</li>
+                                    <li>• Add missing details</li>
+                                    <li>• Update outdated information</li>
+                                    <li>• Fix spelling errors</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-6 rounded-lg">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                                    <svg class="w-5 h-5 mr-2 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" clip-rule="evenodd"></path>
+                                        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2h8a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 2a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Right of Erasure (Article 17)
+                                </h3>
+                                <p class="text-gray-700 dark:text-gray-300 text-sm mb-3">
+                                    You can request deletion of your personal data under certain circumstances ("Right to be Forgotten").
+                                </p>
+                                <ul class="text-gray-600 dark:text-gray-400 text-xs space-y-1">
+                                    <li>• Data no longer necessary</li>
+                                    <li>• Withdraw consent</li>
+                                    <li>• Unlawful processing</li>
+                                    <li>• Legal compliance requirement</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-6 rounded-lg">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                                    <svg class="w-5 h-5 mr-2 text-purple-600 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Right to Restrict Processing (Article 18)
+                                </h3>
+                                <p class="text-gray-700 dark:text-gray-300 text-sm mb-3">
+                                    You can request limitation of processing your personal data in specific situations.
+                                </p>
+                                <ul class="text-gray-600 dark:text-gray-400 text-xs space-y-1">
+                                    <li>• Contest data accuracy</li>
+                                    <li>• Processing is unlawful</li>
+                                    <li>• Object to processing</li>
+                                    <li>• Legal claims pending</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-6 rounded-lg">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                                    <svg class="w-5 h-5 mr-2 text-indigo-600 dark:text-indigo-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Right to Data Portability (Article 20)
+                                </h3>
+                                <p class="text-gray-700 dark:text-gray-300 text-sm mb-3">
+                                    You can receive your data in a structured, machine-readable format and transfer it to another service.
+                                </p>
+                                <ul class="text-gray-600 dark:text-gray-400 text-xs space-y-1">
+                                    <li>• Structured data export</li>
+                                    <li>• Machine-readable format</li>
+                                    <li>• Transfer to other services</li>
+                                    <li>• Direct transmission (if possible)</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-6 rounded-lg">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                                    <svg class="w-5 h-5 mr-2 text-yellow-600 dark:text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Right to Object (Article 21)
+                                </h3>
+                                <p class="text-gray-700 dark:text-gray-300 text-sm mb-3">
+                                    You can object to processing of your personal data based on legitimate interests or direct marketing.
+                                </p>
+                                <ul class="text-gray-600 dark:text-gray-400 text-xs space-y-1">
+                                    <li>• Object to marketing</li>
+                                    <li>• Object to profiling</li>
+                                    <li>• Object to legitimate interests</li>
+                                    <li>• Must provide specific reasons</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Legal Basis for Processing -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            📜 Legal Basis for Processing Your Data
+                        </h2>
+                        
+                        <p class="text-gray-700 dark:text-gray-300 mb-6">
+                            Under GDPR, we must have a lawful basis for processing your personal data. Here are the legal bases we rely on:
+                        </p>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 p-6 rounded-lg">
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 bg-blue-600 text-white text-xs font-bold rounded-full mr-2">6a</span>
+                                    Consent (Article 6(1)(a))
+                                </h3>
+                                <p class="text-gray-700 dark:text-gray-300 text-sm mb-3">
+                                    You have given clear consent for us to process your data for specific purposes.
+                                </p>
+                                <div class="text-xs text-gray-600 dark:text-gray-400">
+                                    <strong>Used for:</strong> Newsletter subscriptions, optional analytics, marketing communications
+                                </div>
+                            </div>
+
+                            <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 p-6 rounded-lg">
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 bg-green-600 text-white text-xs font-bold rounded-full mr-2">6b</span>
+                                    Contract (Article 6(1)(b))
+                                </h3>
+                                <p class="text-gray-700 dark:text-gray-300 text-sm mb-3">
+                                    Processing is necessary for performing a contract with you or to take steps before entering into a contract.
+                                </p>
+                                <div class="text-xs text-gray-600 dark:text-gray-400">
+                                    <strong>Used for:</strong> Service delivery, project communication, invoicing
+                                </div>
+                            </div>
+
+                            <div class="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 p-6 rounded-lg">
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 bg-purple-600 text-white text-xs font-bold rounded-full mr-2">6c</span>
+                                    Legal Obligation (Article 6(1)(c))
+                                </h3>
+                                <p class="text-gray-700 dark:text-gray-300 text-sm mb-3">
+                                    Processing is necessary to comply with legal obligations that apply to us.
+                                </p>
+                                <div class="text-xs text-gray-600 dark:text-gray-400">
+                                    <strong>Used for:</strong> Tax records, legal compliance, data breach notifications
+                                </div>
+                            </div>
+
+                            <div class="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 p-6 rounded-lg">
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 bg-orange-600 text-white text-xs font-bold rounded-full mr-2">6f</span>
+                                    Legitimate Interests (Article 6(1)(f))
+                                </h3>
+                                <p class="text-gray-700 dark:text-gray-300 text-sm mb-3">
+                                    Processing is necessary for our legitimate interests, provided your rights don't override these interests.
+                                </p>
+                                <div class="text-xs text-gray-600 dark:text-gray-400">
+                                    <strong>Used for:</strong> Website security, fraud prevention, business improvement
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Data Processing Activities -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            🔄 Data Processing Activities
+                        </h2>
+                        
+                        <div class="space-y-6">
+                            <div class="border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden">
+                                <div class="bg-gray-50 dark:bg-gray-700 px-6 py-4 border-b border-gray-200 dark:border-gray-600">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Contact Form Processing</h3>
+                                </div>
+                                <div class="p-6 space-y-4">
+                                    <div class="grid md:grid-cols-2 gap-4">
+                                        <div>
+                                            <h4 class="font-medium text-gray-900 dark:text-white mb-2">Data Collected</h4>
+                                            <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                                                <li>• Name</li>
+                                                <li>• Email address</li>
+                                                <li>• Subject line</li>
+                                                <li>• Message content</li>
+                                                <li>• IP address (for security)</li>
+                                                <li>• Browser information</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium text-gray-900 dark:text-white mb-2">Processing Details</h4>
+                                            <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                                                <p><strong>Purpose:</strong> Respond to inquiries</p>
+                                                <p><strong>Legal Basis:</strong> Legitimate interests</p>
+                                                <p><strong>Retention:</strong> 2 years</p>
+                                                <p><strong>Storage:</strong> Secure database</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden">
+                                <div class="bg-gray-50 dark:bg-gray-700 px-6 py-4 border-b border-gray-200 dark:border-gray-600">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Website Analytics</h3>
+                                </div>
+                                <div class="p-6 space-y-4">
+                                    <div class="grid md:grid-cols-2 gap-4">
+                                        <div>
+                                            <h4 class="font-medium text-gray-900 dark:text-white mb-2">Data Collected</h4>
+                                            <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                                                <li>• Page views and paths</li>
+                                                <li>• Session information</li>
+                                                <li>• Referrer websites</li>
+                                                <li>• Device and browser data</li>
+                                                <li>• Anonymized IP addresses</li>
+                                                <li>• Time stamps</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium text-gray-900 dark:text-white mb-2">Processing Details</h4>
+                                            <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                                                <p><strong>Purpose:</strong> Website improvement</p>
+                                                <p><strong>Legal Basis:</strong> Consent</p>
+                                                <p><strong>Retention:</strong> 26 months</p>
+                                                <p><strong>Storage:</strong> Local analytics system</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden">
+                                <div class="bg-gray-50 dark:bg-gray-700 px-6 py-4 border-b border-gray-200 dark:border-gray-600">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Cookie Management</h3>
+                                </div>
+                                <div class="p-6 space-y-4">
+                                    <div class="grid md:grid-cols-2 gap-4">
+                                        <div>
+                                            <h4 class="font-medium text-gray-900 dark:text-white mb-2">Data Collected</h4>
+                                            <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                                                <li>• Session identifiers</li>
+                                                <li>• CSRF tokens</li>
+                                                <li>• Theme preferences</li>
+                                                <li>• Language settings</li>
+                                                <li>• Security tokens</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-medium text-gray-900 dark:text-white mb-2">Processing Details</h4>
+                                            <div class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                                                <p><strong>Purpose:</strong> Website functionality</p>
+                                                <p><strong>Legal Basis:</strong> Legitimate interests</p>
+                                                <p><strong>Retention:</strong> Session or 1 year</p>
+                                                <p><strong>Storage:</strong> Browser cookies</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Data Transfers -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            🌍 International Data Transfers
+                        </h2>
+                        
+                        <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 mb-6">
+                            <h3 class="font-semibold text-gray-900 dark:text-white mb-3">Data Transfer Safeguards</h3>
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">
+                                As a global service provider, your data may be transferred to and processed in countries outside the European Economic Area (EEA). We ensure appropriate safeguards are in place:
+                            </p>
+                            
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg">
+                                    <h4 class="font-medium text-gray-900 dark:text-white mb-2">Adequacy Decisions</h4>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300">
+                                        We only transfer data to countries with European Commission adequacy decisions where possible.
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg">
+                                    <h4 class="font-medium text-gray-900 dark:text-white mb-2">Standard Contractual Clauses</h4>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300">
+                                        For other transfers, we use EU-approved Standard Contractual Clauses (SCCs) to ensure protection.
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg">
+                                    <h4 class="font-medium text-gray-900 dark:text-white mb-2">Technical Safeguards</h4>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300">
+                                        All data transfers are encrypted in transit and at rest using industry-standard encryption.
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-white dark:bg-gray-700 p-4 rounded-lg">
+                                    <h4 class="font-medium text-gray-900 dark:text-white mb-2">Data Minimization</h4>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300">
+                                        We only transfer the minimum amount of personal data necessary for the specific purpose.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Automated Decision Making -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            🤖 Automated Decision Making & Profiling
+                        </h2>
+                        
+                        <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6">
+                            <div class="flex items-center mb-3">
+                                <svg class="w-6 h-6 text-green-600 dark:text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <h3 class="text-lg font-semibold text-green-800 dark:text-green-300">
+                                    No Automated Decision Making
+                                </h3>
+                            </div>
+                            <p class="text-green-700 dark:text-green-300 mb-4">
+                                We do not use automated decision-making or profiling that produces legal effects or significantly affects you.
+                            </p>
+                            
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <h4 class="font-medium text-green-800 dark:text-green-300 mb-2">What This Means</h4>
+                                    <ul class="text-sm text-green-700 dark:text-green-300 space-y-1">
+                                        <li>• No AI-based decisions about you</li>
+                                        <li>• No automated profiling</li>
+                                        <li>• No algorithmic filtering</li>
+                                        <li>• All decisions made by humans</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-green-800 dark:text-green-300 mb-2">Basic Automation Only</h4>
+                                    <ul class="text-sm text-green-700 dark:text-green-300 space-y-1">
+                                        <li>• Simple spam detection</li>
+                                        <li>• Security monitoring</li>
+                                        <li>• Basic analytics aggregation</li>
+                                        <li>• Form validation</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- How to Exercise Your Rights -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            📋 How to Exercise Your Rights
+                        </h2>
+                        
+                        <div class="bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-lg p-6 mb-6">
+                            <h3 class="text-lg font-semibold text-primary-800 dark:text-primary-300 mb-3">
+                                Making a Data Subject Request
+                            </h3>
+                            <p class="text-primary-700 dark:text-primary-300 mb-4">
+                                To exercise any of your GDPR rights, please contact us using the information below. We aim to respond within 30 days.
+                            </p>
+                            
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-semibold text-primary-800 dark:text-primary-300 mb-2">Contact Methods</h4>
+                                    <div class="space-y-2 text-primary-700 dark:text-primary-300 text-sm">
+                                        <p class="flex items-center">
+                                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                                            </svg>
+                                            <a href="mailto:privacy@pulcova.com" class="underline hover:no-underline">privacy@pulcova.com</a>
+                                        </p>
+                                        <p class="flex items-center">
+                                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"></path>
+                                            </svg>
+                                            Subject: "GDPR Data Subject Request"
+                                        </p>
+                                        <p class="flex items-center">
+                                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                            </svg>
+                                            Response within 30 days
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="font-semibold text-primary-800 dark:text-primary-300 mb-2">Information to Include</h4>
+                                    <ul class="text-primary-700 dark:text-primary-300 text-sm space-y-1">
+                                        <li>• Your full name</li>
+                                        <li>• Email address used on our site</li>
+                                        <li>• Specific right you want to exercise</li>
+                                        <li>• Proof of identity (if required)</li>
+                                        <li>• Detailed description of your request</li>
+                                        <li>• Any relevant dates or references</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-3">Identity Verification</h3>
+                                <p class="text-gray-700 dark:text-gray-300 text-sm mb-3">
+                                    To protect your privacy, we may need to verify your identity before processing certain requests.
+                                </p>
+                                <ul class="text-gray-600 dark:text-gray-400 text-xs space-y-1">
+                                    <li>• Government-issued ID (for major requests)</li>
+                                    <li>• Proof of address (if required)</li>
+                                    <li>• Additional verification questions</li>
+                                    <li>• Email verification process</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-3">Response Timeline</h3>
+                                <p class="text-gray-700 dark:text-gray-300 text-sm mb-3">
+                                    We will acknowledge your request and provide updates on our progress.
+                                </p>
+                                <div class="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                                    <p><strong>Acknowledgment:</strong> Within 3 business days</p>
+                                    <p><strong>Simple requests:</strong> Within 30 days</p>
+                                    <p><strong>Complex requests:</strong> Up to 90 days (with notice)</p>
+                                    <p><strong>Free of charge:</strong> Unless requests are excessive</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Supervisory Authority -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            🏛️ Right to Lodge a Complaint
+                        </h2>
+                        
+                        <div class="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg p-6">
+                            <h3 class="font-semibold text-gray-900 dark:text-white mb-3">
+                                Contact Your Data Protection Authority
+                            </h3>
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">
+                                If you believe we have not handled your personal data in accordance with GDPR, you have the right to lodge a complaint with a supervisory authority.
+                            </p>
+                            
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white mb-2">When to Contact Authorities</h4>
+                                    <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                                        <li>• We haven't responded to your request</li>
+                                        <li>• You're unsatisfied with our response</li>
+                                        <li>• You believe we're violating GDPR</li>
+                                        <li>• You need independent advice</li>
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white mb-2">How to Find Your Authority</h4>
+                                    <div class="text-sm text-gray-700 dark:text-gray-300 space-y-2">
+                                        <p>Contact the supervisory authority in your EU member state where:</p>
+                                        <ul class="ml-4 space-y-1">
+                                            <li>• You habitually reside</li>
+                                            <li>• You work, or</li>
+                                            <li>• The alleged infringement occurred</li>
+                                        </ul>
+                                        <p class="mt-2">
+                                            <a href="https://edpb.europa.eu/about-edpb/about-edpb/members_en" target="_blank" rel="noopener noreferrer" class="text-primary-600 dark:text-primary-400 underline hover:no-underline">
+                                                Find your data protection authority →
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Data Breach Notification -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            🚨 Data Breach Notification
+                        </h2>
+                        
+                        <div class="space-y-6">
+                            <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6">
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-3">Our Breach Response Commitment</h3>
+                                <p class="text-gray-700 dark:text-gray-300 mb-4">
+                                    In the unlikely event of a personal data breach that poses a high risk to your rights and freedoms, we will notify you directly within 72 hours of becoming aware of the breach.
+                                </p>
+                                
+                                <div class="grid md:grid-cols-3 gap-4">
+                                    <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center">
+                                        <div class="text-red-600 dark:text-red-400 font-bold text-lg mb-1">
+                                            ≤ 72h
+                                        </div>
+                                        <div class="text-xs text-gray-600 dark:text-gray-400">
+                                            Authority notification
+                                        </div>
+                                    </div>
+                                    <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center">
+                                        <div class="text-red-600 dark:text-red-400 font-bold text-lg mb-1">
+                                            Immediate
+                                        </div>
+                                        <div class="text-xs text-gray-600 dark:text-gray-400">
+                                            Individual notification if high risk
+                                        </div>
+                                    </div>
+                                    <div class="bg-white dark:bg-gray-700 p-4 rounded-lg text-center">
+                                        <div class="text-red-600 dark:text-red-400 font-bold text-lg mb-1">
+                                            Public
+                                        </div>
+                                        <div class="text-xs text-gray-600 dark:text-gray-400">
+                                            Communication if necessary
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-3">What We'll Tell You</h3>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                                        <li>• Nature of the breach</li>
+                                        <li>• Categories of data affected</li>
+                                        <li>• Likely consequences</li>
+                                        <li>• Measures taken to address the breach</li>
+                                    </ul>
+                                    <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                                        <li>• Measures to mitigate adverse effects</li>
+                                        <li>• Contact information for more details</li>
+                                        <li>• Steps you should take to protect yourself</li>
+                                        <li>• Timeline of events</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Updates to This Notice -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            📝 Updates to This GDPR Notice
+                        </h2>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">
+                                We may update this GDPR notice from time to time to reflect changes in our practices, legal requirements, or for other operational reasons.
+                            </p>
+                            
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h3 class="font-semibold text-gray-900 dark:text-white mb-2">How We'll Notify You</h3>
+                                    <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                                        <li>• Update the "Last Updated" date</li>
+                                        <li>• Email notification for significant changes</li>
+                                        <li>• Website banner for major updates</li>
+                                        <li>• Direct contact for material changes affecting your rights</li>
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Your Options</h3>
+                                    <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                                        <li>• Review changes and continue using our services</li>
+                                        <li>• Contact us with questions or concerns</li>
+                                        <li>• Exercise your right to object or withdraw consent</li>
+                                        <li>• Request data deletion if you disagree with changes</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Contact Information -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            📞 Contact Us About GDPR
+                        </h2>
+                        
+                        <div class="bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-lg p-6">
+                            <p class="text-primary-800 dark:text-primary-300 mb-4">
+                                If you have any questions about this GDPR notice, your personal data, or want to exercise your rights, please contact us:
+                            </p>
+                            
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-semibold text-primary-800 dark:text-primary-300 mb-2">Data Protection Inquiries</h4>
+                                    <div class="space-y-1 text-primary-700 dark:text-primary-300 text-sm">
+                                        <p class="flex items-center">
+                                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                                            </svg>
+                                            <a href="mailto:privacy@pulcova.com" class="underline hover:no-underline">privacy@pulcova.com</a>
+                                        </p>
+                                        <p class="flex items-center">
+                                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"></path>
+                                            </svg>
+                                            <a href="/contact" class="underline hover:no-underline">Contact Form</a>
+                                        </p>
+                                        <p class="flex items-center">
+                                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                            </svg>
+                                            Response within 30 days
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="font-semibold text-primary-800 dark:text-primary-300 mb-2">General Inquiries</h4>
+                                    <div class="space-y-1 text-primary-700 dark:text-primary-300 text-sm">
+                                        <p class="flex items-center">
+                                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                                            </svg>
+                                            <a href="mailto:hello@pulcova.com" class="underline hover:no-underline">hello@pulcova.com</a>
+                                        </p>
+                                        <p class="text-primary-700 dark:text-primary-300">
+                                            For general questions about our services
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 pt-6 border-t border-primary-200 dark:border-primary-700">
+                                <h4 class="font-semibold text-primary-800 dark:text-primary-300 mb-2">Related Legal Documents</h4>
+                                <div class="flex flex-wrap gap-4 text-sm">
+                                    <a href="{% url 'legal:privacy' %}" class="text-primary-600 dark:text-primary-400 hover:underline">
+                                        Privacy Policy
+                                    </a>
+                                    <a href="{% url 'legal:cookies' %}" class="text-primary-600 dark:text-primary-400 hover:underline">
+                                        Cookie Policy
+                                    </a>
+                                    <a href="{% url 'legal:terms' %}" class="text-primary-600 dark:text-primary-400 hover:underline">
+                                        Terms & Conditions
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 pt-4 border-t border-primary-200 dark:border-primary-700">
+                                <p class="text-primary-700 dark:text-primary-300 text-sm">
+                                    <strong>Business Information:</strong><br>
+                                    Pulcova - Full Stack Software Engineering Services<br>
+                                    Individual Software Engineer/Freelancer<br>
+                                    Operating globally, serving clients worldwide
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
