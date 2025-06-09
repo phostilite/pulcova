@@ -1,0 +1,615 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Blog - Pulcova | Technical Articles & Software Development Insights{% endblock %}
+{% block meta_description %}Explore technical articles, tutorials, and insights on software development, best practices, and emerging technologies from a full-stack engineer's perspective.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden">
+    <div class="absolute inset-0 bg-grid-gray-100 dark:bg-grid-gray-800 opacity-50"></div>
+    
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 animate-fade-in">
+                Technical Insights
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300 animate-slide-up">
+                Articles, tutorials, and thoughts on software development, best practices, and emerging technologies.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Subscription -->
+<section class="bg-primary-600 dark:bg-primary-700">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-2xl font-bold text-white mb-2">Stay Updated</h2>
+            <p class="text-primary-100 mb-6">Get notified when I publish new articles and tutorials</p>
+            <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <input type="email" placeholder="Enter your email" 
+                       class="flex-1 px-4 py-2 rounded-lg border border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-white">
+                <button type="submit" 
+                        class="px-6 py-2 bg-white text-primary-600 font-medium rounded-lg hover:bg-gray-100 transition-colors">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Search and Filter Section -->
+<section class="sticky top-16 z-40 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex flex-col lg:flex-row gap-4 items-center justify-between">
+            <!-- Search Bar -->
+            <div class="relative flex-1 max-w-md">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
+                <input type="text" id="search-input" placeholder="Search articles..."
+                       class="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+            </div>
+            
+            <!-- Category Filter -->
+            <div class="flex flex-wrap gap-2">
+                <button class="filter-btn active px-4 py-2 rounded-lg font-medium text-sm transition-all" data-filter="all">
+                    All Articles
+                </button>
+                <button class="filter-btn px-4 py-2 rounded-lg font-medium text-sm transition-all" data-filter="web-development">
+                    Web Development
+                </button>
+                <button class="filter-btn px-4 py-2 rounded-lg font-medium text-sm transition-all" data-filter="api-design">
+                    API Design
+                </button>
+                <button class="filter-btn px-4 py-2 rounded-lg font-medium text-sm transition-all" data-filter="ai-ml">
+                    AI/ML
+                </button>
+                <button class="filter-btn px-4 py-2 rounded-lg font-medium text-sm transition-all" data-filter="devops">
+                    DevOps
+                </button>
+                <button class="filter-btn px-4 py-2 rounded-lg font-medium text-sm transition-all" data-filter="tutorials">
+                    Tutorials
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Articles -->
+<section class="py-16 bg-gray-50 dark:bg-gray-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                Featured Articles
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-400">
+                Hand-picked articles covering the latest trends and best practices
+            </p>
+        </div>
+        
+        <div class="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            <!-- Featured Article 1 -->
+            <article class="featured-article bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-category="api-design">
+                <div class="aspect-w-16 aspect-h-9 bg-gradient-to-r from-blue-500 to-purple-600">
+                    <img src="https://via.placeholder.com/800x450/3B82F6/FFFFFF?text=API+Design" alt="Building RESTful APIs" class="w-full h-64 object-cover">
+                </div>
+                <div class="p-8">
+                    <div class="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-4">
+                        <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full font-medium">API Design</span>
+                        <span>Jan 15, 2025</span>
+                        <span>•</span>
+                        <span>8 min read</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                        Building Scalable RESTful APIs: A Complete Guide
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6 line-clamp-3">
+                        Learn how to design and implement RESTful APIs that can handle millions of requests while maintaining clean code architecture, optimal performance, and developer-friendly documentation.
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <img src="https://via.placeholder.com/40x40/6B7280/FFFFFF?text=P" alt="Pulcova" class="w-10 h-10 rounded-full">
+                            <span class="text-gray-700 dark:text-gray-300 font-medium">Pulcova</span>
+                        </div>
+                        <a href="/blog/building-scalable-restful-apis" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
+                            Read Article
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Featured Article 2 -->
+            <article class="featured-article bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-category="ai-ml">
+                <div class="aspect-w-16 aspect-h-9 bg-gradient-to-r from-purple-500 to-pink-600">
+                    <img src="https://via.placeholder.com/800x450/8B5CF6/FFFFFF?text=AI+Integration" alt="AI Integration" class="w-full h-64 object-cover">
+                </div>
+                <div class="p-8">
+                    <div class="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-4">
+                        <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full font-medium">AI/ML</span>
+                        <span>Jan 12, 2025</span>
+                        <span>•</span>
+                        <span>12 min read</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                        Integrating LLMs into Web Applications: Practical Guide
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6 line-clamp-3">
+                        Discover how to seamlessly integrate Large Language Models into your web applications with practical examples, cost optimization strategies, and performance considerations.
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <img src="https://via.placeholder.com/40x40/6B7280/FFFFFF?text=P" alt="Pulcova" class="w-10 h-10 rounded-full">
+                            <span class="text-gray-700 dark:text-gray-300 font-medium">Pulcova</span>
+                        </div>
+                        <a href="/blog/integrating-llms-web-applications" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
+                            Read Article
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- Recent Articles Grid -->
+<section class="py-20 bg-white dark:bg-gray-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                Recent Articles
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-400">
+                Latest thoughts and technical deep-dives
+            </p>
+        </div>
+        
+        <!-- Articles Grid -->
+        <div id="articles-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            <!-- Article 1 -->
+            <article class="article-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-category="web-development">
+                <div class="aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-700">
+                    <img src="https://via.placeholder.com/400x225/10B981/FFFFFF?text=Django+Tips" alt="Django Performance" class="w-full h-48 object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 mb-3">
+                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-medium">Web Development</span>
+                        <span>Jan 10, 2025</span>
+                        <span>•</span>
+                        <span>6 min read</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                        Django Performance Optimization: Database Queries
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                        Essential techniques for optimizing Django database queries, reducing N+1 problems, and improving application performance.
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-500 dark:text-gray-400">👁</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">1.2k views</span>
+                        </div>
+                        <a href="/blog/django-performance-optimization" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm">
+                            Read More
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Article 2 -->
+            <article class="article-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-category="devops">
+                <div class="aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-700">
+                    <img src="https://via.placeholder.com/400x225/F59E0B/FFFFFF?text=Docker+Guide" alt="Docker Containers" class="w-full h-48 object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 mb-3">
+                        <span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded-full text-xs font-medium">DevOps</span>
+                        <span>Jan 8, 2025</span>
+                        <span>•</span>
+                        <span>10 min read</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                        Docker Multi-Stage Builds: Optimizing Image Size
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                        Learn how to create efficient Docker images using multi-stage builds, reducing size by up to 80% while maintaining security.
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-500 dark:text-gray-400">👁</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">856 views</span>
+                        </div>
+                        <a href="/blog/docker-multi-stage-builds" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm">
+                            Read More
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Article 3 -->
+            <article class="article-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-category="tutorials">
+                <div class="aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-700">
+                    <img src="https://via.placeholder.com/400x225/EF4444/FFFFFF?text=React+Hooks" alt="React Hooks" class="w-full h-48 object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 mb-3">
+                        <span class="px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full text-xs font-medium">Tutorials</span>
+                        <span>Jan 5, 2025</span>
+                        <span>•</span>
+                        <span>15 min read</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                        Custom React Hooks: Building Reusable Logic
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                        Step-by-step guide to creating custom React hooks for common patterns like data fetching, form handling, and state management.
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-500 dark:text-gray-400">👁</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">2.1k views</span>
+                        </div>
+                        <a href="/blog/custom-react-hooks" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm">
+                            Read More
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Article 4 -->
+            <article class="article-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-category="web-development">
+                <div class="aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-700">
+                    <img src="https://via.placeholder.com/400x225/8B5CF6/FFFFFF?text=GraphQL+API" alt="GraphQL API" class="w-full h-48 object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 mb-3">
+                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-medium">Web Development</span>
+                        <span>Jan 3, 2025</span>
+                        <span>•</span>
+                        <span>9 min read</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                        GraphQL vs REST: When to Choose What
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                        Comprehensive comparison of GraphQL and REST APIs, with practical examples and decision frameworks for choosing the right approach.
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-500 dark:text-gray-400">👁</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">1.8k views</span>
+                        </div>
+                        <a href="/blog/graphql-vs-rest" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm">
+                            Read More
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Article 5 -->
+            <article class="article-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-category="ai-ml">
+                <div class="aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-700">
+                    <img src="https://via.placeholder.com/400x225/06B6D4/FFFFFF?text=ML+Models" alt="Machine Learning" class="w-full h-48 object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 mb-3">
+                        <span class="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs font-medium">AI/ML</span>
+                        <span>Dec 30, 2024</span>
+                        <span>•</span>
+                        <span>11 min read</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                        Deploying ML Models with FastAPI and Docker
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                        Complete guide to containerizing and deploying machine learning models using FastAPI, with monitoring and scaling considerations.
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-500 dark:text-gray-400">👁</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">932 views</span>
+                        </div>
+                        <a href="/blog/deploying-ml-models-fastapi" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm">
+                            Read More
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Article 6 -->
+            <article class="article-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-category="tutorials">
+                <div class="aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-700">
+                    <img src="https://via.placeholder.com/400x225/F97316/FFFFFF?text=PostgreSQL" alt="PostgreSQL" class="w-full h-48 object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 mb-3">
+                        <span class="px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full text-xs font-medium">Tutorials</span>
+                        <span>Dec 28, 2024</span>
+                        <span>•</span>
+                        <span>7 min read</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                        PostgreSQL Indexing Strategies for Performance
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                        Master PostgreSQL indexing with practical examples, covering B-tree, Hash, GIN, and partial indexes for optimal query performance.
+                    </p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-500 dark:text-gray-400">👁</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-400">1.5k views</span>
+                        </div>
+                        <a href="/blog/postgresql-indexing-strategies" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm">
+                            Read More
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <!-- Load More Button -->
+        <div class="text-center mt-16">
+            <button id="load-more-btn" class="inline-flex items-center justify-center px-8 py-3 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-900 dark:text-white font-medium rounded-lg border border-gray-300 dark:border-gray-700 transition-all shadow-sm hover:shadow-md">
+                Load More Articles
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Tags Cloud -->
+<section class="py-16 bg-gray-50 dark:bg-gray-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8">
+                Popular Topics
+            </h2>
+            <div class="flex flex-wrap gap-3 justify-center">
+                <a href="/blog/tag/django" class="px-4 py-2 bg-white dark:bg-gray-900 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full border border-gray-200 dark:border-gray-700 transition-all">
+                    #django
+                </a>
+                <a href="/blog/tag/react" class="px-4 py-2 bg-white dark:bg-gray-900 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full border border-gray-200 dark:border-gray-700 transition-all">
+                    #react
+                </a>
+                <a href="/blog/tag/api-design" class="px-4 py-2 bg-white dark:bg-gray-900 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full border border-gray-200 dark:border-gray-700 transition-all">
+                    #api-design
+                </a>
+                <a href="/blog/tag/docker" class="px-4 py-2 bg-white dark:bg-gray-900 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full border border-gray-200 dark:border-gray-700 transition-all">
+                    #docker
+                </a>
+                <a href="/blog/tag/postgresql" class="px-4 py-2 bg-white dark:bg-gray-900 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full border border-gray-200 dark:border-gray-700 transition-all">
+                    #postgresql
+                </a>
+                <a href="/blog/tag/machine-learning" class="px-4 py-2 bg-white dark:bg-gray-900 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full border border-gray-200 dark:border-gray-700 transition-all">
+                    #machine-learning
+                </a>
+                <a href="/blog/tag/fastapi" class="px-4 py-2 bg-white dark:bg-gray-900 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full border border-gray-200 dark:border-gray-700 transition-all">
+                    #fastapi
+                </a>
+                <a href="/blog/tag/performance" class="px-4 py-2 bg-white dark:bg-gray-900 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full border border-gray-200 dark:border-gray-700 transition-all">
+                    #performance
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- No Results Message (Initially Hidden) -->
+<div id="no-results" class="hidden py-20 text-center bg-white dark:bg-gray-900">
+    <svg class="w-24 h-24 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+    </svg>
+    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">No articles found</h3>
+    <p class="text-gray-600 dark:text-gray-400">Try adjusting your search or filter criteria</p>
+</div>
+
+<!-- Custom Styles -->
+<style>
+/* Filter Button Styles */
+.filter-btn {
+    background-color: transparent;
+    color: #6b7280;
+    border: 1px solid #e5e7eb;
+}
+
+.dark .filter-btn {
+    color: #9ca3af;
+    border-color: #374151;
+}
+
+.filter-btn:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+}
+
+.dark .filter-btn:hover {
+    background-color: #374151;
+    color: #f3f4f6;
+}
+
+.filter-btn.active {
+    background-color: #2563eb;
+    color: white;
+    border-color: #2563eb;
+}
+
+.dark .filter-btn.active {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+/* Aspect ratio for images */
+.aspect-w-16 {
+    position: relative;
+    padding-bottom: 56.25%;
+}
+
+.aspect-w-16 > img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+/* Grid background pattern */
+.bg-grid-gray-100 {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239ca3af' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.dark .bg-grid-gray-800 {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236b7280' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Animation classes */
+.animate-fade-in {
+    animation: fadeIn 1s ease-out;
+}
+
+.animate-slide-up {
+    animation: slideUp 1s ease-out 0.2s both;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+
+<!-- Search and Filter JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const articleCards = document.querySelectorAll('.article-card');
+    const featuredArticles = document.querySelectorAll('.featured-article');
+    const noResults = document.getElementById('no-results');
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    
+    let currentFilter = 'all';
+    let currentSearch = '';
+    
+    // Search functionality
+    searchInput.addEventListener('input', function() {
+        currentSearch = this.value.toLowerCase();
+        filterArticles();
+    });
+    
+    // Filter functionality
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            currentFilter = this.dataset.filter;
+            filterArticles();
+        });
+    });
+    
+    // Filter articles based on search and category
+    function filterArticles() {
+        let visibleCount = 0;
+        const allArticles = [...articleCards, ...featuredArticles];
+        
+        allArticles.forEach(article => {
+            const title = article.querySelector('h3').textContent.toLowerCase();
+            const excerpt = article.querySelector('p').textContent.toLowerCase();
+            const category = article.dataset.category;
+            
+            const matchesSearch = title.includes(currentSearch) || excerpt.includes(currentSearch);
+            const matchesFilter = currentFilter === 'all' || category === currentFilter;
+            
+            if (matchesSearch && matchesFilter) {
+                article.style.display = 'block';
+                visibleCount++;
+            } else {
+                article.style.display = 'none';
+            }
+        });
+        
+        // Show/hide no results message
+        if (visibleCount === 0) {
+            noResults.classList.remove('hidden');
+        } else {
+            noResults.classList.add('hidden');
+        }
+    }
+    
+    // Load more functionality (placeholder)
+    loadMoreBtn.addEventListener('click', function() {
+        // In a real implementation, this would load more articles via AJAX
+        alert('Load more functionality would be implemented here with AJAX calls to fetch additional articles.');
+    });
+    
+    // Newsletter subscription
+    const newsletterForm = document.querySelector('form');
+    newsletterForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = this.querySelector('input[type="email"]').value;
+        if (email) {
+            alert('Newsletter subscription functionality would be implemented here.');
+            this.reset();
+        }
+    });
+});
+</script>
+{% endblock %}

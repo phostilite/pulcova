@@ -20,3 +20,10 @@ class PortfolioView(TemplateView):
     Class-based view for the portfolio page.
     """
     template_name = 'pages/portfolio.html'
+
+
+class BlogView(TemplateView):
+    """
+    Class-based view for the blog page.
+    """
+    template_name = 'pages/blog.html'
