@@ -1,0 +1,405 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Pulcova - Full Stack Software Engineer | Web Development & AI Solutions{% endblock %}
+{% block meta_description %}Experienced full-stack software engineer specializing in scalable web applications, API integration, and AI/ML solutions. Transform your ideas into powerful digital products.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 bg-grid-gray-100 dark:bg-grid-gray-800 opacity-50"></div>
+    
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+            <!-- Animated Badge -->
+            <div class="inline-flex items-center px-4 py-2 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-sm font-medium mb-8 animate-fade-in">
+                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                Available for new projects
+            </div>
+            
+            <!-- Main Heading -->
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 animate-slide-up">
+                Building Digital
+                <span class="bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent">
+                    Excellence
+                </span>
+            </h1>
+            
+            <!-- Subheading -->
+            <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 animate-slide-up" style="animation-delay: 0.1s">
+                Full-stack software engineer crafting scalable solutions with modern technologies.
+                <br class="hidden md:block">
+                Specializing in web development, API integration, and AI/ML implementations.
+            </p>
+            
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style="animation-delay: 0.2s">
+                <a href="/contact" class="inline-flex items-center justify-center px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                    </svg>
+                    Let's Talk
+                </a>
+                <a href="/portfolio" class="inline-flex items-center justify-center px-8 py-3 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-white font-medium rounded-lg border border-gray-300 dark:border-gray-600 transition-all transform hover:scale-105">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                    </svg>
+                    View Portfolio
+                </a>
+            </div>
+            
+            <!-- Stats -->
+            <div class="mt-16 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">10+</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Years Experience</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">50+</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Projects Delivered</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">100%</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Client Satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Projects Section -->
+<section class="py-20 bg-white dark:bg-gray-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                Featured Projects
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                A selection of recent work showcasing full-stack development, modern architectures, and innovative solutions.
+            </p>
+        </div>
+        
+        <!-- Projects Carousel -->
+        <div id="projects-carousel" class="relative" data-carousel="slide">
+            <!-- Carousel wrapper -->
+            <div class="relative h-96 overflow-hidden rounded-xl">
+                {% for i in "123" %}
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-8 max-w-4xl w-full mx-4">
+                            <div class="grid md:grid-cols-2 gap-8 items-center">
+                                <div>
+                                    <div class="inline-flex items-center px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-sm font-medium mb-4">
+                                        E-Commerce Platform
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                                        Modern Marketplace Solution
+                                    </h3>
+                                    <p class="text-gray-600 dark:text-gray-400 mb-4">
+                                        Built a scalable e-commerce platform handling 10K+ daily transactions with real-time inventory management, payment processing, and analytics dashboard.
+                                    </p>
+                                    <div class="flex flex-wrap gap-2 mb-6">
+                                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm">Django</span>
+                                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm">React</span>
+                                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm">PostgreSQL</span>
+                                        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm">Redis</span>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <a href="#" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">View Case Study →</a>
+                                        <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">
+                                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="relative">
+                                    <img src="https://via.placeholder.com/600x400" alt="Project screenshot" class="rounded-lg shadow-lg">
+                                    <div class="absolute -bottom-4 -right-4 bg-primary-600 text-white px-4 py-2 rounded-lg font-medium">
+                                        Live Demo →
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Slider indicators -->
+            <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
+                <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+            </div>
+            
+            <!-- Slider controls -->
+            <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                    <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                    </svg>
+                    <span class="sr-only">Previous</span>
+                </span>
+            </button>
+            <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                    <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                    </svg>
+                    <span class="sr-only">Next</span>
+                </span>
+            </button>
+        </div>
+        
+        <!-- View All Projects CTA -->
+        <div class="text-center mt-12">
+            <a href="/portfolio" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
+                View All Projects
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Recent Blog Posts Section -->
+<section class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                Latest Insights
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Technical articles, tutorials, and thoughts on software development, best practices, and emerging technologies.
+            </p>
+        </div>
+        
+        <!-- Blog Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {% for i in "123" %}
+            <article class="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div class="aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-700">
+                    <img src="https://via.placeholder.com/600x400" alt="Blog post thumbnail" class="w-full h-48 object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-3">
+                        <span>Jan 15, 2025</span>
+                        <span>•</span>
+                        <span>5 min read</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                        Building Scalable APIs with Django REST Framework: Best Practices
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                        Learn how to design and implement RESTful APIs that can handle millions of requests while maintaining clean code architecture and optimal performance.
+                    </p>
+                    <a href="#" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
+                        Read More
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        
+        <!-- View All Posts CTA -->
+        <div class="text-center mt-12">
+            <a href="/blog" class="inline-flex items-center justify-center px-6 py-3 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-900 dark:text-white font-medium rounded-lg border border-gray-300 dark:border-gray-700 transition-all">
+                View All Articles
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Services Overview Section -->
+<section class="py-20 bg-white dark:bg-gray-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                How I Can Help
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Comprehensive software development services to bring your ideas to life and scale your business.
+            </p>
+        </div>
+        
+        <!-- Services Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <!-- Service Card 1 -->
+            <div class="group bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
+                <div class="w-14 h-14 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary-600 transition-colors">
+                    <svg class="w-8 h-8 text-primary-600 dark:text-primary-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                    Full-Stack Development
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    End-to-end web application development using modern frameworks and best practices for scalability and performance.
+                </p>
+                <a href="/services" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
+                    Learn More
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+            
+            <!-- Service Card 2 -->
+            <div class="group bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
+                <div class="w-14 h-14 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary-600 transition-colors">
+                    <svg class="w-8 h-8 text-primary-600 dark:text-primary-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                    API Development & Integration
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    Design and implement robust RESTful APIs, third-party integrations, and microservices architectures.
+                </p>
+                <a href="/services" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
+                    Learn More
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+            
+            <!-- Service Card 3 -->
+            <div class="group bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
+                <div class="w-14 h-14 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary-600 transition-colors">
+                    <svg class="w-8 h-8 text-primary-600 dark:text-primary-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                    AI/ML Solutions
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    Integrate cutting-edge AI capabilities, from chatbots to predictive analytics and custom ML models.
+                </p>
+                <a href="/services" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
+                    Learn More
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tech Stack Section -->
+<section class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                Technology Stack
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Leveraging cutting-edge technologies to build robust, scalable, and maintainable solutions.
+            </p>
+        </div>
+        
+        <!-- Tech Categories -->
+        <div class="max-w-4xl mx-auto space-y-8">
+            <!-- Frontend -->
+            <div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Frontend</h3>
+                <div class="flex flex-wrap gap-3">
+                    <span class="px-4 py-2 bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">React</span>
+                    <span class="px-4 py-2 bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Vue.js</span>
+                    <span class="px-4 py-2 bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">TypeScript</span>
+                    <span class="px-4 py-2 bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">TailwindCSS</span>
+                    <span class="px-4 py-2 bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Next.js</span>
+                </div>
+            </div>
+            
+            <!-- Backend -->
+            <div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Backend</h3>
+                <div class="flex flex-wrap gap-3">
+                    <span class="px-4 py-2 bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Django</span>
+                    <span class="px-4 py-2 bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Node.js</span>
+                    <span class="px-4 py-2 bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">FastAPI</span>
+                    <span class="px-4 py-2 bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">PostgreSQL</span>
+                    <span class="px-4 py-2 bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Redis</span>
+                </div>
+            </div>
+            
+            <!-- DevOps & Cloud -->
+            <div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">DevOps & Cloud</h3>
+                <div class="flex flex-wrap gap-3">
+                    <span class="px-4 py-2 bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Docker</span>
+                    <span class="px-4 py-2 bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">AWS</span>
+                    <span class="px-4 py-2 bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">GitHub Actions</span>
+                    <span class="px-4 py-2 bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Nginx</span>
+                    <span class="px-4 py-2 bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Kubernetes</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gradient-to-r from-primary-600 to-primary-700">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                Ready to Build Something Amazing?
+            </h2>
+            <p class="text-xl text-primary-100 mb-8">
+                Let's discuss your project and explore how we can work together to bring your vision to life.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/contact" class="inline-flex items-center justify-center px-8 py-3 bg-white hover:bg-gray-100 text-primary-600 font-medium rounded-lg transition-all transform hover:scale-105 shadow-lg">
+                    Start a Conversation
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+                <a href="/services" class="inline-flex items-center justify-center px-8 py-3 bg-transparent hover:bg-white/10 text-white font-medium rounded-lg border-2 border-white transition-all">
+                    View Services
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Custom Styles for Grid Background -->
+<style>
+.bg-grid-gray-100 {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239ca3af' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.dark .bg-grid-gray-800 {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236b7280' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Line clamp utility classes */
+.line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+</style>
+{% endblock %}
