@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 from apps.core.models import TimeStampedModel, SEOModel, PublishableModel
 
 
@@ -38,6 +39,9 @@ class Article(TimeStampedModel, SEOModel, PublishableModel):
     
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse('blog:article_detail', kwargs={'slug': self.slug})
     
     class Meta:
         ordering = ['-published_at', '-created_at']

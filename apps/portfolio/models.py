@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from apps.core.models import TimeStampedModel, SEOModel, PublishableModel
 
 
@@ -50,6 +51,9 @@ class Project(TimeStampedModel, SEOModel, PublishableModel):
     
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse('portfolio:project_detail', kwargs={'slug': self.slug})
     
     class Meta:
         ordering = ['-order_priority', '-created_at']
