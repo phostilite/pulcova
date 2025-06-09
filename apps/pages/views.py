@@ -27,3 +27,10 @@ class BlogView(TemplateView):
     Class-based view for the blog page.
     """
     template_name = 'pages/blog.html'
+
+
+class SolutionsView(TemplateView):
+    """
+    Class-based view for the solutions page.
+    """
+    template_name = 'pages/solutions.html'

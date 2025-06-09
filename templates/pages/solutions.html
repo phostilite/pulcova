@@ -1,0 +1,803 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Solutions Hub - Pulcova | Technical Problem Solutions & Code Snippets{% endblock %}
+{% block meta_description %}Discover solutions to common technical problems, bugs, and challenges. Searchable database of solved issues categorized by technology and framework with voting system.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden">
+    <div class="absolute inset-0 bg-grid-gray-100 dark:bg-grid-gray-800 opacity-50"></div>
+    
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 animate-fade-in">
+                Solutions Hub
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 animate-slide-up">
+                Searchable database of solved technical problems, bugs, and development challenges. 
+                Find solutions, vote on helpfulness, and contribute to the community.
+            </p>
+            
+            <!-- Search Bar -->
+            <div class="max-w-2xl mx-auto mb-8">
+                <div class="relative">
+                    <input 
+                        type="text" 
+                        id="solution-search"
+                        placeholder="Search solutions, technologies, or problems..."
+                        class="w-full px-6 py-4 text-lg border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none shadow-lg"
+                    >
+                    <button class="absolute right-3 top-1/2 transform -translate-y-1/2 p-2 text-gray-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-primary-600 dark:text-primary-400">150+</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Solutions</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-primary-600 dark:text-primary-400">25+</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Technologies</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-primary-600 dark:text-primary-400">500+</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Helpful Votes</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-primary-600 dark:text-primary-400">75+</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Code Snippets</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Filters & Sorting Section -->
+<section class="sticky top-16 z-40 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <!-- Category Filters -->
+            <div class="flex flex-wrap gap-2">
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-300 mr-3">Filter by:</span>
+                <button class="filter-btn active" data-filter="all">All Solutions</button>
+                <button class="filter-btn" data-filter="javascript">JavaScript</button>
+                <button class="filter-btn" data-filter="python">Python</button>
+                <button class="filter-btn" data-filter="django">Django</button>
+                <button class="filter-btn" data-filter="react">React</button>
+                <button class="filter-btn" data-filter="css">CSS</button>
+                <button class="filter-btn" data-filter="database">Database</button>
+                <button class="filter-btn" data-filter="devops">DevOps</button>
+            </div>
+            
+            <!-- Difficulty & Sort Controls -->
+            <div class="flex items-center gap-4">
+                <!-- Difficulty Filter -->
+                <select id="difficulty-filter" class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                    <option value="all">All Levels</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+                
+                <!-- Sort Options -->
+                <select id="sort-options" class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                    <option value="helpful">Most Helpful</option>
+                    <option value="recent">Most Recent</option>
+                    <option value="title">Alphabetical</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Solutions -->
+<section class="py-16 bg-gray-50 dark:bg-gray-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Featured Solutions</h2>
+            <p class="text-lg text-gray-600 dark:text-gray-400">Most helpful and popular solutions from the community</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Featured Solution Card 1 -->
+            <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200">
+                            React
+                        </span>
+                        <div class="flex items-center gap-1">
+                            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Advanced</span>
+                            <div class="w-2 h-2 rounded-full bg-red-500"></div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                        Memory Leak in React useEffect Hook
+                    </h3>
+                    
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">
+                        Component causing memory leaks due to improper cleanup in useEffect. State updates after component unmount leading to warnings and performance issues.
+                    </p>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <button class="flex items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V18m-7-8a2 2 0 01-2-2V4a2 2 0 012-2h2.343M11 7L9 5m-6 0h2m8 0V2m-6 5v6"></path>
+                                </svg>
+                                <span class="text-sm font-medium">42</span>
+                            </button>
+                            <span class="text-xs text-gray-500 dark:text-gray-500">•</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-500">2 days ago</span>
+                        </div>
+                        
+                        <a href="#" class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 text-sm font-medium">
+                            View Solution →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Solution Card 2 -->
+            <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
+                            Django
+                        </span>
+                        <div class="flex items-center gap-1">
+                            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Intermediate</span>
+                            <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                        CORS Policy Blocking API Requests
+                    </h3>
+                    
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">
+                        Frontend cannot make requests to Django API due to CORS policy. Requests blocked by browser security with various error messages.
+                    </p>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <button class="flex items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V18m-7-8a2 2 0 01-2-2V4a2 2 0 012-2h2.343M11 7L9 5m-6 0h2m8 0V2m-6 5v6"></path>
+                                </svg>
+                                <span class="text-sm font-medium">38</span>
+                            </button>
+                            <span class="text-xs text-gray-500 dark:text-gray-500">•</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-500">1 week ago</span>
+                        </div>
+                        
+                        <a href="#" class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 text-sm font-medium">
+                            View Solution →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Solution Card 3 -->
+            <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+                            CSS
+                        </span>
+                        <div class="flex items-center gap-1">
+                            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Beginner</span>
+                            <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                        Flexbox Items Not Centering Properly
+                    </h3>
+                    
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">
+                        Elements inside flexbox container not centering vertically despite using justify-content and align-items properties correctly.
+                    </p>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <button class="flex items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V18m-7-8a2 2 0 01-2-2V4a2 2 0 012-2h2.343M11 7L9 5m-6 0h2m8 0V2m-6 5v6"></path>
+                                </svg>
+                                <span class="text-sm font-medium">29</span>
+                            </button>
+                            <span class="text-xs text-gray-500 dark:text-gray-500">•</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-500">3 days ago</span>
+                        </div>
+                        
+                        <a href="#" class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 text-sm font-medium">
+                            View Solution →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- All Solutions Grid -->
+<section class="py-20 bg-white dark:bg-gray-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white">All Solutions</h2>
+            <div class="text-sm text-gray-600 dark:text-gray-400">
+                Showing <span id="results-count">156</span> solutions
+            </div>
+        </div>
+        
+        <div id="solutions-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+            <!-- Solution Card Template (repeated) -->
+            <div class="solution-card bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700" data-category="javascript" data-difficulty="intermediate">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200">
+                            JavaScript
+                        </span>
+                        <div class="flex items-center gap-1">
+                            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Intermediate</span>
+                            <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                        Async/Await Function Not Waiting for Promise
+                    </h3>
+                    
+                    <div class="space-y-3 mb-4">
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-900 dark:text-white mb-1">Problem:</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                                Function continues execution before async operation completes, causing undefined values and race conditions.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-900 dark:text-white mb-1">Root Cause:</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                                Missing await keyword or improper Promise handling in the async function chain.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center gap-4">
+                            <button class="vote-btn flex items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V18m-7-8a2 2 0 01-2-2V4a2 2 0 012-2h2.343M11 7L9 5m-6 0h2m8 0V2m-6 5v6"></path>
+                                </svg>
+                                <span class="vote-count text-sm font-medium">24</span>
+                            </button>
+                            <span class="text-xs text-gray-500 dark:text-gray-500">•</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-500">5 days ago</span>
+                        </div>
+                        
+                        <a href="#" class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 text-sm font-medium">
+                            View Solution →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- More solution cards would be here... -->
+            <!-- Let me add a few more examples -->
+            
+            <div class="solution-card bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700" data-category="python" data-difficulty="beginner">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
+                            Python
+                        </span>
+                        <div class="flex items-center gap-1">
+                            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Beginner</span>
+                            <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                        ModuleNotFoundError in Python Import
+                    </h3>
+                    
+                    <div class="space-y-3 mb-4">
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-900 dark:text-white mb-1">Problem:</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                                Python cannot find module despite being installed. Import statements failing with ModuleNotFoundError.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-900 dark:text-white mb-1">Root Cause:</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                                Virtual environment not activated or wrong Python path configuration.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center gap-4">
+                            <button class="vote-btn flex items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.60L7 20m7-10V18m-7-8a2 2 0 01-2-2V4a2 2 0 012-2h2.343M11 7L9 5m-6 0h2m8 0V2m-6 5v6"></path>
+                                </svg>
+                                <span class="vote-count text-sm font-medium">31</span>
+                            </button>
+                            <span class="text-xs text-gray-500 dark:text-gray-500">•</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-500">1 week ago</span>
+                        </div>
+                        
+                        <a href="#" class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 text-sm font-medium">
+                            View Solution →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution-card bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700" data-category="database" data-difficulty="advanced">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200">
+                            Database
+                        </span>
+                        <div class="flex items-center gap-1">
+                            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Advanced</span>
+                            <div class="w-2 h-2 rounded-full bg-red-500"></div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                        PostgreSQL Query Performance Degradation
+                    </h3>
+                    
+                    <div class="space-y-3 mb-4">
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-900 dark:text-white mb-1">Problem:</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                                Complex JOIN queries running extremely slow on large datasets, causing timeout errors.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-900 dark:text-white mb-1">Root Cause:</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                                Missing indexes on JOIN columns and inefficient query execution plan.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center gap-4">
+                            <button class="vote-btn flex items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.60L7 20m7-10V18m-7-8a2 2 0 01-2-2V4a2 2 0 012-2h2.343M11 7L9 5m-6 0h2m8 0V2m-6 5v6"></path>
+                                </svg>
+                                <span class="vote-count text-sm font-medium">18</span>
+                            </button>
+                            <span class="text-xs text-gray-500 dark:text-gray-500">•</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-500">2 weeks ago</span>
+                        </div>
+                        
+                        <a href="#" class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 text-sm font-medium">
+                            View Solution →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Load More Button -->
+        <div class="text-center mt-12">
+            <button id="load-more" class="px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors">
+                Load More Solutions
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Code Snippets Section -->
+<section class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Popular Code Snippets</h2>
+            <p class="text-lg text-gray-600 dark:text-gray-400">Ready-to-use code snippets for common programming tasks</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Code Snippet Card 1 -->
+            <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+                            JavaScript
+                        </span>
+                        <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                        Debounce Function
+                    </h3>
+                    
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                        Utility function to limit the rate at which a function can fire
+                    </p>
+                    
+                    <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-3 mb-4">
+                        <code class="text-sm text-gray-800 dark:text-gray-200 font-mono">
+                            function debounce(func, wait) {<br>
+                            &nbsp;&nbsp;let timeout;<br>
+                            &nbsp;&nbsp;return function(...args) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;clearTimeout(timeout);<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;timeout = setTimeout(() => func.apply(this, args), wait);<br>
+                            &nbsp;&nbsp;};<br>
+                            }
+                        </code>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-500 dark:text-gray-500">Tags:</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">utility</span>
+                        </div>
+                        <a href="#" class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 text-sm font-medium">
+                            View Full →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Snippet Card 2 -->
+            <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
+                            Python
+                        </span>
+                        <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                        API Rate Limiter Decorator
+                    </h3>
+                    
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                        Decorator to limit API calls and prevent hitting rate limits
+                    </p>
+                    
+                    <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-3 mb-4">
+                        <code class="text-sm text-gray-800 dark:text-gray-200 font-mono">
+                            @rate_limit(calls=10, period=60)<br>
+                            def api_call():<br>
+                            &nbsp;&nbsp;# Your API logic here<br>
+                            &nbsp;&nbsp;pass
+                        </code>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-500 dark:text-gray-500">Tags:</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">api</span>
+                        </div>
+                        <a href="#" class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 text-sm font-medium">
+                            View Full →
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Snippet Card 3 -->
+            <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200">
+                            CSS
+                        </span>
+                        <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                        Perfect Centering
+                    </h3>
+                    
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                        Modern CSS technique for perfectly centering elements
+                    </p>
+                    
+                    <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-3 mb-4">
+                        <code class="text-sm text-gray-800 dark:text-gray-200 font-mono">
+                            .center {<br>
+                            &nbsp;&nbsp;display: grid;<br>
+                            &nbsp;&nbsp;place-items: center;<br>
+                            &nbsp;&nbsp;min-height: 100vh;<br>
+                            }
+                        </code>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-500 dark:text-gray-500">Tags:</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">layout</span>
+                        </div>
+                        <a href="#" class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 text-sm font-medium">
+                            View Full →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-12">
+            <a href="#" class="inline-flex items-center px-6 py-3 border border-primary-600 text-primary-600 dark:text-primary-400 hover:bg-primary-600 hover:text-white font-medium rounded-lg transition-colors">
+                Browse All Snippets →
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- No Results Message (Initially Hidden) -->
+<div id="no-results" class="hidden py-20 text-center bg-white dark:bg-gray-900">
+    <svg class="w-24 h-24 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.29-1.26-5.41-3.145"></path>
+    </svg>
+    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">No solutions found</h3>
+    <p class="text-gray-600 dark:text-gray-400">Try adjusting your search or filter criteria</p>
+</div>
+
+<!-- Custom Styles -->
+<style>
+/* Filter Button Styles */
+.filter-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    background-color: transparent;
+    color: #6b7280;
+    border: 1px solid #e5e7eb;
+}
+
+.dark .filter-btn {
+    color: #9ca3af;
+    border-color: #374151;
+}
+
+.filter-btn:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+}
+
+.dark .filter-btn:hover {
+    background-color: #374151;
+    color: #f3f4f6;
+}
+
+.filter-btn.active {
+    background-color: #2563eb;
+    color: white;
+    border-color: #2563eb;
+}
+
+.dark .filter-btn.active {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+/* Grid background pattern */
+.bg-grid-gray-100 {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239ca3af' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.dark .bg-grid-gray-800 {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236b7280' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Animation classes */
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.animate-slide-up {
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to { 
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Vote button hover effect */
+.vote-btn:hover .vote-count {
+    color: #2563eb;
+}
+
+.dark .vote-btn:hover .vote-count {
+    color: #3b82f6;
+}
+</style>
+
+<!-- JavaScript for Search, Filter, and Voting -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Search functionality
+    const searchInput = document.getElementById('solution-search');
+    const solutionCards = document.querySelectorAll('.solution-card');
+    const noResults = document.getElementById('no-results');
+    const resultsCount = document.getElementById('results-count');
+    
+    // Filter buttons
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const difficultyFilter = document.getElementById('difficulty-filter');
+    const sortOptions = document.getElementById('sort-options');
+    
+    // Vote buttons
+    const voteButtons = document.querySelectorAll('.vote-btn');
+    
+    let currentFilter = 'all';
+    let currentDifficulty = 'all';
+    let currentSort = 'helpful';
+    
+    function filterAndSort() {
+        let visibleCards = [];
+        
+        solutionCards.forEach(card => {
+            const category = card.dataset.category;
+            const difficulty = card.dataset.difficulty;
+            const title = card.querySelector('h3').textContent.toLowerCase();
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            // Check if card matches filters
+            const matchesFilter = currentFilter === 'all' || category === currentFilter;
+            const matchesDifficulty = currentDifficulty === 'all' || difficulty === currentDifficulty;
+            const matchesSearch = title.includes(searchTerm) || 
+                                card.textContent.toLowerCase().includes(searchTerm);
+            
+            if (matchesFilter && matchesDifficulty && matchesSearch) {
+                card.style.display = 'block';
+                visibleCards.push(card);
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        
+        // Update results count
+        resultsCount.textContent = visibleCards.length;
+        
+        // Show/hide no results message
+        if (visibleCards.length === 0) {
+            noResults.classList.remove('hidden');
+        } else {
+            noResults.classList.add('hidden');
+        }
+        
+        // Sort visible cards
+        if (currentSort === 'helpful') {
+            visibleCards.sort((a, b) => {
+                const aVotes = parseInt(a.querySelector('.vote-count').textContent);
+                const bVotes = parseInt(b.querySelector('.vote-count').textContent);
+                return bVotes - aVotes;
+            });
+        } else if (currentSort === 'title') {
+            visibleCards.sort((a, b) => {
+                const aTitle = a.querySelector('h3').textContent;
+                const bTitle = b.querySelector('h3').textContent;
+                return aTitle.localeCompare(bTitle);
+            });
+        }
+        
+        // Reorder DOM elements
+        const grid = document.getElementById('solutions-grid');
+        visibleCards.forEach(card => {
+            grid.appendChild(card);
+        });
+    }
+    
+    // Search input listener
+    searchInput.addEventListener('input', filterAndSort);
+    
+    // Filter button listeners
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            currentFilter = this.dataset.filter;
+            filterAndSort();
+        });
+    });
+    
+    // Difficulty filter listener
+    difficultyFilter.addEventListener('change', function() {
+        currentDifficulty = this.value;
+        filterAndSort();
+    });
+    
+    // Sort options listener
+    sortOptions.addEventListener('change', function() {
+        currentSort = this.value;
+        filterAndSort();
+    });
+    
+    // Vote button listeners
+    voteButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const voteCount = this.querySelector('.vote-count');
+            const currentVotes = parseInt(voteCount.textContent);
+            
+            // Toggle vote (simplified - in real app this would be an API call)
+            if (this.classList.contains('voted')) {
+                voteCount.textContent = currentVotes - 1;
+                this.classList.remove('voted');
+                this.style.color = '';
+            } else {
+                voteCount.textContent = currentVotes + 1;
+                this.classList.add('voted');
+                this.style.color = '#2563eb';
+            }
+        });
+    });
+    
+    // Load more functionality
+    const loadMoreBtn = document.getElementById('load-more');
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+            // In a real app, this would load more solutions via AJAX
+            this.textContent = 'Loading...';
+            setTimeout(() => {
+                this.textContent = 'Load More Solutions';
+            }, 1000);
+        });
+    }
+});
+</script>
+{% endblock %}
