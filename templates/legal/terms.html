@@ -1,0 +1,543 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Terms & Conditions - Pulcova{% endblock %}
+{% block meta_description %}Read our comprehensive terms and conditions for software development services. Learn about our service agreements, payment terms, and legal obligations.{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+                    Terms & Conditions
+                </h1>
+                <p class="text-lg text-gray-600 dark:text-gray-400 mb-6">
+                    Please read these terms carefully before engaging our software development services.
+                </p>
+                <div class="inline-flex items-center px-4 py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded-lg">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                    </svg>
+                    Last Updated: {{ last_updated }}
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                <div class="p-8 md:p-12 space-y-12">
+                    
+                    <!-- Quick Summary -->
+                    <section class="border-l-4 border-primary-500 pl-6 bg-primary-50 dark:bg-primary-900/20 p-6 rounded-r-lg">
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                            Quick Summary
+                        </h2>
+                        <div class="text-gray-700 dark:text-gray-300 space-y-2">
+                            <p>• These terms govern our software development services and professional consulting</p>
+                            <p>• Payment is typically 50% upfront for smaller projects, milestone-based for larger ones</p>
+                            <p>• We retain intellectual property rights unless explicitly transferred</p>
+                            <p>• Liability is limited to the total project value</p>
+                            <p>• Disputes are resolved through binding arbitration</p>
+                        </div>
+                    </section>
+
+                    <!-- Acceptance of Terms -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            1. Acceptance of Terms
+                        </h2>
+                        
+                        <div class="space-y-6">
+                            <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+                                <p class="text-gray-700 dark:text-gray-300">
+                                    By engaging Pulcova's services, communicating with us about potential projects, or accessing our website at pulcova.store, you agree to be bound by these Terms & Conditions. If you do not agree with any part of these terms, please do not use our services.
+                                </p>
+                            </div>
+                            
+                            <p class="text-gray-700 dark:text-gray-300">
+                                These terms constitute a legally binding agreement between you (the "Client") and Pulcova, operating as an individual software engineer and consultant (the "Service Provider"). We reserve the right to modify these terms at any time, with changes taking effect immediately upon posting on our website.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- Services Description -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            2. Services Description
+                        </h2>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg">
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-3">Development Services</h3>
+                                <ul class="text-gray-700 dark:text-gray-300 space-y-2">
+                                    <li>• Full-stack web development</li>
+                                    <li>• API development and integration</li>
+                                    <li>• Database design and optimization</li>
+                                    <li>• DevOps and deployment services</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-green-50 dark:bg-green-900/20 p-6 rounded-lg">
+                                <h3 class="font-semibold text-gray-900 dark:text-white mb-3">Specialized Solutions</h3>
+                                <ul class="text-gray-700 dark:text-gray-300 space-y-2">
+                                    <li>• AI/ML integration and solutions</li>
+                                    <li>• Technical consulting and audits</li>
+                                    <li>• Code review and optimization</li>
+                                    <li>• Ongoing maintenance and support</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <p class="text-gray-700 dark:text-gray-300">
+                                All services are provided on a project basis or through ongoing maintenance agreements. Specific deliverables, timelines, and requirements will be outlined in individual project agreements or statements of work.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- Payment Terms -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            3. Payment Terms & Pricing
+                        </h2>
+                        
+                        <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-6 mb-6">
+                            <div class="flex items-start">
+                                <svg class="w-6 h-6 text-amber-600 dark:text-amber-400 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                </svg>
+                                <div>
+                                    <h3 class="font-semibold text-amber-800 dark:text-amber-200 mb-2">Payment Structure</h3>
+                                    <p class="text-amber-700 dark:text-amber-300">
+                                        All payments are due according to the agreed schedule. Late payments may result in project suspension and additional fees.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Payment Schedule</h3>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+                                        <h4 class="font-medium text-gray-900 dark:text-white">Smaller Projects</h4>
+                                        <p class="text-gray-700 dark:text-gray-300 text-sm mt-1">50% upfront, 50% upon completion</p>
+                                    </div>
+                                    <div class="p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+                                        <h4 class="font-medium text-gray-900 dark:text-white">Larger Projects</h4>
+                                        <p class="text-gray-700 dark:text-gray-300 text-sm mt-1">Milestone-based payments as agreed</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Pricing Guidelines</h3>
+                                <div class="space-y-3">
+                                    <p class="text-gray-700 dark:text-gray-300">• <strong>Full-stack Development:</strong> Starting from $2,500</p>
+                                    <p class="text-gray-700 dark:text-gray-300">• <strong>API Development:</strong> Starting from $1,500</p>
+                                    <p class="text-gray-700 dark:text-gray-300">• <strong>AI/ML Integration:</strong> Starting from $3,000</p>
+                                    <p class="text-gray-700 dark:text-gray-300">• <strong>DevOps Services:</strong> Starting from $1,200</p>
+                                    <p class="text-gray-700 dark:text-gray-300">• <strong>Technical Consulting:</strong> $150 per hour</p>
+                                    <p class="text-gray-700 dark:text-gray-300">• <strong>Maintenance Services:</strong> $500 per month</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+                                <p class="text-red-700 dark:text-red-300">
+                                    <strong>Late Payment Policy:</strong> Payments overdue by more than 15 days will incur a 2% monthly late fee. Projects may be suspended until payment is received.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Project Scope & Deliverables -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            4. Project Scope & Deliverables
+                        </h2>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Scope Definition</h3>
+                                <p class="text-gray-700 dark:text-gray-300 mb-4">
+                                    Each project will have a clearly defined scope outlined in a separate project agreement or statement of work. This includes:
+                                </p>
+                                <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                                    <li>• Detailed technical requirements and specifications</li>
+                                    <li>• Deliverables and milestones</li>
+                                    <li>• Timeline and completion dates</li>
+                                    <li>• Testing and quality assurance procedures</li>
+                                    <li>• Post-deployment support terms</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Change Requests</h3>
+                                <p class="text-gray-700 dark:text-gray-300">
+                                    Any changes to the agreed scope must be documented and approved in writing. Additional work outside the original scope will be billed separately at the agreed hourly rate or as a separate project.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Typical Timelines</h3>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                        <h4 class="font-medium text-gray-900 dark:text-white">Simple Websites</h4>
+                                        <p class="text-gray-700 dark:text-gray-300 text-sm mt-1">4-6 weeks</p>
+                                    </div>
+                                    <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                        <h4 class="font-medium text-gray-900 dark:text-white">Complex Applications</h4>
+                                        <p class="text-gray-700 dark:text-gray-300 text-sm mt-1">8-16 weeks</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Intellectual Property Rights -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            5. Intellectual Property Rights
+                        </h2>
+                        
+                        <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 mb-6">
+                            <div class="flex items-start">
+                                <svg class="w-6 h-6 text-blue-600 dark:text-blue-400 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                                </svg>
+                                <div>
+                                    <h3 class="font-semibold text-blue-800 dark:text-blue-200 mb-2">Important Notice</h3>
+                                    <p class="text-blue-700 dark:text-blue-300">
+                                        Unless explicitly agreed otherwise in writing, Pulcova retains intellectual property rights to all code, designs, and methodologies developed.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Default Rights Structure</h3>
+                                <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                                    <li>• <strong>Code Ownership:</strong> Pulcova retains copyright to all custom code developed</li>
+                                    <li>• <strong>Usage License:</strong> Client receives a perpetual, non-exclusive license to use the delivered software</li>
+                                    <li>• <strong>Third-party Components:</strong> Subject to their respective licenses</li>
+                                    <li>• <strong>Client Data:</strong> Remains the exclusive property of the client</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">IP Transfer Options</h3>
+                                <p class="text-gray-700 dark:text-gray-300 mb-3">
+                                    Full intellectual property transfer is available for an additional fee. This must be negotiated and agreed upon before project commencement.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Client Obligations</h3>
+                                <p class="text-gray-700 dark:text-gray-300">
+                                    Clients must ensure they have the right to use any materials, content, or specifications provided to us. Clients are responsible for any IP infringement claims arising from their provided materials.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Warranties & Disclaimers -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            6. Warranties & Disclaimers
+                        </h2>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Limited Warranty</h3>
+                                <div class="bg-green-50 dark:bg-green-900/20 p-6 rounded-lg">
+                                    <p class="text-gray-700 dark:text-gray-300">
+                                        We warrant that our services will be performed with professional skill and care. Software delivered will be free from major defects for 30 days after delivery. This warranty is limited to fixing bugs and errors in the delivered code.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Disclaimers</h3>
+                                <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6">
+                                    <ul class="space-y-2 text-red-700 dark:text-red-300">
+                                        <li>• Software is provided "as is" beyond the warranty period</li>
+                                        <li>• No guarantee of specific performance metrics or business outcomes</li>
+                                        <li>• Third-party integrations are subject to their service availability</li>
+                                        <li>• Client is responsible for data backup and recovery</li>
+                                        <li>• No warranty against changes in third-party APIs or services</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Limitation of Liability -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            7. Limitation of Liability
+                        </h2>
+                        
+                        <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-6 mb-6">
+                            <div class="flex items-start">
+                                <svg class="w-6 h-6 text-amber-600 dark:text-amber-400 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                </svg>
+                                <div>
+                                    <h3 class="font-semibold text-amber-800 dark:text-amber-200 mb-2">Liability Cap</h3>
+                                    <p class="text-amber-700 dark:text-amber-300">
+                                        Our total liability for any project is limited to the total amount paid by the client for that specific project.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <p class="text-gray-700 dark:text-gray-300">
+                                <strong>Excluded Damages:</strong> Under no circumstances shall Pulcova be liable for:
+                            </p>
+                            
+                            <ul class="space-y-2 text-gray-700 dark:text-gray-300 ml-6">
+                                <li>• Indirect, incidental, or consequential damages</li>
+                                <li>• Loss of profits, revenue, or business opportunities</li>
+                                <li>• Data loss (beyond restoration from provided backups)</li>
+                                <li>• Damages resulting from third-party service failures</li>
+                                <li>• Damages from unauthorized modifications to delivered software</li>
+                            </ul>
+
+                            <p class="text-gray-700 dark:text-gray-300">
+                                This limitation applies regardless of the legal theory under which damages are claimed, including breach of contract, tort, or strict liability.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- Client Responsibilities -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            8. Client Responsibilities
+                        </h2>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Project Cooperation</h3>
+                                <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                                    <li>• Provide timely feedback and approvals</li>
+                                    <li>• Supply necessary content and materials</li>
+                                    <li>• Designate authorized decision-makers</li>
+                                    <li>• Provide access to required systems</li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Legal Compliance</h3>
+                                <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                                    <li>• Ensure content legality and ownership</li>
+                                    <li>• Comply with applicable regulations</li>
+                                    <li>• Obtain necessary licenses and permits</li>
+                                    <li>• Maintain appropriate insurance</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Project Delays</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                Delays caused by client failure to provide required materials, feedback, or approvals may result in project timeline extensions and additional costs. We are not responsible for delays outside our control.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- Termination -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            9. Termination
+                        </h2>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Termination Rights</h3>
+                                <div class="space-y-4">
+                                    <div class="p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+                                        <h4 class="font-medium text-gray-900 dark:text-white">By Client</h4>
+                                        <p class="text-gray-700 dark:text-gray-300 text-sm mt-1">
+                                            May terminate with 7 days written notice. Client pays for all work completed plus 25% of remaining project value.
+                                        </p>
+                                    </div>
+                                    <div class="p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+                                        <h4 class="font-medium text-gray-900 dark:text-white">By Pulcova</h4>
+                                        <p class="text-gray-700 dark:text-gray-300 text-sm mt-1">
+                                            May terminate for non-payment, breach of terms, or client non-cooperation with 7 days written notice.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Effects of Termination</h3>
+                                <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                                    <li>• All outstanding payments become immediately due</li>
+                                    <li>• Client receives work product completed to date</li>
+                                    <li>• Confidentiality obligations survive termination</li>
+                                    <li>• License to use delivered software remains valid</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Dispute Resolution -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            10. Dispute Resolution
+                        </h2>
+                        
+                        <div class="space-y-6">
+                            <div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg">
+                                <h3 class="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-3">Preferred Resolution Process</h3>
+                                <ol class="space-y-2 text-blue-800 dark:text-blue-200">
+                                    <li>1. <strong>Direct Communication:</strong> Attempt good-faith resolution through direct discussion</li>
+                                    <li>2. <strong>Mediation:</strong> If needed, engage a neutral third-party mediator</li>
+                                    <li>3. <strong>Arbitration:</strong> Final disputes resolved through binding arbitration</li>
+                                </ol>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Arbitration Terms</h3>
+                                <p class="text-gray-700 dark:text-gray-300">
+                                    Any dispute that cannot be resolved through mediation will be settled by binding arbitration under the rules of the applicable arbitration association. The arbitration will be conducted in English, and each party will bear their own costs unless the arbitrator decides otherwise.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Governing Law -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            11. Governing Law & Jurisdiction
+                        </h2>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+                            <p class="text-gray-700 dark:text-gray-300">
+                                These terms are governed by and construed in accordance with applicable international commercial law principles. Where local law must apply, it shall be the law of the jurisdiction where the client is located, unless otherwise agreed in writing.
+                            </p>
+                        </div>
+
+                        <div class="mt-6">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">International Considerations</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                As we serve clients globally, specific jurisdictional and tax obligations may vary by location. Clients are responsible for compliance with their local laws and regulations regarding contracted services.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- Privacy & Data Protection -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            12. Privacy & Data Protection
+                        </h2>
+                        
+                        <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6">
+                            <div class="flex items-start">
+                                <svg class="w-6 h-6 text-green-600 dark:text-green-400 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <div>
+                                    <h3 class="font-semibold text-green-800 dark:text-green-200 mb-2">Data Protection Commitment</h3>
+                                    <p class="text-green-700 dark:text-green-300">
+                                        We are committed to protecting your privacy and handling your data responsibly. Our detailed privacy practices are outlined in our Privacy Policy.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 space-y-4">
+                            <p class="text-gray-700 dark:text-gray-300">
+                                <strong>Data Processing:</strong> We process client data only as necessary to provide our services. All data handling practices comply with applicable privacy laws including GDPR where relevant.
+                            </p>
+                            
+                            <p class="text-gray-700 dark:text-gray-300">
+                                <strong>Confidentiality:</strong> All client information is treated as confidential and protected according to industry standards. We do not share client data with third parties except as necessary for service delivery or as required by law.
+                            </p>
+                            
+                            <p class="text-gray-700 dark:text-gray-300">
+                                For complete details on how we collect, use, and protect your information, please review our 
+                                <a href="/legal/privacy" class="text-primary-600 dark:text-primary-400 hover:underline">Privacy Policy</a>.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- Miscellaneous -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            13. Miscellaneous Provisions
+                        </h2>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Entire Agreement</h3>
+                                <p class="text-gray-700 dark:text-gray-300">
+                                    These terms, together with any project-specific agreements, constitute the entire agreement between the parties and supersede all prior negotiations, representations, or agreements.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Severability</h3>
+                                <p class="text-gray-700 dark:text-gray-300">
+                                    If any provision of these terms is found to be unenforceable, the remaining provisions will continue in full force and effect.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Force Majeure</h3>
+                                <p class="text-gray-700 dark:text-gray-300">
+                                    Neither party will be liable for delays or failures in performance due to circumstances beyond their reasonable control, including but not limited to natural disasters, pandemics, or government actions.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Amendment</h3>
+                                <p class="text-gray-700 dark:text-gray-300">
+                                    These terms may only be modified by written agreement signed by both parties, except for updates to these general terms which may be updated by posting revised terms on our website.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Contact Information -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                            14. Contact Information
+                        </h2>
+                        
+                        <div class="bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-lg p-6">
+                            <div class="flex items-start">
+                                <svg class="w-6 h-6 text-primary-600 dark:text-primary-400 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                                </svg>
+                                <div>
+                                    <h3 class="font-semibold text-primary-800 dark:text-primary-200 mb-2">Questions About These Terms?</h3>
+                                    <p class="text-primary-700 dark:text-primary-300 mb-2">
+                                        If you have any questions about these Terms & Conditions, please contact us:
+                                    </p>
+                                    <div class="space-y-1 text-primary-700 dark:text-primary-300">
+                                        <p><strong>Email:</strong> hello@pulcova.store</p>
+                                        <p><strong>Website:</strong> <a href="https://pulcova.store" class="hover:underline">pulcova.store</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 text-center">
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                These terms are effective as of the last updated date shown above and will remain in effect until modified.
+                            </p>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
