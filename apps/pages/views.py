@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Q, Count
+from django.db.models import Q, Count, Sum
 from apps.blog.models import Article, Category, Tag
 from apps.portfolio.models import Project, Technology
 import logging
@@ -398,9 +398,238 @@ class BlogView(TemplateView):
 
 class SolutionsView(TemplateView):
     """
-    Class-based view for the solutions page.
+    Class-based view for the solutions page with real solutions data.
     """
     template_name = 'pages/solutions.html'
+    
+    def get_context_data(self, **kwargs):
+        """
+        Add solutions data to the context with proper error handling.
+        """
+        context = super().get_context_data(**kwargs)
+        
+        try:
+            # Import here to avoid circular imports
+            from apps.solutions.models import Solution, CodeSnippet
+            
+            # Get all published solutions
+            all_solutions = Solution.objects.select_related(
+                'technology'
+            ).prefetch_related(
+                'related_solutions__technology'
+            ).filter(
+                is_published=True,
+                published_at__lte=timezone.now()
+            ).order_by('-helpful_count', '-created_at')
+            
+            # Handle search query
+            search_query = self.request.GET.get('search', '').strip()
+            if search_query:
+                all_solutions = all_solutions.filter(
+                    Q(title__icontains=search_query) |
+                    Q(problem_description__icontains=search_query) |
+                    Q(solution_content__icontains=search_query) |
+                    Q(technology__name__icontains=search_query)
+                )
+            
+            # Handle technology filter
+            tech_filter = self.request.GET.get('tech', '').strip()
+            if tech_filter:
+                try:
+                    all_solutions = all_solutions.filter(technology__slug=tech_filter)
+                except Exception as e:
+                    logger.error(f"Error filtering by technology: {e}")
+            
+            # Handle difficulty filter
+            difficulty_filter = self.request.GET.get('difficulty', '').strip()
+            if difficulty_filter and difficulty_filter != 'all':
+                try:
+                    all_solutions = all_solutions.filter(difficulty_level=difficulty_filter)
+                except Exception as e:
+                    logger.error(f"Error filtering by difficulty: {e}")
+            
+            # Handle sorting
+            sort_by = self.request.GET.get('sort', 'helpful').strip()
+            if sort_by == 'newest':
+                all_solutions = all_solutions.order_by('-created_at')
+            elif sort_by == 'views':
+                all_solutions = all_solutions.order_by('-view_count', '-created_at')
+            elif sort_by == 'title':
+                all_solutions = all_solutions.order_by('title')
+            else:  # default to helpful
+                all_solutions = all_solutions.order_by('-helpful_count', '-created_at')
+            
+            # Pagination
+            paginate_by = 12
+            page = self.request.GET.get('page', 1)
+            
+            try:
+                paginator = Paginator(all_solutions, paginate_by)
+                solutions = paginator.page(page)
+            except PageNotAnInteger:
+                solutions = paginator.page(1)
+            except EmptyPage:
+                solutions = paginator.page(paginator.num_pages)
+            
+            context['solutions'] = solutions
+            context['total_solutions'] = all_solutions.count()
+            
+            # Get featured solutions for hero section
+            try:
+                featured_solutions = Solution.objects.select_related(
+                    'technology'
+                ).filter(
+                    is_published=True,
+                    published_at__lte=timezone.now(),
+                    helpful_count__gte=5  # Consider solutions with 5+ helpful votes as featured
+                ).order_by('-helpful_count', '-view_count')[:6]
+                
+                context['featured_solutions'] = featured_solutions
+                context['has_featured'] = featured_solutions.exists()
+                
+            except Exception as e:
+                logger.error(f"Error fetching featured solutions: {e}")
+                context['featured_solutions'] = Solution.objects.none()
+                context['has_featured'] = False
+            
+            # Get technologies with solution counts
+            try:
+                from apps.portfolio.models import Technology
+                technologies = Technology.objects.annotate(
+                    solution_count=Count('solutions', filter=Q(
+                        solutions__is_published=True,
+                        solutions__published_at__lte=timezone.now()
+                    ))
+                ).filter(
+                    solution_count__gt=0
+                ).order_by('-solution_count', 'name')
+                
+                context['technologies'] = technologies
+                context['has_technologies'] = technologies.exists()
+                
+            except Exception as e:
+                logger.error(f"Error fetching technologies: {e}")
+                context['technologies'] = []
+                context['has_technologies'] = False
+            
+            # Get difficulty level counts
+            try:
+                difficulty_counts = {}
+                for choice_value, choice_label in Solution.DIFFICULTY_CHOICES:
+                    count = all_solutions.filter(difficulty_level=choice_value).count()
+                    if count > 0:
+                        difficulty_counts[choice_value] = {
+                            'label': choice_label,
+                            'count': count
+                        }
+                
+                context['difficulty_counts'] = difficulty_counts
+                
+            except Exception as e:
+                logger.error(f"Error calculating difficulty counts: {e}")
+                context['difficulty_counts'] = {}
+            
+            # Get recent code snippets
+            try:
+                code_snippets = CodeSnippet.objects.prefetch_related(
+                    'tags'
+                ).order_by('-created_at')[:6]
+                
+                context['code_snippets'] = code_snippets
+                context['has_code_snippets'] = code_snippets.exists()
+                
+            except Exception as e:
+                logger.error(f"Error fetching code snippets: {e}")
+                context['code_snippets'] = CodeSnippet.objects.none()
+                context['has_code_snippets'] = False
+            
+            # Add statistics for display
+            try:
+                total_solutions_count = Solution.objects.filter(
+                    is_published=True,
+                    published_at__lte=timezone.now()
+                ).count()
+                
+                total_technologies_count = Technology.objects.filter(
+                    solutions__is_published=True,
+                    solutions__published_at__lte=timezone.now()
+                ).distinct().count()
+                
+                total_votes = Solution.objects.filter(
+                    is_published=True,
+                    published_at__lte=timezone.now()
+                ).aggregate(
+                    total_helpful=Sum('helpful_count')
+                )['total_helpful'] or 0
+                
+                total_views = Solution.objects.filter(
+                    is_published=True,
+                    published_at__lte=timezone.now()
+                ).aggregate(
+                    total_views=Sum('view_count')
+                )['total_views'] or 0
+                
+                context['stats'] = {
+                    'total_solutions': total_solutions_count,
+                    'total_technologies': total_technologies_count,
+                    'total_votes': total_votes,
+                    'total_views': total_views,
+                }
+                
+            except Exception as e:
+                logger.error(f"Error calculating statistics: {e}")
+                context['stats'] = {
+                    'total_solutions': 0,
+                    'total_technologies': 0,
+                    'total_votes': 0,
+                    'total_views': 0,
+                }
+            
+            # Add current filters for template
+            context['current_filters'] = {
+                'search': search_query,
+                'tech': tech_filter,
+                'difficulty': difficulty_filter if difficulty_filter else 'all',
+                'sort': sort_by,
+            }
+            
+            # Add filter status
+            has_active_filters = any([
+                search_query,
+                tech_filter,
+                difficulty_filter and difficulty_filter != 'all',
+            ])
+            context['has_active_filters'] = has_active_filters
+            
+        except Exception as e:
+            logger.error(f"Error building context for solutions page: {e}")
+            # Provide safe defaults in case of major errors
+            context.update({
+                'solutions': [],
+                'total_solutions': 0,
+                'featured_solutions': [],
+                'has_featured': False,
+                'technologies': [],
+                'has_technologies': False,
+                'difficulty_counts': {},
+                'code_snippets': [],
+                'has_code_snippets': False,
+                'stats': {
+                    'total_solutions': 0,
+                    'total_technologies': 0,
+                    'total_votes': 0,
+                    'total_views': 0,
+                },
+                'current_filters': {
+                    'search': '',
+                    'tech': '',
+                    'difficulty': 'all',
+                    'sort': 'helpful',
+                },
+                'has_active_filters': False,
+            })
+        
+        return context
 
 
 class ServicesView(TemplateView):
