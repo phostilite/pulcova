@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from apps.blog.models import Article, Category, Tag
+from apps.portfolio.models import Project
 import logging
 
 logger = logging.getLogger(__name__)
@@ -16,7 +17,7 @@ class HomeView(TemplateView):
     
     def get_context_data(self, **kwargs):
         """
-        Add recent blog posts to the context with proper error handling.
+        Add recent blog posts and featured projects to the context with proper error handling.
         """
         context = super().get_context_data(**kwargs)
         
@@ -38,6 +39,23 @@ class HomeView(TemplateView):
             logger.error(f"Error fetching recent blog posts for home page: {e}")
             # Set empty queryset as fallback
             context['recent_blogs'] = Article.objects.none()
+        
+        try:
+            # Get featured projects
+            featured_projects = Project.objects.select_related().prefetch_related(
+                'tech_stack'
+            ).filter(
+                is_featured=True,
+                is_published=True,
+                published_at__lte=timezone.now()
+            ).order_by('-order_priority', '-created_at')[:5]  # Get top 5 featured projects
+            
+            context['featured_projects'] = featured_projects
+            
+        except Exception as e:
+            logger.error(f"Error fetching featured projects for home page: {e}")
+            # Set empty queryset as fallback
+            context['featured_projects'] = Project.objects.none()
         
         return context
     
