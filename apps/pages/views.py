@@ -634,9 +634,138 @@ class SolutionsView(TemplateView):
 
 class ServicesView(TemplateView):
     """
-    Class-based view for the services page.
+    Class-based view for the services page with real services data.
     """
     template_name = 'pages/services.html'
+    
+    def get_context_data(self, **kwargs):
+        """
+        Add services data to the context with proper error handling.
+        """
+        context = super().get_context_data(**kwargs)
+        
+        try:
+            # Import here to avoid circular imports
+            from apps.services.models import Service, ServiceInquiry
+            
+            # Get all active and published services
+            all_services = Service.objects.filter(
+                is_active=True,
+                is_published=True,
+                published_at__lte=timezone.now()
+            ).order_by('-order_priority', '-created_at')
+            
+            # Handle search query
+            search_query = self.request.GET.get('search', '').strip()
+            if search_query:
+                all_services = all_services.filter(
+                    Q(title__icontains=search_query) |
+                    Q(description__icontains=search_query) |
+                    Q(detailed_content__icontains=search_query)
+                )
+            
+            # Handle category/type filter (if you want to add categories later)
+            service_type = self.request.GET.get('type', '').strip()
+            if service_type and service_type != 'all':
+                # This can be extended when you add category field to Service model
+                pass
+            
+            # Handle price range filter
+            price_filter = self.request.GET.get('price', '').strip()
+            if price_filter and price_filter != 'all':
+                all_services = all_services.filter(price_range__icontains=price_filter)
+            
+            context['services'] = all_services
+            context['total_services'] = all_services.count()
+            
+            # Get featured services (top 3 by order_priority)
+            try:
+                featured_services = all_services.filter(
+                    order_priority__gt=0
+                )[:3]
+                context['featured_services'] = featured_services
+                context['has_featured'] = featured_services.exists()
+            except Exception as e:
+                logger.error(f"Error fetching featured services: {e}")
+                context['featured_services'] = Service.objects.none()
+                context['has_featured'] = False
+            
+            # Get service statistics
+            try:
+                total_inquiries = ServiceInquiry.objects.count()
+                new_inquiries = ServiceInquiry.objects.filter(status='new').count()
+                converted_inquiries = ServiceInquiry.objects.filter(status='converted').count()
+                
+                context['stats'] = {
+                    'total_services': all_services.count(),
+                    'total_inquiries': total_inquiries,
+                    'new_inquiries': new_inquiries,
+                    'converted_inquiries': converted_inquiries,
+                    'conversion_rate': round((converted_inquiries / total_inquiries * 100), 1) if total_inquiries > 0 else 0,
+                }
+            except Exception as e:
+                logger.error(f"Error calculating service statistics: {e}")
+                context['stats'] = {
+                    'total_services': 0,
+                    'total_inquiries': 0,
+                    'new_inquiries': 0,
+                    'converted_inquiries': 0,
+                    'conversion_rate': 0,
+                }
+            
+            # Get available price ranges for filtering
+            try:
+                price_ranges = all_services.exclude(
+                    Q(price_range__isnull=True) | Q(price_range__exact='')
+                ).values_list('price_range', flat=True).distinct()
+                context['available_price_ranges'] = list(price_ranges)
+                context['has_price_ranges'] = len(price_ranges) > 0
+            except Exception as e:
+                logger.error(f"Error fetching price ranges: {e}")
+                context['available_price_ranges'] = []
+                context['has_price_ranges'] = False
+            
+            # Add current filters for template
+            context['current_filters'] = {
+                'search': search_query,
+                'type': service_type if service_type else 'all',
+                'price': price_filter if price_filter else 'all',
+            }
+            
+            # Add filter status
+            has_active_filters = any([
+                search_query,
+                service_type and service_type != 'all',
+                price_filter and price_filter != 'all',
+            ])
+            context['has_active_filters'] = has_active_filters
+            
+        except Exception as e:
+            logger.error(f"Error building context for services page: {e}")
+            # Provide safe defaults in case of major errors
+            context.update({
+                'services': Service.objects.none(),
+                'total_services': 0,
+                'featured_services': Service.objects.none(),
+                'has_featured': False,
+                'stats': {
+                    'total_services': 0,
+                    'total_inquiries': 0,
+                    'new_inquiries': 0,
+                    'converted_inquiries': 0,
+                    'conversion_rate': 0,
+                },
+                'available_price_ranges': [],
+                'has_price_ranges': False,
+                'current_filters': {
+                    'search': '',
+                    'type': 'all',
+                    'price': 'all',
+                },
+                'has_active_filters': False,
+            })
+        
+        return context
     
     
 class ContactView(TemplateView):
