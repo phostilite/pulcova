@@ -34,6 +34,7 @@ urlpatterns = [
     path('portfolio/', include('apps.portfolio.urls')),
     path('solutions/', include('apps.solutions.urls')),
     path('legal/', include('apps.legal.urls')),
+    path('chatbot/', include('apps.chatbot.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ]
 

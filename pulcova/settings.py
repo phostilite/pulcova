@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sitemaps',  # Add sitemap framework
+    'django.contrib.sitemaps',
     
     'apps.analytics.apps.AnalyticsConfig',
     'apps.blog.apps.BlogConfig',
@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'apps.portfolio.apps.PortfolioConfig',
     'apps.services.apps.ServicesConfig',
     'apps.solutions.apps.SolutionsConfig',
+    'apps.chatbot.apps.ChatbotConfig',
 ]
 
 MIDDLEWARE = [
