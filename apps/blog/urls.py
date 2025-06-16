@@ -7,6 +7,13 @@ urlpatterns = [
     # Blog list view
     path('', views.ArticleListView.as_view(), name='article_list'),
     
-    # Blog detail view
+    # Newsletter subscription
+    path('newsletter/subscribe/', views.NewsletterSubscriptionView.as_view(), name='newsletter_subscribe'),
+    
+    # Newsletter unsubscription
+    path('newsletter/unsubscribe/', views.NewsletterUnsubscribeView.as_view(), name='newsletter_unsubscribe'),
+    path('newsletter/unsubscribe/<str:token>/', views.NewsletterUnsubscribeView.as_view(), name='newsletter_unsubscribe_token'),
+    
+    # Blog detail view (keep this last to avoid conflicts)
     path('<slug:slug>/', views.ArticleDetailView.as_view(), name='article_detail'),
 ]

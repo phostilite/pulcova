@@ -1,0 +1,95 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Unsubscribe - Newsletter | Pulcova{% endblock %}
+{% block meta_description %}Unsubscribe from Pulcova newsletter. Manage your email preferences easily.{% endblock %}
+
+{% block content %}
+<section class="py-20 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md mx-auto">
+            <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8">
+                {% if unsubscribed %}
+                    <!-- Already Unsubscribed -->
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                            Successfully Unsubscribed
+                        </h1>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">
+                            You have been removed from our newsletter. We're sorry to see you go!
+                        </p>
+                        <div class="space-y-3">
+                            <a href="/blog/" class="block w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                                Browse Articles
+                            </a>
+                            <a href="/" class="block w-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                                Back to Home
+                            </a>
+                        </div>
+                    </div>
+                {% else %}
+                    <!-- Unsubscribe Form -->
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                            Unsubscribe from Newsletter
+                        </h1>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            We're sorry to see you go. Enter your email below to unsubscribe.
+                        </p>
+                    </div>
+
+                    <!-- Display Messages -->
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="mb-4 p-4 rounded-lg {% if message.tags == 'success' %}bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300{% elif message.tags == 'error' %}bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300{% else %}bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300{% endif %}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post" class="space-y-4">
+                        {% csrf_token %}
+                        
+                        <div>
+                            <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Email Address
+                            </label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="mt-1 text-red-600 dark:text-red-400 text-sm">
+                                    {% for error in form.email.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                            Unsubscribe
+                        </button>
+                    </form>
+
+                    <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                        <p class="text-center text-sm text-gray-600 dark:text-gray-400">
+                            Changed your mind? 
+                            <a href="/blog/" class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300">
+                                Subscribe again
+                            </a>
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

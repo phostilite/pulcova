@@ -1,13 +1,19 @@
-from django.shortcuts import get_object_or_404, render
-from django.views.generic import DetailView, ListView
-from django.http import Http404
+from django.shortcuts import get_object_or_404, render, redirect
+from django.views.generic import DetailView, ListView, View
+from django.http import Http404, JsonResponse
 from django.core.exceptions import ValidationError
 from django.db.models import F, Q
 from django.utils import timezone
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.core.mail import send_mail
+from django.conf import settings
 import logging
+import json
 
-from .models import Article, Category, Tag
+from .models import Article, Category, Tag, Newsletter
+from .forms import NewsletterSubscriptionForm, NewsletterUnsubscribeForm
 
 logger = logging.getLogger(__name__)
 
@@ -306,3 +312,212 @@ class ArticleListView(ListView):
             logger.error(f"Error building context for article list: {e}")
         
         return context
+
+
+class NewsletterSubscriptionView(View):
+    """
+    Handle newsletter subscription via AJAX or regular POST
+    """
+    
+    def post(self, request, *args, **kwargs):
+        form = NewsletterSubscriptionForm(request.POST)
+        
+        # Check if it's an AJAX request
+        is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+        
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            
+            try:
+                # Check if email exists but is inactive
+                existing_subscription = Newsletter.objects.filter(email=email).first()
+                
+                if existing_subscription:
+                    if existing_subscription.is_active:
+                        message = "You're already subscribed to our newsletter!"
+                        status = 'warning'
+                    else:
+                        # Reactivate subscription
+                        existing_subscription.is_active = True
+                        existing_subscription.save()
+                        message = "Welcome back! Your subscription has been reactivated."
+                        status = 'success'
+                else:
+                    # Create new subscription
+                    subscription = form.save(commit=False)
+                    subscription.source = request.GET.get('source', 'blog')
+                    subscription.save()
+                    message = "Successfully subscribed to our newsletter!"
+                    status = 'success'
+                    
+                    # Send welcome email (optional)
+                    try:
+                        self.send_welcome_email(email)
+                    except Exception as e:
+                        logger.error(f"Failed to send welcome email to {email}: {e}")
+                
+                if is_ajax:
+                    return JsonResponse({
+                        'success': True,
+                        'message': message,
+                        'status': status
+                    })
+                else:
+                    messages.success(request, message)
+                    return redirect(request.META.get('HTTP_REFERER', '/blog/'))
+                    
+            except Exception as e:
+                logger.error(f"Error processing newsletter subscription: {e}")
+                error_message = "An error occurred. Please try again later."
+                
+                if is_ajax:
+                    return JsonResponse({
+                        'success': False,
+                        'message': error_message,
+                        'status': 'error'
+                    })
+                else:
+                    messages.error(request, error_message)
+                    return redirect(request.META.get('HTTP_REFERER', '/blog/'))
+        else:
+            # Form has errors
+            error_messages = []
+            for field, errors in form.errors.items():
+                for error in errors:
+                    error_messages.append(error)
+            
+            error_message = '; '.join(error_messages) if error_messages else "Please check your input."
+            
+            if is_ajax:
+                return JsonResponse({
+                    'success': False,
+                    'message': error_message,
+                    'status': 'error',
+                    'errors': form.errors
+                })
+            else:
+                messages.error(request, error_message)
+                return redirect(request.META.get('HTTP_REFERER', '/blog/'))
+    
+    def send_welcome_email(self, email):
+        """
+        Send welcome email to new subscriber
+        """
+        try:
+            subject = "Welcome to Pulcova Newsletter!"
+            message = f"""
+            Hi there!
+            
+            Thank you for subscribing to the Pulcova newsletter! 🎉
+            
+            You'll now receive:
+            • Latest technical articles and tutorials
+            • Software development insights and best practices
+            • Updates on new projects and solutions
+            • Exclusive content and early access to new posts
+            
+            If you ever want to unsubscribe, you can do so at: {settings.SITE_URL}/blog/newsletter/unsubscribe/
+            
+            Best regards,
+            Pulcova Team
+            """
+            
+            send_mail(
+                subject=subject,
+                message=message,
+                from_email=getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@pulcova.com'),
+                recipient_list=[email],
+                fail_silently=False,
+            )
+        except Exception as e:
+            logger.error(f"Failed to send welcome email: {e}")
+            raise
+
+
+class NewsletterUnsubscribeView(View):
+    """
+    Handle newsletter unsubscription
+    """
+    template_name = 'blog/newsletter_unsubscribe.html'
+    
+    def get(self, request, token=None):
+        context = {'form': NewsletterUnsubscribeForm()}
+        
+        # Handle token-based unsubscribe
+        if token:
+            try:
+                subscription = Newsletter.objects.get(
+                    unsubscribe_token=token,
+                    is_active=True
+                )
+                subscription.is_active = False
+                subscription.save()
+                
+                messages.success(request, "You have been successfully unsubscribed from our newsletter.")
+                context['unsubscribed'] = True
+                
+            except Newsletter.DoesNotExist:
+                messages.error(request, "Invalid unsubscribe link or you're already unsubscribed.")
+        
+        return render(request, self.template_name, context)
+    
+    def post(self, request):
+        form = NewsletterUnsubscribeForm(request.POST)
+        
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            
+            try:
+                subscription = Newsletter.objects.get(
+                    email=email,
+                    is_active=True
+                )
+                subscription.is_active = False
+                subscription.save()
+                
+                messages.success(request, "You have been successfully unsubscribed from our newsletter.")
+                
+                # Send confirmation email
+                try:
+                    self.send_unsubscribe_confirmation(email)
+                except Exception as e:
+                    logger.error(f"Failed to send unsubscribe confirmation to {email}: {e}")
+                
+            except Newsletter.DoesNotExist:
+                messages.error(request, "This email is not found in our newsletter subscriptions.")
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, error)
+        
+        return render(request, self.template_name, {'form': form})
+    
+    def send_unsubscribe_confirmation(self, email):
+        """
+        Send unsubscribe confirmation email
+        """
+        try:
+            subject = "Unsubscribed from Pulcova Newsletter"
+            message = f"""
+            Hi there,
+            
+            You have been successfully unsubscribed from the Pulcova newsletter.
+            
+            If this was done by mistake, you can resubscribe at: {settings.SITE_URL}/blog/
+            
+            Thank you for your time with us!
+            
+            Best regards,
+            Pulcova Team
+            """
+            
+            send_mail(
+                subject=subject,
+                message=message,
+                from_email=getattr(settings, 'DEFAULT_FROM_EMAIL', 'noreply@pulcova.com'),
+                recipient_list=[email],
+                fail_silently=False,
+            )
+        except Exception as e:
+            logger.error(f"Failed to send unsubscribe confirmation: {e}")
+            raise

@@ -10,6 +10,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from apps.blog.models import Article, Category, Tag
+from apps.blog.forms import NewsletterSubscriptionForm
 from apps.portfolio.models import Project, Technology
 from .forms import ContactForm
 import logging
@@ -438,6 +439,9 @@ class BlogView(TemplateView):
             # Add total count for reference
             context['total_blogs'] = all_blogs.count() if all_blogs else 0
             
+            # Add newsletter subscription form
+            context['newsletter_form'] = NewsletterSubscriptionForm()
+            
         except Exception as e:
             logger.error(f"Error building context for blog page: {e}")
             # Provide empty defaults in case of major errors
@@ -447,6 +451,7 @@ class BlogView(TemplateView):
                 'categories': Category.objects.none(),
                 'popular_tags': Tag.objects.none(),
                 'total_blogs': 0,
+                'newsletter_form': NewsletterSubscriptionForm(),
             })
         
         return context

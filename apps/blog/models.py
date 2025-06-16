@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.core.validators import EmailValidator
 from apps.core.models import TimeStampedModel, SEOModel, PublishableModel
 
 
@@ -23,6 +24,51 @@ class Tag(TimeStampedModel):
     
     def __str__(self):
         return self.name
+
+
+class Newsletter(TimeStampedModel):
+    """
+    Model to store newsletter subscriptions
+    """
+    email = models.EmailField(
+        unique=True,
+        validators=[EmailValidator()],
+        help_text="Email address for newsletter subscription"
+    )
+    is_active = models.BooleanField(
+        default=True,
+        help_text="Whether the subscription is active"
+    )
+    subscription_date = models.DateTimeField(
+        auto_now_add=True,
+        help_text="Date when the subscription was created"
+    )
+    unsubscribe_token = models.CharField(
+        max_length=64,
+        unique=True,
+        blank=True,
+        help_text="Token for unsubscribing"
+    )
+    source = models.CharField(
+        max_length=50,
+        default='blog',
+        help_text="Source of subscription (e.g., blog, footer, popup)"
+    )
+    
+    def __str__(self):
+        return f"{self.email} - {'Active' if self.is_active else 'Inactive'}"
+    
+    def save(self, *args, **kwargs):
+        # Generate unsubscribe token if not provided
+        if not self.unsubscribe_token:
+            import secrets
+            self.unsubscribe_token = secrets.token_urlsafe(32)
+        super().save(*args, **kwargs)
+    
+    class Meta:
+        ordering = ['-subscription_date']
+        verbose_name = "Newsletter Subscription"
+        verbose_name_plural = "Newsletter Subscriptions"
 
 
 class Article(TimeStampedModel, SEOModel, PublishableModel):

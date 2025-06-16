@@ -32,12 +32,23 @@
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-2xl font-bold text-white mb-2">Stay Updated</h2>
             <p class="text-primary-100 mb-6">Get notified when I publish new articles and tutorials</p>
-            <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                <input type="email" placeholder="Enter your email" 
+            
+            <!-- Newsletter subscription messages -->
+            <div id="newsletter-message" class="hidden mb-4 p-4 rounded-lg max-w-md mx-auto"></div>
+            
+            <form id="newsletter-form" method="post" action="{% url 'blog:newsletter_subscribe' %}" class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                {% csrf_token %}
+                <input type="email" 
+                       name="email" 
+                       id="newsletter-email"
+                       placeholder="Enter your email" 
+                       required
                        class="flex-1 px-4 py-2 rounded-lg border border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-white">
                 <button type="submit" 
-                        class="px-6 py-2 bg-white text-primary-600 font-medium rounded-lg hover:bg-gray-100 transition-colors">
-                    Subscribe
+                        id="newsletter-submit"
+                        class="px-6 py-2 bg-white text-primary-600 font-medium rounded-lg hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                    <span class="submit-text">Subscribe</span>
+                    <span class="loading-text hidden">Subscribing...</span>
                 </button>
             </form>
         </div>
@@ -410,16 +421,76 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Newsletter subscription
-    const newsletterForm = document.querySelector('form');
+    const newsletterForm = document.getElementById('newsletter-form');
+    const newsletterMessage = document.getElementById('newsletter-message');
+    const newsletterSubmit = document.getElementById('newsletter-submit');
+    const submitText = newsletterSubmit.querySelector('.submit-text');
+    const loadingText = newsletterSubmit.querySelector('.loading-text');
+    
     if (newsletterForm) {
         newsletterForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
-            if (email) {
-                alert('Newsletter subscription functionality would be implemented here.');
-                this.reset();
+            
+            const formData = new FormData(this);
+            const email = formData.get('email');
+            
+            if (!email) {
+                showNewsletterMessage('Please enter your email address.', 'error');
+                return;
             }
+            
+            // Show loading state
+            newsletterSubmit.disabled = true;
+            submitText.classList.add('hidden');
+            loadingText.classList.remove('hidden');
+            
+            // Send AJAX request
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                showNewsletterMessage(data.message, data.status);
+                if (data.success) {
+                    this.reset();
+                }
+            })
+            .catch(error => {
+                console.error('Newsletter subscription error:', error);
+                showNewsletterMessage('An error occurred. Please try again later.', 'error');
+            })
+            .finally(() => {
+                // Reset loading state
+                newsletterSubmit.disabled = false;
+                submitText.classList.remove('hidden');
+                loadingText.classList.add('hidden');
+            });
         });
+    }
+    
+    function showNewsletterMessage(message, type) {
+        newsletterMessage.className = 'p-4 rounded-lg max-w-md mx-auto mb-4';
+        
+        if (type === 'success') {
+            newsletterMessage.classList.add('bg-green-100', 'dark:bg-green-900/30', 'text-green-700', 'dark:text-green-300');
+        } else if (type === 'warning') {
+            newsletterMessage.classList.add('bg-yellow-100', 'dark:bg-yellow-900/30', 'text-yellow-700', 'dark:text-yellow-300');
+        } else {
+            newsletterMessage.classList.add('bg-red-100', 'dark:bg-red-900/30', 'text-red-700', 'dark:text-red-300');
+        }
+        
+        newsletterMessage.textContent = message;
+        newsletterMessage.classList.remove('hidden');
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+            newsletterMessage.classList.add('hidden');
+        }, 5000);
     }
 });
 </script>
