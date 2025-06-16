@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Solution, CodeSnippet
+
+admin.site.register(Solution)
+admin.site.register(CodeSnippet)
