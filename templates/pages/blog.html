@@ -17,6 +17,11 @@
             <p class="text-xl text-gray-600 dark:text-gray-300 animate-slide-up">
                 Articles, tutorials, and thoughts on software development, best practices, and emerging technologies.
             </p>
+            {% if total_blogs %}
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-4">
+                    {{ total_blogs }} article{{ total_blogs|pluralize }} available
+                </p>
+            {% endif %}
         </div>
     </div>
 </section>
@@ -50,36 +55,27 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                 </div>
-                <input type="text" id="search-input" placeholder="Search articles..."
+                <input type="text" id="search-input" placeholder="Search articles..." value="{{ current_search|default:'' }}"
                        class="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
             </div>
             
             <!-- Category Filter -->
             <div class="flex flex-wrap gap-2">
-                <button class="filter-btn active px-4 py-2 rounded-lg font-medium text-sm transition-all" data-filter="all">
+                <button class="filter-btn {% if not current_category %}active{% endif %} px-4 py-2 rounded-lg font-medium text-sm transition-all" data-filter="all">
                     All Articles
                 </button>
-                <button class="filter-btn px-4 py-2 rounded-lg font-medium text-sm transition-all" data-filter="web-development">
-                    Web Development
-                </button>
-                <button class="filter-btn px-4 py-2 rounded-lg font-medium text-sm transition-all" data-filter="api-design">
-                    API Design
-                </button>
-                <button class="filter-btn px-4 py-2 rounded-lg font-medium text-sm transition-all" data-filter="ai-ml">
-                    AI/ML
-                </button>
-                <button class="filter-btn px-4 py-2 rounded-lg font-medium text-sm transition-all" data-filter="devops">
-                    DevOps
-                </button>
-                <button class="filter-btn px-4 py-2 rounded-lg font-medium text-sm transition-all" data-filter="tutorials">
-                    Tutorials
-                </button>
+                {% for category in categories %}
+                    <button class="filter-btn {% if current_category == category.slug %}active{% endif %} px-4 py-2 rounded-lg font-medium text-sm transition-all" data-filter="{{ category.slug }}">
+                        {{ category.name }}
+                    </button>
+                {% endfor %}
             </div>
         </div>
     </div>
 </section>
 
 <!-- Featured Articles -->
+{% if featured_blogs %}
 <section class="py-16 bg-gray-50 dark:bg-gray-800">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
@@ -92,30 +88,54 @@
         </div>
         
         <div class="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            <!-- Featured Article 1 -->
-            <article class="featured-article bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-category="api-design">
+            {% for blog in featured_blogs %}
+            <article class="featured-article bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-category="{{ blog.category.slug|default:'uncategorized' }}">
                 <div class="aspect-w-16 aspect-h-9 bg-gradient-to-r from-blue-500 to-purple-600">
-                    <img src="https://via.placeholder.com/800x450/3B82F6/FFFFFF?text=API+Design" alt="Building RESTful APIs" class="w-full h-64 object-cover">
+                    {% if blog.featured_image %}
+                        <img src="{{ blog.featured_image.url }}" alt="{{ blog.title }}" class="w-full h-64 object-cover">
+                    {% else %}
+                        <div class="w-full h-64 flex items-center justify-center bg-gradient-to-r from-primary-500 to-primary-700">
+                            <span class="text-white text-xl font-semibold">{{ blog.title|truncatechars:20 }}</span>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="p-8">
                     <div class="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-4">
-                        <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full font-medium">API Design</span>
-                        <span>Jan 15, 2025</span>
-                        <span>•</span>
-                        <span>8 min read</span>
+                        {% if blog.category %}
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full font-medium">{{ blog.category.name }}</span>
+                        {% endif %}
+                        {% if blog.published_at %}
+                            <span>{{ blog.published_at|date:"M d, Y" }}</span>
+                        {% endif %}
+                        {% if blog.reading_time %}
+                            <span>•</span>
+                            <span>{{ blog.reading_time }} min read</span>
+                        {% endif %}
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                        Building Scalable RESTful APIs: A Complete Guide
+                        {{ blog.title }}
                     </h3>
                     <p class="text-gray-600 dark:text-gray-400 mb-6 line-clamp-3">
-                        Learn how to design and implement RESTful APIs that can handle millions of requests while maintaining clean code architecture, optimal performance, and developer-friendly documentation.
+                        {{ blog.excerpt|default:blog.content|truncatechars:200 }}
                     </p>
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
-                            <img src="https://via.placeholder.com/40x40/6B7280/FFFFFF?text=P" alt="Pulcova" class="w-10 h-10 rounded-full">
-                            <span class="text-gray-700 dark:text-gray-300 font-medium">Pulcova</span>
+                            {% if blog.author %}
+                                <div class="w-10 h-10 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center">
+                                    <span class="text-gray-700 dark:text-gray-300 font-medium text-sm">
+                                        {{ blog.author.first_name|first|default:blog.author.username|first|upper }}
+                                    </span>
+                                </div>
+                                <span class="text-gray-700 dark:text-gray-300 font-medium">
+                                    {% if blog.author.first_name %}
+                                        {{ blog.author.first_name }} {{ blog.author.last_name|default:'' }}
+                                    {% else %}
+                                        {{ blog.author.username }}
+                                    {% endif %}
+                                </span>
+                            {% endif %}
                         </div>
-                        <a href="/blog/building-scalable-restful-apis" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
+                        <a href="{% url 'blog:article_detail' blog.slug %}" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
                             Read Article
                             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -124,49 +144,19 @@
                     </div>
                 </div>
             </article>
-            
-            <!-- Featured Article 2 -->
-            <article class="featured-article bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-category="ai-ml">
-                <div class="aspect-w-16 aspect-h-9 bg-gradient-to-r from-purple-500 to-pink-600">
-                    <img src="https://via.placeholder.com/800x450/8B5CF6/FFFFFF?text=AI+Integration" alt="AI Integration" class="w-full h-64 object-cover">
-                </div>
-                <div class="p-8">
-                    <div class="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-4">
-                        <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full font-medium">AI/ML</span>
-                        <span>Jan 12, 2025</span>
-                        <span>•</span>
-                        <span>12 min read</span>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                        Integrating LLMs into Web Applications: Practical Guide
-                    </h3>
-                    <p class="text-gray-600 dark:text-gray-400 mb-6 line-clamp-3">
-                        Discover how to seamlessly integrate Large Language Models into your web applications with practical examples, cost optimization strategies, and performance considerations.
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <img src="https://via.placeholder.com/40x40/6B7280/FFFFFF?text=P" alt="Pulcova" class="w-10 h-10 rounded-full">
-                            <span class="text-gray-700 dark:text-gray-300 font-medium">Pulcova</span>
-                        </div>
-                        <a href="/blog/integrating-llms-web-applications" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
-                            Read Article
-                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </article>
+            {% endfor %}
         </div>
     </div>
 </section>
+{% endif %}
 
 <!-- Recent Articles Grid -->
+{% if recent_blogs %}
 <section class="py-20 bg-white dark:bg-gray-900">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                Recent Articles
+                {% if featured_blogs %}Recent Articles{% else %}All Articles{% endif %}
             </h2>
             <p class="text-lg text-gray-600 dark:text-gray-400">
                 Latest thoughts and technical deep-dives
@@ -175,30 +165,44 @@
         
         <!-- Articles Grid -->
         <div id="articles-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            <!-- Article 1 -->
-            <article class="article-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-category="web-development">
+            {% for blog in recent_blogs %}
+            <article class="article-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-category="{{ blog.category.slug|default:'uncategorized' }}">
                 <div class="aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-700">
-                    <img src="https://via.placeholder.com/400x225/10B981/FFFFFF?text=Django+Tips" alt="Django Performance" class="w-full h-48 object-cover">
+                    {% if blog.featured_image %}
+                        <img src="{{ blog.featured_image.url }}" alt="{{ blog.title }}" class="w-full h-48 object-cover">
+                    {% else %}
+                        <div class="w-full h-48 flex items-center justify-center bg-gradient-to-r from-gray-400 to-gray-600">
+                            <span class="text-white font-semibold">{{ blog.title|truncatechars:15 }}</span>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="p-6">
                     <div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 mb-3">
-                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-medium">Web Development</span>
-                        <span>Jan 10, 2025</span>
-                        <span>•</span>
-                        <span>6 min read</span>
+                        {% if blog.category %}
+                            <span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-medium">{{ blog.category.name }}</span>
+                        {% endif %}
+                        {% if blog.published_at %}
+                            <span>{{ blog.published_at|date:"M d, Y" }}</span>
+                        {% endif %}
+                        {% if blog.reading_time %}
+                            <span>•</span>
+                            <span>{{ blog.reading_time }} min read</span>
+                        {% endif %}
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
-                        Django Performance Optimization: Database Queries
+                        {{ blog.title }}
                     </h3>
                     <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-                        Essential techniques for optimizing Django database queries, reducing N+1 problems, and improving application performance.
+                        {{ blog.excerpt|default:blog.content|truncatechars:150 }}
                     </p>
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-2">
-                            <span class="text-xs text-gray-500 dark:text-gray-400">👁</span>
-                            <span class="text-xs text-gray-500 dark:text-gray-400">1.2k views</span>
+                            {% if blog.view_count %}
+                                <span class="text-xs text-gray-500 dark:text-gray-400">👁</span>
+                                <span class="text-xs text-gray-500 dark:text-gray-400">{{ blog.view_count }} views</span>
+                            {% endif %}
                         </div>
-                        <a href="/blog/django-performance-optimization" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm">
+                        <a href="{% url 'blog:article_detail' blog.slug %}" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm">
                             Read More
                             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -207,186 +211,45 @@
                     </div>
                 </div>
             </article>
-            
-            <!-- Article 2 -->
-            <article class="article-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-category="devops">
-                <div class="aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-700">
-                    <img src="https://via.placeholder.com/400x225/F59E0B/FFFFFF?text=Docker+Guide" alt="Docker Containers" class="w-full h-48 object-cover">
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 mb-3">
-                        <span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded-full text-xs font-medium">DevOps</span>
-                        <span>Jan 8, 2025</span>
-                        <span>•</span>
-                        <span>10 min read</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
-                        Docker Multi-Stage Builds: Optimizing Image Size
-                    </h3>
-                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-                        Learn how to create efficient Docker images using multi-stage builds, reducing size by up to 80% while maintaining security.
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="text-xs text-gray-500 dark:text-gray-400">👁</span>
-                            <span class="text-xs text-gray-500 dark:text-gray-400">856 views</span>
-                        </div>
-                        <a href="/blog/docker-multi-stage-builds" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm">
-                            Read More
-                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </article>
-            
-            <!-- Article 3 -->
-            <article class="article-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-category="tutorials">
-                <div class="aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-700">
-                    <img src="https://via.placeholder.com/400x225/EF4444/FFFFFF?text=React+Hooks" alt="React Hooks" class="w-full h-48 object-cover">
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 mb-3">
-                        <span class="px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full text-xs font-medium">Tutorials</span>
-                        <span>Jan 5, 2025</span>
-                        <span>•</span>
-                        <span>15 min read</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
-                        Custom React Hooks: Building Reusable Logic
-                    </h3>
-                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-                        Step-by-step guide to creating custom React hooks for common patterns like data fetching, form handling, and state management.
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="text-xs text-gray-500 dark:text-gray-400">👁</span>
-                            <span class="text-xs text-gray-500 dark:text-gray-400">2.1k views</span>
-                        </div>
-                        <a href="/blog/custom-react-hooks" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm">
-                            Read More
-                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </article>
-            
-            <!-- Article 4 -->
-            <article class="article-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-category="web-development">
-                <div class="aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-700">
-                    <img src="https://via.placeholder.com/400x225/8B5CF6/FFFFFF?text=GraphQL+API" alt="GraphQL API" class="w-full h-48 object-cover">
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 mb-3">
-                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-medium">Web Development</span>
-                        <span>Jan 3, 2025</span>
-                        <span>•</span>
-                        <span>9 min read</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
-                        GraphQL vs REST: When to Choose What
-                    </h3>
-                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-                        Comprehensive comparison of GraphQL and REST APIs, with practical examples and decision frameworks for choosing the right approach.
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="text-xs text-gray-500 dark:text-gray-400">👁</span>
-                            <span class="text-xs text-gray-500 dark:text-gray-400">1.8k views</span>
-                        </div>
-                        <a href="/blog/graphql-vs-rest" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm">
-                            Read More
-                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </article>
-            
-            <!-- Article 5 -->
-            <article class="article-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-category="ai-ml">
-                <div class="aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-700">
-                    <img src="https://via.placeholder.com/400x225/06B6D4/FFFFFF?text=ML+Models" alt="Machine Learning" class="w-full h-48 object-cover">
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 mb-3">
-                        <span class="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs font-medium">AI/ML</span>
-                        <span>Dec 30, 2024</span>
-                        <span>•</span>
-                        <span>11 min read</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
-                        Deploying ML Models with FastAPI and Docker
-                    </h3>
-                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-                        Complete guide to containerizing and deploying machine learning models using FastAPI, with monitoring and scaling considerations.
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="text-xs text-gray-500 dark:text-gray-400">👁</span>
-                            <span class="text-xs text-gray-500 dark:text-gray-400">932 views</span>
-                        </div>
-                        <a href="/blog/deploying-ml-models-fastapi" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm">
-                            Read More
-                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </article>
-            
-            <!-- Article 6 -->
-            <article class="article-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-category="tutorials">
-                <div class="aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-700">
-                    <img src="https://via.placeholder.com/400x225/F97316/FFFFFF?text=PostgreSQL" alt="PostgreSQL" class="w-full h-48 object-cover">
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 mb-3">
-                        <span class="px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full text-xs font-medium">Tutorials</span>
-                        <span>Dec 28, 2024</span>
-                        <span>•</span>
-                        <span>7 min read</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
-                        PostgreSQL Indexing Strategies for Performance
-                    </h3>
-                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-                        Master PostgreSQL indexing with practical examples, covering B-tree, Hash, GIN, and partial indexes for optimal query performance.
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="text-xs text-gray-500 dark:text-gray-400">👁</span>
-                            <span class="text-xs text-gray-500 dark:text-gray-400">1.5k views</span>
-                        </div>
-                        <a href="/blog/postgresql-indexing-strategies" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm">
-                            Read More
-                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </article>
+            {% endfor %}
         </div>
         
-        <!-- Load More Button -->
+        <!-- Load More Button (if you want to implement pagination later) -->
+        {% if recent_blogs|length >= 6 %}
         <div class="text-center mt-16">
-            <button id="load-more-btn" class="inline-flex items-center justify-center px-8 py-3 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-900 dark:text-white font-medium rounded-lg border border-gray-300 dark:border-gray-700 transition-all shadow-sm hover:shadow-md">
-                Load More Articles
+            <a href="{% url 'blog:article_list' %}" class="inline-flex items-center justify-center px-8 py-3 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-900 dark:text-white font-medium rounded-lg border border-gray-300 dark:border-gray-700 transition-all shadow-sm hover:shadow-md">
+                View All Articles
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                 </svg>
-            </button>
+            </a>
         </div>
+        {% endif %}
     </div>
 </section>
+{% else %}
+    {% if not featured_blogs %}
+    <!-- No Articles Message -->
+    <section class="py-20 bg-white dark:bg-gray-900">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <svg class="w-24 h-24 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">No articles found</h3>
+            <p class="text-gray-600 dark:text-gray-400">
+                {% if current_search or current_category or current_tag %}
+                    Try adjusting your search or filter criteria
+                {% else %}
+                    Check back soon for new articles and insights
+                {% endif %}
+            </p>
+        </div>
+    </section>
+    {% endif %}
+{% endif %}
 
 <!-- Tags Cloud -->
+{% if popular_tags %}
 <section class="py-16 bg-gray-50 dark:bg-gray-800">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center">
@@ -394,43 +257,16 @@
                 Popular Topics
             </h2>
             <div class="flex flex-wrap gap-3 justify-center">
-                <a href="/blog/tag/django" class="px-4 py-2 bg-white dark:bg-gray-900 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full border border-gray-200 dark:border-gray-700 transition-all">
-                    #django
+                {% for tag in popular_tags %}
+                <a href="?tag={{ tag.slug }}" class="px-4 py-2 bg-white dark:bg-gray-900 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full border border-gray-200 dark:border-gray-700 transition-all">
+                    #{{ tag.name }}
                 </a>
-                <a href="/blog/tag/react" class="px-4 py-2 bg-white dark:bg-gray-900 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full border border-gray-200 dark:border-gray-700 transition-all">
-                    #react
-                </a>
-                <a href="/blog/tag/api-design" class="px-4 py-2 bg-white dark:bg-gray-900 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full border border-gray-200 dark:border-gray-700 transition-all">
-                    #api-design
-                </a>
-                <a href="/blog/tag/docker" class="px-4 py-2 bg-white dark:bg-gray-900 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full border border-gray-200 dark:border-gray-700 transition-all">
-                    #docker
-                </a>
-                <a href="/blog/tag/postgresql" class="px-4 py-2 bg-white dark:bg-gray-900 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full border border-gray-200 dark:border-gray-700 transition-all">
-                    #postgresql
-                </a>
-                <a href="/blog/tag/machine-learning" class="px-4 py-2 bg-white dark:bg-gray-900 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full border border-gray-200 dark:border-gray-700 transition-all">
-                    #machine-learning
-                </a>
-                <a href="/blog/tag/fastapi" class="px-4 py-2 bg-white dark:bg-gray-900 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full border border-gray-200 dark:border-gray-700 transition-all">
-                    #fastapi
-                </a>
-                <a href="/blog/tag/performance" class="px-4 py-2 bg-white dark:bg-gray-900 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full border border-gray-200 dark:border-gray-700 transition-all">
-                    #performance
-                </a>
+                {% endfor %}
             </div>
         </div>
     </div>
 </section>
-
-<!-- No Results Message (Initially Hidden) -->
-<div id="no-results" class="hidden py-20 text-center bg-white dark:bg-gray-900">
-    <svg class="w-24 h-24 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-    </svg>
-    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">No articles found</h3>
-    <p class="text-gray-600 dark:text-gray-400">Try adjusting your search or filter criteria</p>
-</div>
+{% endif %}
 
 <!-- Custom Styles -->
 <style>
@@ -488,7 +324,7 @@
     padding-bottom: 56.25%;
 }
 
-.aspect-w-16 > img {
+.aspect-w-16 > img, .aspect-w-16 > div {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -538,78 +374,53 @@
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('search-input');
     const filterButtons = document.querySelectorAll('.filter-btn');
-    const articleCards = document.querySelectorAll('.article-card');
-    const featuredArticles = document.querySelectorAll('.featured-article');
-    const noResults = document.getElementById('no-results');
-    const loadMoreBtn = document.getElementById('load-more-btn');
-    
-    let currentFilter = 'all';
-    let currentSearch = '';
     
     // Search functionality
     searchInput.addEventListener('input', function() {
-        currentSearch = this.value.toLowerCase();
-        filterArticles();
+        const searchTerm = this.value.trim();
+        const currentUrl = new URL(window.location);
+        
+        if (searchTerm) {
+            currentUrl.searchParams.set('search', searchTerm);
+        } else {
+            currentUrl.searchParams.delete('search');
+        }
+        
+        // Debounce the search
+        clearTimeout(window.searchTimeout);
+        window.searchTimeout = setTimeout(() => {
+            window.location.href = currentUrl.toString();
+        }, 500);
     });
     
     // Filter functionality
     filterButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // Remove active class from all buttons
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            // Add active class to clicked button
-            this.classList.add('active');
+            const filter = this.dataset.filter;
+            const currentUrl = new URL(window.location);
             
-            currentFilter = this.dataset.filter;
-            filterArticles();
-        });
-    });
-    
-    // Filter articles based on search and category
-    function filterArticles() {
-        let visibleCount = 0;
-        const allArticles = [...articleCards, ...featuredArticles];
-        
-        allArticles.forEach(article => {
-            const title = article.querySelector('h3').textContent.toLowerCase();
-            const excerpt = article.querySelector('p').textContent.toLowerCase();
-            const category = article.dataset.category;
-            
-            const matchesSearch = title.includes(currentSearch) || excerpt.includes(currentSearch);
-            const matchesFilter = currentFilter === 'all' || category === currentFilter;
-            
-            if (matchesSearch && matchesFilter) {
-                article.style.display = 'block';
-                visibleCount++;
+            if (filter === 'all') {
+                currentUrl.searchParams.delete('category');
             } else {
-                article.style.display = 'none';
+                currentUrl.searchParams.set('category', filter);
             }
+            
+            window.location.href = currentUrl.toString();
         });
-        
-        // Show/hide no results message
-        if (visibleCount === 0) {
-            noResults.classList.remove('hidden');
-        } else {
-            noResults.classList.add('hidden');
-        }
-    }
-    
-    // Load more functionality (placeholder)
-    loadMoreBtn.addEventListener('click', function() {
-        // In a real implementation, this would load more articles via AJAX
-        alert('Load more functionality would be implemented here with AJAX calls to fetch additional articles.');
     });
     
     // Newsletter subscription
     const newsletterForm = document.querySelector('form');
-    newsletterForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const email = this.querySelector('input[type="email"]').value;
-        if (email) {
-            alert('Newsletter subscription functionality would be implemented here.');
-            this.reset();
-        }
-    });
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            if (email) {
+                alert('Newsletter subscription functionality would be implemented here.');
+                this.reset();
+            }
+        });
+    }
 });
 </script>
 {% endblock %}
