@@ -1,0 +1,395 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}{{ project.title }} - Portfolio | Pulcova{% endblock %}
+{% block meta_description %}{{ project.meta_description|default:project.description|truncatewords:25 }}{% endblock %}
+
+{% block og_title %}{{ project.title }} - Portfolio | Pulcova{% endblock %}
+{% block og_description %}{{ project.meta_description|default:project.description|truncatewords:25 }}{% endblock %}
+{% block og_image %}{% if project.featured_image and project.featured_image.url %}{{ request.scheme }}://{{ request.get_host }}{{ project.featured_image.url }}{% else %}{% static 'images/og-default.jpg' %}{% endif %}{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb Navigation -->
+<section class="bg-gray-50 dark:bg-gray-800 py-8">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <nav class="flex" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                {% for breadcrumb in breadcrumbs %}
+                <li class="inline-flex items-center">
+                    {% if not breadcrumb.current %}
+                        <a href="{{ breadcrumb.url }}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white">
+                            {% if forloop.first %}
+                                <svg class="w-3 h-3 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L9 3.414V19a1 1 0 0 0 2 0V3.414l7.293 7.293a1 1 0 0 0 1.414-1.414Z"/>
+                                </svg>
+                            {% endif %}
+                            {{ breadcrumb.title }}
+                        </a>
+                    {% else %}
+                        <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">{{ breadcrumb.title }}</span>
+                    {% endif %}
+                    {% if not forloop.last %}
+                        <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                        </svg>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Project Header -->
+<section class="py-12 bg-white dark:bg-gray-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- Project Type Badge -->
+            <div class="flex items-center gap-4 mb-6">
+                <span class="inline-flex items-center px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-sm font-medium">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        {% if project.project_type == 'web' %}
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9-9a9 9 0 00-9 9m9-9v18"/>
+                        {% elif project.project_type == 'mobile' %}
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                        {% elif project.project_type == 'api' %}
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        {% else %}
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/>
+                        {% endif %}
+                    </svg>
+                    {{ project_type_display }}
+                </span>
+                
+                {% if project.is_featured %}
+                <span class="inline-flex items-center px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded-full text-sm font-medium">
+                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                    </svg>
+                    Featured
+                </span>
+                {% endif %}
+            </div>
+            
+            <!-- Project Title -->
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+                {{ project.title }}
+            </h1>
+            
+            <!-- Project Meta Info -->
+            <div class="flex flex-wrap items-center gap-6 text-gray-600 dark:text-gray-400 mb-8">
+                <!-- Duration -->
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                    <span>
+                        {{ project.start_date|date:"M Y" }} – 
+                        {% if has_end_date %}
+                            {{ project.end_date|date:"M Y" }}
+                        {% else %}
+                            Present
+                        {% endif %}
+                    </span>
+                </div>
+                
+                <!-- View Count -->
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                    <span>{{ project.view_count|default:0 }} view{{ project.view_count|pluralize }}</span>
+                </div>
+                
+                <!-- Duration in Days -->
+                {% if duration_display %}
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    <span>{{ duration_display }}</span>
+                </div>
+                {% endif %}
+            </div>
+                        
+            <!-- Project Description -->
+            <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
+                {{ project.description }}
+            </p>
+            
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap gap-4 mb-12">
+                {% if has_live_url %}
+                <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                    View Live Project
+                </a>
+                {% endif %}
+                
+                {% if has_github_url %}
+                <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 bg-gray-800 hover:bg-gray-900 text-white font-medium rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    View Source Code
+                </a>
+                {% endif %}
+                
+                {% if not has_live_url and not has_github_url %}
+                <div class="inline-flex items-center px-6 py-3 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-lg">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                    Private Project
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Image -->
+{% if has_featured_image and project.featured_image %}
+<section class="py-12 bg-gray-50 dark:bg-gray-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                <img src="{{ project.featured_image.url }}" alt="{{ project.title }} - Featured Image" class="w-full h-auto object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Technology Stack -->
+{% if has_tech_stack %}
+<section class="py-16 bg-white dark:bg-gray-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Technology Stack</h2>
+            
+            {% if tech_by_category %}
+                {% for category, technologies in tech_by_category.items %}
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">{{ category }}</h3>
+                    <div class="flex flex-wrap gap-3">
+                        {% for tech in technologies %}
+                        <div class="inline-flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                            {% if tech.icon %}
+                            <img src="{{ tech.icon.url }}" alt="{{ tech.name }}" class="w-5 h-5 mr-2">
+                            {% endif %}
+                            <span class="text-gray-700 dark:text-gray-300 font-medium">{{ tech.name }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="flex flex-wrap gap-3">
+                    {% for tech in tech_stack %}
+                    <div class="inline-flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        {% if tech.icon %}
+                        <img src="{{ tech.icon.url }}" alt="{{ tech.name }}" class="w-5 h-5 mr-2">
+                        {% endif %}
+                        <span class="text-gray-700 dark:text-gray-300 font-medium">{{ tech.name }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Project Details -->
+<section class="py-16 bg-gray-50 dark:bg-gray-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Project Details</h2>
+            
+            <div class="prose prose-lg dark:prose-invert max-w-none">
+                {{ project.detailed_content|linebreaks }}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Project Gallery -->
+{% if has_gallery %}
+<section class="py-16 bg-white dark:bg-gray-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">Project Gallery</h2>
+            <p class="text-gray-600 dark:text-gray-400 text-center mb-12">{{ gallery_count }} image{{ gallery_count|pluralize }} showcasing different aspects of the project</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for image in gallery_images %}
+                    {% if image.image %}
+                    <div class="group relative aspect-w-16 aspect-h-12 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                        <img src="{{ image.image.url }}" alt="{{ image.alt_text|default:'Project screenshot' }}" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                            <button onclick="openModal('{{ image.image.url }}', '{{ image.alt_text|default:'Project screenshot' }}')" class="opacity-0 group-hover:opacity-100 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-2 rounded-lg font-medium transition-all transform scale-95 group-hover:scale-100">
+                                <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                                </svg>
+                                View Full Size
+                            </button>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Image Modal -->
+<div id="imageModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-75 p-4">
+    <div class="relative max-w-4xl max-h-full">
+        <button onclick="closeModal()" class="absolute top-4 right-4 text-white hover:text-gray-300 z-10">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+        <img id="modalImage" src="" alt="" class="max-w-full max-h-full object-contain rounded-lg">
+    </div>
+</div>
+{% endif %}
+
+<!-- Related Projects -->
+{% if has_related_projects %}
+<section class="py-16 bg-gray-50 dark:bg-gray-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">Related Projects</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for related_project in related_projects %}
+                <article class="bg-white dark:bg-gray-900 rounded-xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div class="aspect-w-16 aspect-h-9">
+                        {% if related_project.featured_image %}
+                            <img src="{{ related_project.featured_image.url }}" alt="{{ related_project.title }}" class="w-full h-48 object-cover rounded-t-xl">
+                        {% else %}
+                            <div class="w-full h-48 bg-gradient-to-br from-primary-500 to-primary-700 rounded-t-xl flex items-center justify-center">
+                                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                                </svg>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="inline-flex items-center px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded text-xs font-medium">
+                                {{ related_project.get_project_type_display }}
+                            </span>
+                            {% if related_project.is_featured %}
+                            <span class="inline-flex items-center px-2 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded text-xs font-medium">
+                                Featured
+                            </span>
+                            {% endif %}
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                            {{ related_project.title }}
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                            {{ related_project.description|truncatewords:20 }}
+                        </p>
+                        <a href="{{ related_project.get_absolute_url }}" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
+                            View Project
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="{% url 'portfolio:project_list' %}" class="inline-flex items-center justify-center px-6 py-3 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-900 dark:text-white font-medium rounded-lg border border-gray-300 dark:border-gray-700 transition-all">
+                    View All Projects
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Call to Action -->
+<section class="py-16 bg-gradient-to-r from-primary-600 to-primary-700">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                Interested in Similar Work?
+            </h2>
+            <p class="text-xl text-primary-100 mb-8">
+                Let's discuss your project requirements and explore how we can work together to bring your vision to life.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/contact" class="inline-flex items-center justify-center px-8 py-3 bg-white hover:bg-gray-100 text-primary-600 font-medium rounded-lg transition-all transform hover:scale-105 shadow-lg">
+                    Start a Conversation
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                </a>
+                <a href="{% url 'portfolio:project_list' %}" class="inline-flex items-center justify-center px-8 py-3 bg-transparent hover:bg-white/10 text-white font-medium rounded-lg border-2 border-white transition-all">
+                    View More Projects
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Schema.org Structured Data -->
+{% if structured_data %}
+<script type="application/ld+json">
+{{ structured_data|safe }}
+</script>
+{% endif %}
+
+<script>
+// Gallery Modal Functionality
+function openModal(imageSrc, altText) {
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    
+    modalImage.src = imageSrc;
+    modalImage.alt = altText;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    const modal = document.getElementById('imageModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    
+    // Restore body scroll
+    document.body.style.overflow = 'auto';
+}
+
+// Close modal on escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeModal();
+    }
+});
+
+// Close modal on backdrop click
+document.getElementById('imageModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeModal();
+    }
+});
+</script>
+{% endblock %}
