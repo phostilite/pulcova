@@ -264,6 +264,3 @@ class SolutionDetailView(DetailView):
         except Exception as e:
             logger.error(f"Error generating structured data: {e}")
             return {}
-
-
-# Create your views here.
