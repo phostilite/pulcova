@@ -1,13 +1,19 @@
-from django.views.generic import TemplateView
-from django.http import HttpResponseRedirect
+from django.views.generic import TemplateView, FormView
+from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib import messages
 from django.urls import reverse
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q, Count, Sum
+from django.core.mail import send_mail, BadHeaderError
+from django.conf import settings
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 from apps.blog.models import Article, Category, Tag
 from apps.portfolio.models import Project, Technology
+from .forms import ContactForm
 import logging
+import traceback
 
 logger = logging.getLogger(__name__)
 
@@ -845,8 +851,257 @@ class ServicesView(TemplateView):
         return context
     
     
-class ContactView(TemplateView):
+class ContactView(FormView):
     """
-    Class-based view for the contact page.
+    Class-based view for the contact page with form handling.
+    Handles both GET requests (display form) and POST requests (process form).
     """
     template_name = 'pages/contact.html'
+    form_class = ContactForm
+    success_url = '/contact/'
+    
+    def get_context_data(self, **kwargs):
+        """Add additional context data."""
+        context = super().get_context_data(**kwargs)
+        
+        # Add any additional context if needed
+        context['page_title'] = 'Contact Us'
+        context['meta_description'] = 'Get in touch with Pulcova for your next software development project.'
+        
+        return context
+    
+    def form_valid(self, form):
+        """
+        Handle valid form submission with comprehensive error handling.
+        """
+        try:
+            # Extract form data
+            cleaned_data = form.cleaned_data
+            first_name = cleaned_data.get('first_name')
+            last_name = cleaned_data.get('last_name')
+            email = cleaned_data.get('email')
+            company = cleaned_data.get('company', 'Not specified')
+            project_type = cleaned_data.get('project_type')
+            budget = cleaned_data.get('budget', 'Not specified')
+            timeline = cleaned_data.get('timeline', 'Not specified')
+            message = cleaned_data.get('message')
+            
+            # Prepare email content
+            full_name = f"{first_name} {last_name}"
+            project_type_display = dict(form.fields['project_type'].choices).get(project_type, project_type)
+            budget_display = dict(form.fields['budget'].choices).get(budget, budget)
+            timeline_display = dict(form.fields['timeline'].choices).get(timeline, timeline)
+            
+            # Email subject
+            subject = f"New Contact Form Submission from {full_name}"
+            
+            # Email body (HTML version)
+            html_message = f"""
+            <html>
+            <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+                    <h2 style="color: #2563eb; border-bottom: 2px solid #2563eb; padding-bottom: 10px;">
+                        New Contact Form Submission
+                    </h2>
+                    
+                    <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <h3 style="margin-top: 0; color: #1e293b;">Contact Information</h3>
+                        <p><strong>Name:</strong> {full_name}</p>
+                        <p><strong>Email:</strong> <a href="mailto:{email}">{email}</a></p>
+                        <p><strong>Company:</strong> {company}</p>
+                    </div>
+                    
+                    <div style="background-color: #f0f9ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <h3 style="margin-top: 0; color: #1e293b;">Project Details</h3>
+                        <p><strong>Project Type:</strong> {project_type_display}</p>
+                        <p><strong>Budget Range:</strong> {budget_display}</p>
+                        <p><strong>Timeline:</strong> {timeline_display}</p>
+                    </div>
+                    
+                    <div style="background-color: #fefce8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <h3 style="margin-top: 0; color: #1e293b;">Message</h3>
+                        <p style="white-space: pre-wrap;">{message}</p>
+                    </div>
+                    
+                    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; font-size: 0.9em; color: #64748b;">
+                        <p><strong>Submitted:</strong> {timezone.now().strftime('%B %d, %Y at %I:%M %p UTC')}</p>
+                        <p><strong>Source:</strong> Pulcova Contact Form</p>
+                    </div>
+                </div>
+            </body>
+            </html>
+            """
+            
+            # Plain text version
+            plain_message = f"""
+New Contact Form Submission
+
+Contact Information:
+- Name: {full_name}
+- Email: {email}
+- Company: {company}
+
+Project Details:
+- Project Type: {project_type_display}
+- Budget Range: {budget_display}
+- Timeline: {timeline_display}
+
+Message:
+{message}
+
+Submitted: {timezone.now().strftime('%B %d, %Y at %I:%M %p UTC')}
+Source: Pulcova Contact Form
+            """
+            
+            # Send email to yourself
+            try:
+                send_mail(
+                    subject=subject,
+                    message=plain_message,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=['hello@pulcova.store'],  # Your email
+                    html_message=html_message,
+                    fail_silently=False,
+                )
+                logger.info(f"Contact form email sent successfully for {email}")
+            except BadHeaderError:
+                logger.error("Invalid header found in email.")
+                messages.error(self.request, 'Invalid email format. Please try again.')
+                return self.form_invalid(form)
+            except Exception as e:
+                logger.error(f"Failed to send contact form email: {e}")
+                logger.error(traceback.format_exc())
+                messages.error(
+                    self.request,
+                    'There was an error sending your message. Please try again or contact us directly.'
+                )
+                return self.form_invalid(form)
+            
+            # Send confirmation email to the user
+            try:
+                confirmation_subject = "Thank you for contacting Pulcova!"
+                confirmation_html = f"""
+                <html>
+                <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                    <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+                        <h2 style="color: #2563eb;">Thank you for reaching out!</h2>
+                        
+                        <p>Hi {first_name},</p>
+                        
+                        <p>Thank you for contacting Pulcova! I've received your message about your <strong>{project_type_display.lower()}</strong> project and will get back to you within 24 hours.</p>
+                        
+                        <div style="background-color: #f8fafc; padding: 15px; border-left: 4px solid #2563eb; margin: 20px 0;">
+                            <p style="margin: 0;"><strong>What's next?</strong></p>
+                            <ul style="margin: 10px 0 0 0;">
+                                <li>I'll review your project requirements</li>
+                                <li>Prepare a detailed response with next steps</li>
+                                <li>Reach out to schedule a consultation if needed</li>
+                            </ul>
+                        </div>
+                        
+                        <p>In the meantime, feel free to check out my <a href="https://pulcova.store/portfolio" style="color: #2563eb;">portfolio</a> and <a href="https://pulcova.store/blog" style="color: #2563eb;">blog</a> for more information about my work.</p>
+                        
+                        <p>Best regards,<br>
+                        <strong>Pulcova</strong><br>
+                        Full Stack Software Engineer</p>
+                        
+                        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; font-size: 0.9em; color: #64748b;">
+                            <p>This is an automated confirmation. Please don't reply to this email.</p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+                """
+                
+                confirmation_plain = f"""
+Hi {first_name},
+
+Thank you for contacting Pulcova! I've received your message about your {project_type_display.lower()} project and will get back to you within 24 hours.
+
+What's next?
+- I'll review your project requirements
+- Prepare a detailed response with next steps
+- Reach out to schedule a consultation if needed
+
+In the meantime, feel free to check out my portfolio and blog for more information about my work.
+
+Best regards,
+Pulcova
+Full Stack Software Engineer
+
+This is an automated confirmation. Please don't reply to this email.
+                """
+                
+                send_mail(
+                    subject=confirmation_subject,
+                    message=confirmation_plain,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[email],
+                    html_message=confirmation_html,
+                    fail_silently=True,  # Don't fail if confirmation email fails
+                )
+                logger.info(f"Confirmation email sent to {email}")
+            except Exception as e:
+                # Log error but don't fail the form submission
+                logger.warning(f"Failed to send confirmation email to {email}: {e}")
+            
+            # Add success message
+            messages.success(
+                self.request,
+                f"Thank you, {first_name}! Your message has been sent successfully. "
+                f"I'll get back to you within 24 hours."
+            )
+            
+            # Log successful submission
+            logger.info(f"Contact form submitted successfully by {email} - {full_name}")
+            
+            # Handle AJAX requests
+            if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({
+                    'success': True,
+                    'message': f"Thank you, {first_name}! Your message has been sent successfully."
+                })
+            
+            return super().form_valid(form)
+            
+        except Exception as e:
+            # Log the full error for debugging
+            logger.error(f"Unexpected error in contact form submission: {e}")
+            logger.error(traceback.format_exc())
+            
+            # Add error message
+            messages.error(
+                self.request,
+                'An unexpected error occurred. Please try again or contact us directly.'
+            )
+            
+            # Handle AJAX requests
+            if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({
+                    'success': False,
+                    'message': 'An error occurred. Please try again.'
+                })
+            
+            return self.form_invalid(form)
+    
+    def form_invalid(self, form):
+        """
+        Handle invalid form submission.
+        """
+        logger.warning(f"Contact form submission failed validation: {form.errors}")
+        
+        # Add error message
+        messages.error(
+            self.request,
+            'Please correct the errors below and try again.'
+        )
+        
+        # Handle AJAX requests
+        if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({
+                'success': False,
+                'message': 'Please correct the errors and try again.',
+                'errors': form.errors
+            })
+        
+        return super().form_invalid(form)
