@@ -181,24 +181,32 @@
         
         <!-- Blog Grid -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {% for i in "123" %}
+            {% for blog in recent_blogs %}
             <article class="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                 <div class="aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-700">
-                    <img src="https://via.placeholder.com/600x400" alt="Blog post thumbnail" class="w-full h-48 object-cover">
+                    {% if blog.featured_image %}
+                        <img src="{{ blog.featured_image.url }}" alt="{{ blog.title }}" class="w-full h-48 object-cover">
+                    {% else %}
+                        <div class="w-full h-48 bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center">
+                            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="p-6">
                     <div class="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-3">
-                        <span>Jan 15, 2025</span>
+                        <span>{{ blog.published_at|date:"M d, Y" }}</span>
                         <span>•</span>
-                        <span>5 min read</span>
+                        <span>{{ blog.reading_time|default:5 }} min read</span>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
-                        Building Scalable APIs with Django REST Framework: Best Practices
+                        {{ blog.title }}
                     </h3>
                     <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-                        Learn how to design and implement RESTful APIs that can handle millions of requests while maintaining clean code architecture and optimal performance.
+                        {{ blog.excerpt|default:blog.content|truncatewords:25 }}
                     </p>
-                    <a href="#" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
+                    <a href="{% url 'blog:article_detail' blog.slug %}" class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
                         Read More
                         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -206,12 +214,22 @@
                     </a>
                 </div>
             </article>
+            {% empty %}
+            <div class="col-span-full text-center py-12">
+                <div class="text-gray-500 dark:text-gray-400">
+                    <svg class="w-16 h-16 mx-auto mb-4 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">No blog posts yet</h3>
+                    <p class="text-gray-500 dark:text-gray-400">Check back soon for the latest insights and articles.</p>
+                </div>
+            </div>
             {% endfor %}
         </div>
         
         <!-- View All Posts CTA -->
         <div class="text-center mt-12">
-            <a href="/blog" class="inline-flex items-center justify-center px-6 py-3 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-900 dark:text-white font-medium rounded-lg border border-gray-300 dark:border-gray-700 transition-all">
+            <a href="{% url 'blog:article_list' %}" class="inline-flex items-center justify-center px-6 py-3 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-900 dark:text-white font-medium rounded-lg border border-gray-300 dark:border-gray-700 transition-all">
                 View All Articles
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
