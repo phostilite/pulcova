@@ -66,6 +66,53 @@ class HomeView(TemplateView):
             # Set empty queryset as fallback
             context['featured_projects'] = Project.objects.none()
         
+        try:
+            # Calculate hero section statistics
+            hero_stats = {}
+            
+            # Calculate total published projects
+            total_projects = Project.objects.filter(
+                is_published=True,
+                published_at__lte=timezone.now()
+            ).count()
+            hero_stats['total_projects'] = total_projects
+            
+            # Calculate years of experience based on earliest project
+            earliest_project = Project.objects.filter(
+                is_published=True,
+                start_date__isnull=False
+            ).order_by('start_date').first()
+            
+            if earliest_project:
+                years_experience = timezone.now().year - earliest_project.start_date.year
+                # Add partial year if we're past the anniversary
+                if timezone.now().date() >= earliest_project.start_date.replace(year=timezone.now().year):
+                    years_experience = max(1, years_experience)
+                else:
+                    years_experience = max(1, years_experience - 1)
+            else:
+                years_experience = 0
+            
+            hero_stats['years_experience'] = years_experience
+            
+            # Count unique technologies used
+            total_technologies = Technology.objects.filter(
+                project__is_published=True,
+                project__published_at__lte=timezone.now()
+            ).distinct().count()
+            hero_stats['total_technologies'] = total_technologies
+            
+            context['hero_stats'] = hero_stats
+            
+        except Exception as e:
+            logger.error(f"Error calculating hero statistics: {e}")
+            # Set safe defaults
+            context['hero_stats'] = {
+                'total_projects': 0,
+                'years_experience': 0,
+                'total_technologies': 0,
+            }
+        
         return context
     
     

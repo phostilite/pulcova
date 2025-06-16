@@ -52,20 +52,30 @@
             </div>
             
             <!-- Stats -->
-            <div class="mt-16 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+            {% if hero_stats %}
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-3 gap-8 max-w-2xl mx-auto">
+                {% if hero_stats.years_experience > 0 %}
                 <div class="text-center">
-                    <div class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">10+</div>
-                    <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Years Experience</div>
+                    <div class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">{{ hero_stats.years_experience }}{% if hero_stats.years_experience == 1 %}{% else %}+{% endif %}</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Year{% if hero_stats.years_experience != 1 %}s{% endif %} Experience</div>
                 </div>
+                {% endif %}
+                
+                {% if hero_stats.total_projects > 0 %}
                 <div class="text-center">
-                    <div class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">50+</div>
-                    <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Projects Delivered</div>
+                    <div class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">{{ hero_stats.total_projects }}</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Project{% if hero_stats.total_projects != 1 %}s{% endif %} Delivered</div>
                 </div>
+                {% endif %}
+                
+                {% if hero_stats.total_technologies > 0 %}
                 <div class="text-center">
-                    <div class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">100%</div>
-                    <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Client Satisfaction</div>
+                    <div class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">{{ hero_stats.total_technologies }}+</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Technologies</div>
                 </div>
+                {% endif %}
             </div>
+            {% endif %}
         </div>
     </div>
 </section>
