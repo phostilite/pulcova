@@ -45,201 +45,151 @@
         </div>
         
         <!-- Services Grid -->
+        {% if services %}
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            <!-- Full-Stack Development -->
+            {% for service in services %}
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 hover:shadow-xl transition-shadow duration-300">
+                <!-- Service Icon -->
                 <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mb-6">
-                    <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                    </svg>
+                    {% if service.icon %}
+                        <img src="{{ service.icon.url }}" alt="{{ service.title }} icon" class="w-6 h-6 object-contain">
+                    {% else %}
+                        <!-- Default icon based on service title keywords -->
+                        {% if 'Full-Stack' in service.title or 'Development' in service.title %}
+                            <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                            </svg>
+                        {% elif 'API' in service.title %}
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        {% elif 'AI' in service.title or 'ML' in service.title %}
+                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                            </svg>
+                        {% elif 'DevOps' in service.title or 'Deploy' in service.title %}
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>
+                            </svg>
+                        {% elif 'Consult' in service.title %}
+                            <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                            </svg>
+                        {% elif 'Maintenance' in service.title or 'Support' in service.title %}
+                            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        {% else %}
+                            <!-- Generic service icon -->
+                            <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6m0 0v6m0-6H8m0 0V6m0 0v6m0-6h8"></path>
+                            </svg>
+                        {% endif %}
+                    {% endif %}
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Full-Stack Development</h3>
-                <p class="text-gray-600 dark:text-gray-300 mb-6">End-to-end web application development using modern frameworks like Django, React, and Node.js with scalable architecture.</p>
-                <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
-                    <li class="flex items-center">
+                
+                <!-- Service Title and Description -->
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">{{ service.title }}</h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-6">{{ service.description }}</p>
+                
+                <!-- Service Features (if detailed_content exists, parse it for features) -->
+                {% if service.detailed_content %}
+                <div class="space-y-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
+                    {% with service.detailed_content|slice:":200" as content_preview %}
+                        {% if content_preview %}
+                            <div class="text-gray-600 dark:text-gray-300">
+                                {{ content_preview|truncatewords:15 }}...
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                {% endif %}
+                
+                <!-- Service Details -->
+                <div class="space-y-2 mb-6">
+                    {% if service.delivery_time %}
+                    <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
                         <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
                         </svg>
-                        Custom web applications
-                    </li>
-                    <li class="flex items-center">
+                        Delivery: {{ service.delivery_time }}
+                    </div>
+                    {% endif %}
+                    
+                    {% if service.price_range %}
+                    <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
                         <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
                         </svg>
-                        Database design & optimization
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        Performance optimization
-                    </li>
-                </ul>
-                <div class="text-2xl font-bold text-gray-900 dark:text-white">Starting at $2,500</div>
+                        {{ service.price_range }}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Service Price -->
+                <div class="text-2xl font-bold text-gray-900 dark:text-white">
+                    {% if service.price_range %}
+                        {{ service.price_range }}
+                    {% else %}
+                        Contact for Quote
+                    {% endif %}
+                </div>
             </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <!-- No Services Available -->
+        <div class="text-center py-12">
+            <div class="w-24 h-24 mx-auto mb-6 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
+                <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6m0 0v6m0-6H8m0 0V6m0 0v6m0-6h8"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">No Services Available</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+                Services are being updated. Please check back soon or contact us directly for custom solutions.
+            </p>
+        </div>
+        {% endif %}
+    </div>
+</section>
 
-            <!-- API Development -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 hover:shadow-xl transition-shadow duration-300">
-                <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-6">
-                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
+<!-- Featured Services Section (if available) -->
+{% if has_featured and featured_services %}
+<section class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                Featured Services
+            </h2>
+            <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                Our most popular and highly-rated services that deliver exceptional results for our clients.
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {% for service in featured_services %}
+            <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg border-2 border-primary-200 dark:border-primary-800 p-6 text-center hover:shadow-xl transition-shadow duration-300">
+                <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-6">
+                    {% if service.icon %}
+                        <img src="{{ service.icon.url }}" alt="{{ service.title }} icon" class="w-8 h-8 object-contain">
+                    {% else %}
+                        <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    {% endif %}
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">API Development & Integration</h3>
-                <p class="text-gray-600 dark:text-gray-300 mb-6">RESTful APIs, GraphQL endpoints, and third-party service integrations with comprehensive documentation.</p>
-                <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
-                    <li class="flex items-center">
-                        <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        RESTful API design
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        Third-party integrations
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        API documentation
-                    </li>
-                </ul>
-                <div class="text-2xl font-bold text-gray-900 dark:text-white">Starting at $1,500</div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">{{ service.title }}</h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">{{ service.description|truncatewords:20 }}</p>
+                {% if service.price_range %}
+                <div class="text-primary-600 font-semibold">{{ service.price_range }}</div>
+                {% endif %}
             </div>
-
-            <!-- AI/ML Integration -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 hover:shadow-xl transition-shadow duration-300">
-                <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-6">
-                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                    </svg>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">AI/ML Integration</h3>
-                <p class="text-gray-600 dark:text-gray-300 mb-6">Intelligent features integration including chatbots, recommendation systems, and data analysis tools.</p>
-                <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
-                    <li class="flex items-center">
-                        <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        ChatGPT/LLM integration
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        Data analysis tools
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        Custom ML models
-                    </li>
-                </ul>
-                <div class="text-2xl font-bold text-gray-900 dark:text-white">Starting at $3,000</div>
-            </div>
-
-            <!-- DevOps & Deployment -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 hover:shadow-xl transition-shadow duration-300">
-                <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-6">
-                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>
-                    </svg>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">DevOps & Deployment</h3>
-                <p class="text-gray-600 dark:text-gray-300 mb-6">Cloud deployment, CI/CD pipelines, monitoring, and infrastructure management for scalable applications.</p>
-                <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
-                    <li class="flex items-center">
-                        <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        Cloud deployment (AWS/GCP)
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        CI/CD pipelines
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        Monitoring & maintenance
-                    </li>
-                </ul>
-                <div class="text-2xl font-bold text-gray-900 dark:text-white">Starting at $1,200</div>
-            </div>
-
-            <!-- Technical Consulting -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 hover:shadow-xl transition-shadow duration-300">
-                <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center mb-6">
-                    <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                    </svg>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Technical Consulting</h3>
-                <p class="text-gray-600 dark:text-gray-300 mb-6">Architecture reviews, code audits, technology recommendations, and technical strategy planning.</p>
-                <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
-                    <li class="flex items-center">
-                        <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        Architecture review
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        Code audits
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        Tech strategy planning
-                    </li>
-                </ul>
-                <div class="text-2xl font-bold text-gray-900 dark:text-white">$150/hour</div>
-            </div>
-
-            <!-- Maintenance & Support -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 hover:shadow-xl transition-shadow duration-300">
-                <div class="w-12 h-12 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center mb-6">
-                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Maintenance & Support</h3>
-                <p class="text-gray-600 dark:text-gray-300 mb-6">Ongoing maintenance, bug fixes, feature updates, and technical support for existing applications.</p>
-                <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
-                    <li class="flex items-center">
-                        <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        24/7 monitoring
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        Bug fixes & updates
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                        Performance optimization
-                    </li>
-                </ul>
-                <div class="text-2xl font-bold text-gray-900 dark:text-white">$500/month</div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
+{% endif %}
 
 <!-- Process Timeline Section -->
 <section class="py-20 bg-gray-50 dark:bg-gray-800">
@@ -369,7 +319,7 @@
                     </h3>
                     <div id="faq-body-2" class="hidden" aria-labelledby="faq-heading-2">
                         <div class="p-6 border-t border-gray-200 dark:border-gray-700">
-                            <p class="text-gray-600 dark:text-gray-300">Yes, I offer comprehensive maintenance packages starting at $500/month. This includes 24/7 monitoring, regular updates, bug fixes, security patches, and performance optimization. I also provide ad-hoc support for specific issues or feature requests.</p>
+                            <p class="text-gray-600 dark:text-gray-300">Yes, I offer comprehensive maintenance packages. This includes regular updates, bug fixes, security patches, and performance optimization. I also provide ad-hoc support for specific issues or feature requests.</p>
                         </div>
                     </div>
                 </div>
@@ -446,7 +396,16 @@
                 <!-- Contact Form -->
                 <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-2xl">
                     <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Get a Free Quote</h3>
-                    <form class="space-y-6" method="post" action="#">
+                    
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="mb-6 p-4 rounded-lg {% if message.tags == 'success' %}bg-green-100 border border-green-400 text-green-700{% elif message.tags == 'error' %}bg-red-100 border border-red-400 text-red-700{% else %}bg-blue-100 border border-blue-400 text-blue-700{% endif %}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <form class="space-y-6" method="post" action="{% url 'pages:services' %}">
                         {% csrf_token %}
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Full Name</label>
@@ -462,19 +421,21 @@
                             <label for="service" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Service Interested In</label>
                             <select id="service" name="service" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
                                 <option value="">Select a service</option>
-                                <option value="full-stack">Full-Stack Development</option>
-                                <option value="api">API Development & Integration</option>
-                                <option value="ai-ml">AI/ML Integration</option>
-                                <option value="devops">DevOps & Deployment</option>
-                                <option value="consulting">Technical Consulting</option>
-                                <option value="maintenance">Maintenance & Support</option>
+                                {% for service in services %}
+                                <option value="{{ service.id }}">{{ service.title }}</option>
+                                {% endfor %}
                                 <option value="other">Other</option>
                             </select>
                         </div>
                         
                         <div>
-                            <label for="budget" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Project Budget</label>
-                            <select id="budget" name="budget" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
+                            <label for="company" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Company (Optional)</label>
+                            <input type="text" id="company" name="company" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
+                        </div>
+                        
+                        <div>
+                            <label for="budget_range" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Project Budget</label>
+                            <select id="budget_range" name="budget_range" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
                                 <option value="">Select budget range</option>
                                 <option value="under-5k">Under $5,000</option>
                                 <option value="5k-10k">$5,000 - $10,000</option>
@@ -497,8 +458,8 @@
                         </div>
                         
                         <div>
-                            <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Project Description</label>
-                            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white" placeholder="Tell me about your project requirements, goals, and any specific features you need..."></textarea>
+                            <label for="project_description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Project Description</label>
+                            <textarea id="project_description" name="project_description" rows="4" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white" placeholder="Tell me about your project requirements, goals, and any specific features you need..."></textarea>
                         </div>
                         
                         <button type="submit" class="w-full bg-primary-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-primary-700 transition-colors duration-200 flex items-center justify-center">
@@ -530,7 +491,7 @@
                         <div class="flex items-start">
                             <div class="w-6 h-6 text-primary-200 mt-1 mr-4">
                                 <svg fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
                                 </svg>
                             </div>
                             <div>
@@ -542,7 +503,7 @@
                         <div class="flex items-start">
                             <div class="w-6 h-6 text-primary-200 mt-1 mr-4">
                                 <svg fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                             </div>
                             <div>
@@ -550,6 +511,22 @@
                                 <p class="text-primary-100">Free 30-minute discovery call</p>
                             </div>
                         </div>
+                        
+                        {% if stats %}
+                        <div class="mt-8 pt-8 border-t border-primary-500">
+                            <h4 class="font-medium text-lg mb-4">Service Statistics</h4>
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <div class="text-2xl font-bold text-white">{{ stats.total_services }}</div>
+                                    <div class="text-primary-200">Active Services</div>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold text-white">{{ stats.total_inquiries }}</div>
+                                    <div class="text-primary-200">Total Inquiries</div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
                     
                     <div class="mt-8 pt-8 border-t border-primary-500">

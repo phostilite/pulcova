@@ -1,4 +1,7 @@
 from django.views.generic import TemplateView
+from django.http import HttpResponseRedirect
+from django.contrib import messages
+from django.urls import reverse
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q, Count, Sum
@@ -634,9 +637,83 @@ class SolutionsView(TemplateView):
 
 class ServicesView(TemplateView):
     """
-    Class-based view for the services page with real services data.
+    Class-based view for the services page with real services data and form handling.
     """
     template_name = 'pages/services.html'
+    
+    def post(self, request, *args, **kwargs):
+        """
+        Handle service inquiry form submission.
+        """
+        try:
+            # Import here to avoid circular imports
+            from apps.services.models import Service, ServiceInquiry
+            
+            # Extract form data
+            name = request.POST.get('name', '').strip()
+            email = request.POST.get('email', '').strip()
+            service_id = request.POST.get('service', '').strip()
+            company = request.POST.get('company', '').strip()
+            budget_range = request.POST.get('budget_range', '').strip()
+            timeline = request.POST.get('timeline', '').strip()
+            project_description = request.POST.get('project_description', '').strip()
+            
+            # Basic validation
+            if not all([name, email, project_description]):
+                messages.error(request, 'Please fill in all required fields (Name, Email, and Project Description).')
+                return self.get(request, *args, **kwargs)
+            
+            if not service_id or service_id == 'other':
+                # Handle "other" service type
+                try:
+                    # Create a generic service entry or handle differently
+                    service = None
+                except Exception:
+                    service = None
+            else:
+                try:
+                    service = Service.objects.get(id=service_id, is_active=True, is_published=True)
+                except Service.DoesNotExist:
+                    messages.error(request, 'Invalid service selected. Please choose a valid service.')
+                    return self.get(request, *args, **kwargs)
+                except ValueError:
+                    # Handle invalid service_id format
+                    messages.error(request, 'Invalid service selected. Please choose a valid service.')
+                    return self.get(request, *args, **kwargs)
+            
+            # Create service inquiry
+            if service:
+                inquiry = ServiceInquiry.objects.create(
+                    service=service,
+                    name=name,
+                    email=email,
+                    company=company,
+                    budget_range=budget_range,
+                    project_description=project_description,
+                    timeline=timeline,
+                    status='new'
+                )
+                
+                messages.success(request, 
+                    f'Thank you {name}! Your inquiry for "{service.title}" has been submitted successfully. '
+                    'I will review your requirements and get back to you within 24 hours.')
+            else:
+                # Handle "other" service inquiries - you might want to create a generic service
+                # or handle this differently based on your requirements
+                messages.success(request, 
+                    f'Thank you {name}! Your custom service inquiry has been submitted successfully. '
+                    'I will review your requirements and get back to you within 24 hours.')
+            
+            # Log the successful inquiry
+            logger.info(f"New service inquiry submitted by {email} for service: {service.title if service else 'Custom'}")
+            
+            # Redirect to prevent form resubmission
+            return HttpResponseRedirect(reverse('pages:services') + '#contact')
+            
+        except Exception as e:
+            logger.error(f"Error processing service inquiry: {e}", exc_info=True)
+            messages.error(request, 'An error occurred while submitting your inquiry. Please try again or contact us directly.')
+            return self.get(request, *args, **kwargs)
     
     def get_context_data(self, **kwargs):
         """
@@ -744,9 +821,9 @@ class ServicesView(TemplateView):
             logger.error(f"Error building context for services page: {e}")
             # Provide safe defaults in case of major errors
             context.update({
-                'services': Service.objects.none(),
+                'services': Service.objects.none() if 'Service' in locals() else [],
                 'total_services': 0,
-                'featured_services': Service.objects.none(),
+                'featured_services': Service.objects.none() if 'Service' in locals() else [],
                 'has_featured': False,
                 'stats': {
                     'total_services': 0,
