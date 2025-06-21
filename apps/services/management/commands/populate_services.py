@@ -102,870 +102,596 @@ class Command(BaseCommand):
         self.stdout.write(f'💼 Creating {count} services...')
         
         services_data = [
-            {
-                'title': 'Custom Web Development',
-                'description': 'Professional custom web development services tailored to your business needs.',
-                'detailed_content': '''We specialize in creating custom web applications that drive business growth and enhance user experience. Our team of experienced developers uses cutting-edge technologies to build scalable, secure, and high-performance web solutions.
+    {
+        'title': 'Professional Website Development',
+        'description': 'Modern, responsive websites for businesses and professionals using latest web technologies.',
+        'detailed_content': '''Get a professional website that represents your brand effectively and converts visitors into customers. I specialize in creating fast, SEO-friendly websites that work perfectly on all devices.
 
-**What We Offer:**
-- Custom web application development
-- Responsive design implementation
-- Database design and optimization
-- API development and integration
-- Performance optimization
-- Security implementation
-- Ongoing maintenance and support
+**What's Included:**
+- Custom responsive design
+- Mobile-first approach
+- SEO optimization basics
+- Contact forms and integrations
+- Content management system
+- Basic analytics setup
+- SSL certificate setup
+- 30 days post-launch support
 
-**Technologies We Use:**
-- Frontend: React, Vue.js, Angular, HTML5, CSS3, JavaScript
-- Backend: Django, Node.js, Laravel, Express.js
-- Databases: PostgreSQL, MySQL, MongoDB
-- Cloud: AWS, Google Cloud, Azure
+**Technologies I Use:**
+- Frontend: HTML5, CSS3, JavaScript, React/Vue.js
+- Backend: Django/Node.js
+- Database: PostgreSQL/MySQL
+- Deployment: Cloud hosting setup
 
-**Our Process:**
-1. **Discovery & Planning**: Understanding your requirements and business goals
-2. **Design & Prototyping**: Creating wireframes and interactive prototypes
-3. **Development**: Building your application with best practices
-4. **Testing**: Comprehensive testing across devices and browsers
-5. **Deployment**: Launching your application with proper configuration
-6. **Support**: Ongoing maintenance and feature updates
+**Process:**
+1. Requirement gathering and planning
+2. Design mockups and approval
+3. Development and testing
+4. Deployment and handover
+5. Post-launch support
 
-**Why Choose Us:**
-- 5+ years of experience in web development
-- Agile development methodology
-- Regular communication and updates
-- Post-launch support and maintenance
-- Competitive pricing with transparent billing''',
-                'price_range': '$5,000 - $50,000',
-                'delivery_time': '4-16 weeks',
-                'order_priority': 100
-            },
-            {
-                'title': 'E-commerce Development',
-                'description': 'Complete e-commerce solutions to help you sell online effectively.',
-                'detailed_content': '''Transform your business with our comprehensive e-commerce development services. We create powerful online stores that convert visitors into customers and drive sales growth.
+**Ideal For:**
+- Small businesses
+- Professional portfolios
+- Service providers
+- Startups
+- Personal brands''',
+        'price_range': '$300 - $1,200',
+        'delivery_time': '2-4 weeks',
+        'order_priority': 100
+    },
+    {
+        'title': 'E-commerce Website Development',
+        'description': 'Complete online store solutions with payment integration and inventory management.',
+        'detailed_content': '''Launch your online business with a fully functional e-commerce website. I create secure, user-friendly online stores that help you sell effectively.
 
-**E-commerce Solutions:**
-- Custom e-commerce platforms
-- Shopify and WooCommerce development
-- Payment gateway integration
-- Inventory management systems
-- Order processing automation
-- Mobile-responsive design
-- SEO optimization
+**E-commerce Features:**
+- Product catalog management
+- Shopping cart and checkout
+- Payment gateway integration (Razorpay, PayPal, Stripe)
+- Order management system
+- Customer accounts
+- Email notifications
+- Basic inventory tracking
+- Mobile responsive design
 
-**Key Features:**
-- Secure payment processing
-- User-friendly admin panels
-- Advanced product catalogs
-- Shopping cart optimization
-- Customer account management
-- Analytics and reporting
-- Multi-language support
-- Social media integration
+**Additional Features:**
+- Product search and filters
+- Customer reviews
+- Wishlist functionality
+- Discount codes
+- Basic shipping calculator
+- GST/Tax calculations
+- Invoice generation
 
-**Platforms We Work With:**
-- Shopify & Shopify Plus
-- WooCommerce
-- Magento
-- Custom solutions with Django/React
+**Platform Options:**
+- Custom Django e-commerce
+- WooCommerce setup and customization
+- Basic Shopify store setup
 
-**Our E-commerce Expertise:**
-- B2B and B2C platforms
-- Marketplace development
-- Subscription-based models
-- Digital product delivery
-- International shipping integration
-- Tax calculation systems
-
-**Success Metrics:**
-- Average 35% increase in conversion rates
-- 50% reduction in cart abandonment
-- 99.9% uptime guarantee
-- Mobile-first approach for better user experience''',
-                'price_range': '$8,000 - $80,000',
-                'delivery_time': '6-20 weeks',
-                'order_priority': 95
-            },
-            {
-                'title': 'Mobile App Development',
-                'description': 'Native and cross-platform mobile applications for iOS and Android.',
-                'detailed_content': '''Create engaging mobile experiences with our professional mobile app development services. We build native and cross-platform applications that deliver exceptional user experiences.
-
-**Mobile Development Services:**
-- iOS app development (Swift/SwiftUI)
-- Android app development (Kotlin/Java)
-- Cross-platform development (React Native, Flutter)
-- Progressive Web Apps (PWA)
-- App Store optimization
-- Mobile app maintenance
-
-**App Categories We Specialize In:**
-- Business and productivity apps
-- E-commerce and marketplace apps
-- Social networking applications
-- Healthcare and fitness apps
-- Educational and learning apps
-- Entertainment and gaming apps
-- Financial and fintech apps
-
-**Development Process:**
-1. **Strategy & Planning**: Market research and feature planning
-2. **UI/UX Design**: User-centered design and prototyping
-3. **Development**: Agile development with regular updates
-4. **Testing**: Comprehensive testing on multiple devices
-5. **App Store Submission**: Handling submission process
-6. **Post-Launch Support**: Updates, maintenance, and new features
-
-**Key Features:**
-- Native performance optimization
-- Offline functionality
-- Push notifications
-- In-app purchases
-- Social media integration
-- Analytics and user tracking
-- Security and data protection
-
-**Why Our Mobile Apps Stand Out:**
-- Average 4.5+ App Store ratings
-- 99.9% crash-free rate
-- Optimized for battery life
-- Seamless user experience
-- Regular updates and improvements''',
-                'price_range': '$15,000 - $100,000',
-                'delivery_time': '8-24 weeks',
-                'order_priority': 90
-            },
-            {
-                'title': 'Digital Marketing Strategy',
-                'description': 'Comprehensive digital marketing strategies to grow your online presence.',
-                'detailed_content': '''Accelerate your business growth with our data-driven digital marketing strategies. We help businesses increase their online visibility, attract qualified leads, and convert them into loyal customers.
-
-**Digital Marketing Services:**
-- SEO (Search Engine Optimization)
-- PPC (Pay-Per-Click) advertising
-- Social media marketing
-- Content marketing
-- Email marketing campaigns
-- Conversion rate optimization
-- Marketing automation
-
-**SEO Services:**
-- Keyword research and analysis
-- On-page optimization
-- Technical SEO audits
-- Link building strategies
-- Local SEO optimization
-- SEO content creation
-- Performance tracking and reporting
-
-**PPC Advertising:**
-- Google Ads campaigns
-- Facebook and Instagram ads
-- LinkedIn advertising
-- YouTube advertising
-- Remarketing campaigns
-- Landing page optimization
-- A/B testing and optimization
-
-**Social Media Marketing:**
-- Social media strategy development
-- Content creation and curation
-- Community management
-- Influencer partnerships
-- Social media advertising
-- Analytics and reporting
-
-**Content Marketing:**
-- Content strategy development
-- Blog writing and optimization
-- Video content creation
-- Infographic design
-- Email newsletter creation
-- Webinar planning and execution
-
-**Results You Can Expect:**
-- 150% increase in organic traffic
-- 300% improvement in lead generation
-- 25% reduction in customer acquisition cost
-- 200% increase in social media engagement''',
-                'price_range': '$2,000 - $15,000/month',
-                'delivery_time': '2-4 weeks setup',
-                'order_priority': 85
-            },
-            {
-                'title': 'UI/UX Design Services',
-                'description': 'User-centered design solutions that enhance user experience and drive conversions.',
-                'detailed_content': '''Create exceptional user experiences with our professional UI/UX design services. We design interfaces that are not only beautiful but also functional and user-friendly.
-
-**UI/UX Design Services:**
-- User research and analysis
-- Information architecture
-- Wireframing and prototyping
-- Visual design and branding
-- Usability testing
-- Design system creation
-- Mobile-first design approach
-
-**Design Process:**
-1. **Research**: Understanding users, competitors, and market
-2. **Strategy**: Defining goals and user journeys
-3. **Wireframing**: Creating structural blueprints
-4. **Prototyping**: Building interactive prototypes
-5. **Visual Design**: Applying colors, typography, and imagery
-6. **Testing**: Validating designs with real users
-7. **Implementation**: Working with developers for pixel-perfect execution
-
-**Specializations:**
-- Web application interfaces
-- Mobile app design
-- E-commerce user experience
-- SaaS product design
-- Dashboard and admin interfaces
-- Landing page optimization
-- Accessibility compliance
-
-**Design Tools & Technologies:**
-- Figma, Sketch, Adobe XD
-- InVision, Principle, Framer
-- Adobe Creative Suite
-- Zeplin for developer handoff
-- UsabilityHub for testing
-- Hotjar for user behavior analysis
-
-**What Makes Our Designs Effective:**
-- User-centered design approach
-- Data-driven design decisions
-- Accessibility standards compliance
-- Mobile-first responsive design
-- Conversion rate optimization
-- Brand consistency across platforms
-
-**Deliverables:**
-- User research reports
-- Wireframes and user flows
-- High-fidelity mockups
-- Interactive prototypes
-- Design specifications
-- Style guides and design systems''',
-                'price_range': '$3,000 - $25,000',
-                'delivery_time': '3-8 weeks',
-                'order_priority': 80
-            },
-            {
-                'title': 'Cloud Infrastructure Setup',
-                'description': 'Secure and scalable cloud infrastructure solutions for modern businesses.',
-                'detailed_content': '''Build a robust foundation for your applications with our cloud infrastructure services. We help businesses migrate to the cloud and optimize their infrastructure for performance, security, and cost-effectiveness.
-
-**Cloud Services:**
-- Cloud migration planning and execution
-- Infrastructure as Code (IaC)
-- Auto-scaling configuration
-- Load balancing setup
-- Database optimization
-- Security implementation
-- Monitoring and alerting
-
-**Cloud Platforms:**
-- Amazon Web Services (AWS)
-- Google Cloud Platform (GCP)
-- Microsoft Azure
-- DigitalOcean
-- Heroku for rapid deployment
-
-**Infrastructure Components:**
-- Virtual private clouds (VPC)
-- Container orchestration (Kubernetes, Docker)
-- Content delivery networks (CDN)
-- Database clusters and replication
-- Backup and disaster recovery
-- SSL certificates and security
-- CI/CD pipeline setup
-
-**DevOps Services:**
-- Continuous Integration/Continuous Deployment
-- Infrastructure monitoring
-- Automated testing pipelines
-- Configuration management
-- Log aggregation and analysis
-- Performance optimization
-- Cost optimization strategies
-
-**Security Features:**
-- Identity and Access Management (IAM)
-- Network security groups
-- Data encryption at rest and in transit
-- Regular security audits
-- Compliance frameworks (SOC 2, HIPAA, GDPR)
-- Intrusion detection systems
-- Automated backup solutions
-
-**Benefits of Our Cloud Solutions:**
-- 99.9% uptime guarantee
-- 40% reduction in infrastructure costs
-- Improved scalability and flexibility
-- Enhanced security and compliance
-- 24/7 monitoring and support
-- Disaster recovery capabilities
-
-**Migration Process:**
-1. **Assessment**: Current infrastructure analysis
-2. **Planning**: Migration strategy and timeline
-3. **Setup**: Cloud environment configuration
-4. **Migration**: Gradual data and application transfer
-5. **Testing**: Performance and functionality validation
-6. **Go-Live**: Final cutover and monitoring
-7. **Optimization**: Ongoing performance tuning''',
-                'price_range': '$5,000 - $40,000',
-                'delivery_time': '4-12 weeks',
-                'order_priority': 75
-            },
-            {
-                'title': 'API Development & Integration',
-                'description': 'Custom API development and third-party integrations to connect your systems.',
-                'detailed_content': '''Connect your applications and systems seamlessly with our API development and integration services. We create robust, scalable APIs and integrate third-party services to enhance your business capabilities.
+**Post-Launch Support:**
+- 30 days bug fixes
+- Payment testing assistance
+- Basic training on managing products
+- Documentation provided''',
+        'price_range': '$500 - $2,000',
+        'delivery_time': '3-6 weeks',
+        'order_priority': 95
+    },
+    {
+        'title': 'REST API Development',
+        'description': 'Secure and scalable API development for web and mobile applications.',
+        'detailed_content': '''Build robust APIs to power your applications and integrate with third-party services. I develop well-documented, secure APIs following industry best practices.
 
 **API Development Services:**
-- RESTful API development
-- GraphQL API implementation
-- Microservices architecture
-- API documentation and testing
-- Authentication and authorization
-- Rate limiting and throttling
-- API versioning strategies
+- RESTful API design and development
+- Database design and optimization
+- Authentication and authorization (JWT, OAuth)
+- API documentation
+- Basic rate limiting
+- Error handling
+- CORS configuration
 
-**Integration Services:**
-- Payment gateway integration (Stripe, PayPal, Square)
-- CRM integration (Salesforce, HubSpot, Pipedrive)
-- E-commerce platform integration
-- Social media API integration
-- Email service integration
-- Analytics and tracking integration
-- Inventory management system integration
-
-**API Technologies:**
+**Technologies:**
 - Django REST Framework
-- Node.js with Express
 - FastAPI (Python)
-- Spring Boot (Java)
-- ASP.NET Core (C#)
-- Ruby on Rails API
+- Node.js with Express
+- PostgreSQL/MySQL databases
+- Redis for caching
+- Postman documentation
 
-**API Features:**
-- Comprehensive error handling
-- Request/response validation
-- Automatic API documentation
-- Performance monitoring
-- Security best practices
-- Caching mechanisms
-- Webhook support
+**Common Use Cases:**
+- Mobile app backends
+- Web application APIs
+- Third-party integrations
+- Data synchronization
+- Microservices communication
 
-**Integration Capabilities:**
-- Real-time data synchronization
-- Batch data processing
-- Event-driven architecture
-- Message queue implementation
-- Database integration
-- File storage integration
-- Notification systems
+**Deliverables:**
+- Fully functional API
+- API documentation
+- Postman collection
+- Basic deployment guide
+- 30 days support''',
+        'price_range': '$400 - $1,500',
+        'delivery_time': '2-5 weeks',
+        'order_priority': 90
+    },
+    {
+        'title': 'Bug Fixing & Code Optimization',
+        'description': 'Quick resolution of bugs and performance optimization for existing applications.',
+        'detailed_content': '''Struggling with bugs or slow performance? I help fix issues and optimize your existing applications for better performance and user experience.
 
-**Quality Assurance:**
-- Automated testing suites
-- Performance testing
-- Security vulnerability testing
-- Load testing and optimization
-- API monitoring and alerting
-- Documentation maintenance
-
-**Business Benefits:**
-- Improved operational efficiency
-- Real-time data access
-- Reduced manual processes
-- Enhanced customer experience
-- Scalable system architecture
-- Future-proof integrations''',
-                'price_range': '$3,000 - $30,000',
-                'delivery_time': '3-10 weeks',
-                'order_priority': 70
-            },
-            {
-                'title': 'Database Design & Optimization',
-                'description': 'Professional database design, optimization, and management services.',
-                'detailed_content': '''Optimize your data management with our comprehensive database services. We design efficient database schemas, optimize performance, and ensure data integrity and security.
-
-**Database Services:**
-- Database design and modeling
+**Services Offered:**
+- Bug diagnosis and fixing
 - Performance optimization
-- Query optimization
-- Index strategy implementation
-- Database migration services
-- Backup and recovery planning
-- Security implementation
+- Code refactoring
+- Database query optimization
+- Frontend performance improvements
+- Memory leak fixes
+- Security vulnerability patches
 
-**Database Technologies:**
-- PostgreSQL
-- MySQL
-- MongoDB
-- Redis
-- Elasticsearch
-- SQLite
-- Microsoft SQL Server
+**Technologies I Work With:**
+- Python (Django, Flask, FastAPI)
+- JavaScript (React, Vue, Node.js)
+- PHP (Laravel, WordPress)
+- Databases (PostgreSQL, MySQL, MongoDB)
+- Frontend frameworks
+- API debugging
 
-**Design & Modeling:**
-- Entity relationship diagrams
-- Normalization and denormalization
-- Data warehouse design
-- Schema optimization
-- Constraint implementation
-- Trigger and procedure development
+**Process:**
+1. Initial code review
+2. Issue identification
+3. Solution implementation
+4. Testing and verification
+5. Documentation of changes
 
-**Performance Optimization:**
-- Query performance analysis
-- Index optimization
-- Database tuning
-- Connection pooling
-- Caching strategies
-- Partitioning implementation
-- Replication setup
-
-**Data Migration:**
-- Legacy system migration
-- Platform migration
-- Data cleaning and validation
-- ETL process development
-- Minimal downtime strategies
-- Data integrity verification
-
-**Security Features:**
-- Access control implementation
-- Data encryption
-- Audit logging
-- Compliance management
-- Backup encryption
-- User privilege management
-
-**Monitoring & Maintenance:**
-- Performance monitoring
-- Automated backup solutions
-- Health check implementation
-- Capacity planning
-- Disaster recovery testing
-- Regular maintenance schedules
-
-**Results & Benefits:**
-- 60% improvement in query performance
-- 99.9% data availability
-- Enhanced data security
-- Reduced storage costs
-- Improved application responsiveness
-- Scalable data architecture''',
-                'price_range': '$2,500 - $20,000',
-                'delivery_time': '2-8 weeks',
-                'order_priority': 65
-            },
-            {
-                'title': 'SEO Audit & Optimization',
-                'description': 'Comprehensive SEO audits and optimization to improve search engine rankings.',
-                'detailed_content': '''Boost your search engine visibility with our comprehensive SEO audit and optimization services. We identify issues, implement improvements, and help you achieve higher rankings.
-
-**SEO Audit Services:**
-- Technical SEO analysis
-- On-page SEO evaluation
-- Content audit and analysis
-- Backlink profile assessment
-- Competitor analysis
-- Local SEO audit
-- Mobile optimization review
-
-**Technical SEO:**
-- Site speed optimization
-- Core Web Vitals improvement
-- URL structure optimization
-- XML sitemap creation
-- Robots.txt optimization
-- Schema markup implementation
-- Canonical tag implementation
-
-**On-Page Optimization:**
-- Keyword research and mapping
-- Title tag optimization
-- Meta description improvement
-- Header tag structure
-- Internal linking strategy
-- Image optimization
-- Content optimization
-
-**Content Strategy:**
-- Content gap analysis
-- Keyword-focused content creation
-- Content optimization
-- Blog strategy development
-- FAQ page optimization
-- Landing page optimization
-
-**Local SEO:**
-- Google My Business optimization
-- Local citation building
-- Review management
-- Local keyword optimization
-- NAP consistency check
-- Local schema markup
-
-**Link Building:**
-- Link audit and cleanup
-- White-hat link building strategies
-- Guest posting opportunities
-- Resource page outreach
-- Broken link building
-- Internal link optimization
-
-**Reporting & Analytics:**
-- Monthly SEO reports
-- Keyword ranking tracking
-- Traffic analysis
-- Conversion tracking
-- ROI measurement
-- Competitor monitoring
-
-**Expected Results:**
-- 150% increase in organic traffic
-- 200% improvement in keyword rankings
-- 50% increase in conversion rates
-- Better user experience metrics
-- Enhanced local visibility
-- Long-term sustainable growth''',
-                'price_range': '$1,500 - $10,000',
-                'delivery_time': '2-6 weeks',
-                'order_priority': 60
-            },
-            {
-                'title': 'WordPress Development',
-                'description': 'Custom WordPress development, themes, and plugin development services.',
-                'detailed_content': '''Create powerful WordPress websites with our expert development services. We build custom themes, develop plugins, and optimize WordPress sites for performance and security.
+**Turnaround Time:**
+- Critical bugs: 24-48 hours
+- Performance issues: 3-5 days
+- Code refactoring: 1-2 weeks''',
+        'price_range': '$50 - $500',
+        'delivery_time': '1-7 days',
+        'order_priority': 85
+    },
+    {
+        'title': 'WordPress Website & Customization',
+        'description': 'Professional WordPress development, theme customization, and plugin configuration.',
+        'detailed_content': '''Get a professional WordPress website tailored to your needs. I provide custom WordPress solutions that are easy to manage and scale.
 
 **WordPress Services:**
 - Custom theme development
-- Plugin development
-- WordPress customization
-- WooCommerce development
-- Site migration and maintenance
-- Performance optimization
-- Security hardening
-
-**Custom Theme Development:**
-- Responsive design implementation
-- Custom post types and fields
-- Advanced Custom Fields integration
-- Gutenberg block development
 - Theme customization
-- Cross-browser compatibility
-- SEO-friendly structure
+- Plugin installation and configuration
+- Speed optimization
+- Security hardening
+- Backup setup
+- SEO plugin configuration
 
-**Plugin Development:**
-- Custom functionality development
-- Third-party API integration
-- Payment gateway plugins
-- Membership and subscription plugins
-- SEO and marketing plugins
-- E-commerce extensions
+**Features Included:**
+- Responsive design
+- Contact forms
+- Social media integration
+- Basic SEO setup
+- Google Analytics
+- Sitemap generation
+- Basic security measures
 
-**WooCommerce Development:**
-- Custom e-commerce solutions
+**Additional Services:**
+- WooCommerce setup
+- Membership sites
+- Learning management systems
+- Multi-language setup
+- Custom post types
+- Migration services
+
+**Maintenance Options:**
+- Monthly updates: $50/month
+- Security monitoring
+- Regular backups
+- Performance checks''',
+        'price_range': '$200 - $800',
+        'delivery_time': '1-3 weeks',
+        'order_priority': 80
+    },
+    {
+        'title': 'Landing Page Development',
+        'description': 'High-converting landing pages for products, services, or marketing campaigns.',
+        'detailed_content': '''Create compelling landing pages that convert visitors into customers. I design and develop landing pages optimized for conversions and performance.
+
+**Landing Page Features:**
+- Mobile-responsive design
+- Fast loading speed
+- Clear call-to-actions
+- Contact form integration
+- A/B testing ready
+- Analytics integration
+- SEO optimization
+
+**What's Included:**
+- Custom design based on your brand
+- Copywriting assistance
+- Form integration (email/CRM)
+- Basic animations
+- Social proof elements
+- Performance optimization
+- Cross-browser testing
+
+**Technology Stack:**
+- HTML5, CSS3, JavaScript
+- React/Vue.js for interactive elements
+- TailwindCSS for styling
+- Form handling backend
+- Hosting setup assistance
+
+**Perfect For:**
+- Product launches
+- Service promotions
+- Event registrations
+- Lead generation
+- App downloads''',
+        'price_range': '$150 - $500',
+        'delivery_time': '3-7 days',
+        'order_priority': 75
+    },
+    {
+        'title': 'Database Design & Setup',
+        'description': 'Professional database architecture design and implementation for scalable applications.',
+        'detailed_content': '''Design efficient database structures that scale with your business. I create well-organized databases with proper relationships and optimizations.
+
+**Database Services:**
+- Database schema design
+- Table relationships setup
+- Index optimization
+- Migration scripts
+- Backup strategies
+- Basic performance tuning
+
+**Supported Databases:**
+- PostgreSQL
+- MySQL
+- MongoDB
+- SQLite
+- Redis (caching)
+
+**Deliverables:**
+- Entity relationship diagrams
+- Optimized database schema
+- Migration scripts
+- Basic queries documentation
+- Backup procedures
+- Performance recommendations
+
+**Additional Services:**
+- Data migration from old systems
+- Database performance audit
+- Query optimization
+- Backup automation setup
+- Basic monitoring setup''',
+        'price_range': '$200 - $800',
+        'delivery_time': '1-2 weeks',
+        'order_priority': 70
+    },
+    {
+        'title': 'Full Stack Web Application',
+        'description': 'Complete web application development from frontend to backend with database.',
+        'detailed_content': '''Build your complete web application idea from scratch. I develop full-featured web applications using modern technologies and best practices.
+
+**Full Stack Development:**
+- Custom frontend development
+- Backend API development
+- Database design and setup
+- User authentication system
+- Admin panel
+- Email integration
+- Basic deployment
+
+**Technology Stack:**
+- Frontend: React/Vue.js
+- Backend: Django/Node.js
+- Database: PostgreSQL/MySQL
+- Authentication: JWT/Session
+- Deployment: VPS/Cloud
+
+**Common Applications:**
+- Management systems
+- Booking platforms
+- Social platforms
+- SaaS MVPs
+- Internal tools
+- Dashboard applications
+
+**Project Includes:**
+- Requirement analysis
+- UI/UX design consultation
+- Development and testing
+- Deployment assistance
+- Documentation
+- 45 days support''',
+        'price_range': '$800 - $3,000',
+        'delivery_time': '4-8 weeks',
+        'order_priority': 65
+    },
+    {
+        'title': 'Mobile App Backend Development',
+        'description': 'Scalable backend APIs and services for mobile applications.',
+        'detailed_content': '''Power your mobile app with a robust backend. I develop secure, scalable backend services that handle your app's data and business logic efficiently.
+
+**Backend Services:**
+- RESTful API development
+- User authentication (JWT/OAuth)
+- Push notification setup
+- File upload handling
+- Real-time features (basic)
+- Database design
+- Third-party integrations
+
+**Features:**
+- User management
+- Data synchronization
+- Offline capability support
+- Basic analytics
+- Social login integration
 - Payment gateway integration
-- Shipping method customization
-- Product configurators
-- Inventory management
-- Multi-vendor marketplace setup
+- Email/SMS notifications
+
+**Technologies:**
+- Django REST Framework
+- Node.js/Express
+- PostgreSQL/MongoDB
+- Redis for caching
+- Firebase integration
+- AWS S3 for storage
+
+**Deliverables:**
+- Complete API backend
+- API documentation
+- Deployment guide
+- Postman collection
+- Basic admin panel''',
+        'price_range': '$600 - $2,000',
+        'delivery_time': '3-6 weeks',
+        'order_priority': 60
+    },
+    {
+        'title': 'Website Maintenance & Support',
+        'description': 'Monthly website maintenance, updates, and technical support services.',
+        'detailed_content': '''Keep your website running smoothly with regular maintenance and support. I provide reliable maintenance services to ensure your site stays secure and up-to-date.
+
+**Monthly Maintenance Includes:**
+- Regular security updates
+- Plugin/package updates
+- Weekly backups
+- Uptime monitoring
+- Performance checks
+- Bug fixes (up to 4 hours)
+- Content updates
+
+**Additional Services:**
+- Emergency support
+- Security incident response
+- Performance optimization
+- Feature additions
+- Server management
+- SSL certificate renewal
+- Domain management
+
+**Support Channels:**
+- Email support
+- WhatsApp for urgent issues
+- Monthly status reports
+- Backup restoration
+- Update documentation
+
+**Plans Available:**
+- Basic: $60/month (5 hours support)
+- Standard: $120/month (10 hours support)
+- Premium: $200/month (20 hours support)''',
+        'price_range': '$60 - $200/month',
+        'delivery_time': 'Ongoing',
+        'order_priority': 55
+    },
+    {
+        'title': 'Technical Consultation',
+        'description': 'Expert advice on technology stack, architecture, and development strategies.',
+        'detailed_content': '''Get expert guidance for your technical decisions. I provide consultation on technology choices, architecture design, and development best practices.
+
+**Consultation Services:**
+- Technology stack selection
+- Architecture review
+- Code review and audit
+- Performance analysis
+- Security assessment
+- Scalability planning
+- Development roadmap
+
+**Areas of Expertise:**
+- Web application architecture
+- API design patterns
+- Database optimization
+- Cloud deployment strategies
+- Security best practices
+- Performance optimization
+- Cost optimization
+
+**Consultation Formats:**
+- One-time consultation calls
+- Written recommendations
+- Code review sessions
+- Architecture diagrams
+- Implementation guides
+- Follow-up support
+
+**Ideal For:**
+- Startups planning MVPs
+- Businesses scaling applications
+- Teams facing technical challenges
+- Technology migration projects''',
+        'price_range': '$50 - $150/hour',
+        'delivery_time': 'As needed',
+        'order_priority': 50
+    },
+    {
+        'title': 'MVP Development',
+        'description': 'Rapid development of Minimum Viable Products for startups and entrepreneurs.',
+        'detailed_content': '''Launch your startup idea quickly with a well-built MVP. I help entrepreneurs validate their ideas with functional prototypes that can scale.
+
+**MVP Development Process:**
+- Idea refinement and scope definition
+- Core feature identification
+- Rapid prototyping
+- Iterative development
+- User feedback integration
+- Launch preparation
+
+**What's Included:**
+- Basic UI/UX design
+- Core feature development
+- User authentication
+- Basic admin panel
+- Payment integration (if needed)
+- Deployment setup
+- 30 days post-launch support
+
+**Technology Choices:**
+- Fast development frameworks
+- Proven technology stacks
+- Scalable architecture
+- Cloud-ready deployment
+- Mobile-responsive design
+
+**Timeline & Approach:**
+- Week 1-2: Planning and design
+- Week 3-6: Core development
+- Week 7-8: Testing and launch
+- Post-launch: Iterations based on feedback''',
+        'price_range': '$1,000 - $4,000',
+        'delivery_time': '4-8 weeks',
+        'order_priority': 45
+    },
+    {
+        'title': 'SEO & Performance Optimization',
+        'description': 'Improve your website\'s search rankings and loading speed.',
+        'detailed_content': '''Boost your website's visibility and performance. I optimize websites for better search engine rankings and faster loading times.
+
+**SEO Services:**
+- Technical SEO audit
+- On-page optimization
+- Meta tags optimization
+- Schema markup implementation
+- Sitemap generation
+- Robots.txt optimization
+- Basic keyword research
 
 **Performance Optimization:**
 - Page speed optimization
-- Database optimization
-- Caching implementation
 - Image optimization
-- CDN integration
 - Code minification
-
-**Security Services:**
-- Security audits
-- Malware removal
-- SSL certificate installation
-- Firewall configuration
-- Regular security updates
-- Backup solutions
-
-**Maintenance Services:**
-- Regular updates
-- Security monitoring
-- Performance monitoring
-- Content updates
-- Bug fixes
-- Feature enhancements
-
-**WordPress Expertise:**
-- 8+ years WordPress experience
-- Certified WordPress developers
-- Latest WordPress standards
-- Best practice implementation
-- Custom development approach
-- Ongoing support and maintenance
+- Caching implementation
+- CDN setup assistance
+- Database query optimization
+- Lazy loading implementation
 
 **Deliverables:**
-- Fully functional WordPress site
-- Custom theme files
-- Plugin documentation
-- Training materials
-- Maintenance guidelines
-- Performance reports''',
-                'price_range': '$2,000 - $15,000',
-                'delivery_time': '3-8 weeks',
-                'order_priority': 55
-            },
-            {
-                'title': 'Cybersecurity Consulting',
-                'description': 'Comprehensive cybersecurity assessments and implementation services.',
-                'detailed_content': '''Protect your business with our comprehensive cybersecurity consulting services. We assess vulnerabilities, implement security measures, and help you maintain a strong security posture.
+- SEO audit report
+- Performance analysis
+- Implementation of fixes
+- Before/after metrics
+- Optimization guide
+- Monitoring setup
 
-**Security Services:**
-- Security assessments and audits
-- Penetration testing
-- Vulnerability management
-- Security policy development
-- Incident response planning
-- Compliance consulting
-- Employee security training
+**Results You Can Expect:**
+- Improved page load times
+- Better search rankings
+- Enhanced user experience
+- Reduced bounce rates
+- Mobile performance boost''',
+        'price_range': '$200 - $600',
+        'delivery_time': '1-2 weeks',
+        'order_priority': 40
+    },
+    {
+        'title': 'Payment Gateway Integration',
+        'description': 'Secure payment processing integration for websites and applications.',
+        'detailed_content': '''Accept payments seamlessly on your platform. I integrate popular payment gateways with proper security measures and testing.
 
-**Security Assessments:**
-- Network security analysis
-- Application security testing
-- Infrastructure vulnerability scanning
-- Social engineering testing
-- Physical security assessment
-- Data protection audit
+**Payment Gateways:**
+- Razorpay (recommended for India)
+- PayPal
+- Stripe
+- Paytm
+- UPI integration
+- International payments setup
 
-**Implementation Services:**
-- Firewall configuration
-- Intrusion detection systems
-- Multi-factor authentication
-- Endpoint protection
+**Integration Features:**
+- Secure payment processing
+- Multiple payment methods
+- Recurring payments
+- Refund handling
+- Payment webhooks
+- Transaction logging
+- Invoice generation
+
+**Security Measures:**
+- PCI compliance basics
+- SSL implementation
+- Secure API handling
 - Data encryption
-- Backup and recovery systems
+- Fraud prevention basics
 
-**Compliance Frameworks:**
-- GDPR compliance
-- HIPAA compliance
-- SOC 2 certification
-- ISO 27001 implementation
-- PCI DSS compliance
-- NIST framework adoption
-
-**Incident Response:**
-- Incident response planning
-- Breach detection and analysis
-- Forensic investigation
-- Recovery procedures
-- Post-incident analysis
-- Process improvement
-
-**Employee Training:**
-- Security awareness training
-- Phishing simulation
-- Best practices workshops
-- Policy training
-- Role-specific training
-- Regular updates and refreshers
-
-**Ongoing Services:**
-- Continuous monitoring
-- Threat intelligence
-- Regular security updates
-- Quarterly assessments
-- Policy reviews
-- Emergency response support
-
-**Security Technologies:**
-- Next-generation firewalls
-- SIEM solutions
-- Endpoint detection and response
-- Email security solutions
-- Web application firewalls
-- Identity management systems
-
-**Benefits:**
-- Reduced security risks
-- Regulatory compliance
-- Business continuity protection
-- Customer trust enhancement
-- Cost-effective security measures
-- 24/7 security monitoring''',
-                'price_range': '$3,000 - $25,000',
-                'delivery_time': '2-8 weeks',
-                'order_priority': 50
-            },
-            {
-                'title': 'Business Process Automation',
-                'description': 'Automate repetitive tasks and streamline business processes for efficiency.',
-                'detailed_content': '''Increase productivity and reduce costs with our business process automation services. We identify automation opportunities and implement solutions that streamline your operations.
+**Testing & Support:**
+- Sandbox testing
+- Live payment testing
+- Error handling
+- Documentation
+- 30 days support''',
+        'price_range': '$150 - $500',
+        'delivery_time': '3-7 days',
+        'order_priority': 35
+    },
+    {
+        'title': 'Custom Automation Scripts',
+        'description': 'Python scripts and tools to automate repetitive tasks and workflows.',
+        'detailed_content': '''Automate your repetitive tasks and save time. I develop custom Python scripts and automation tools tailored to your specific needs.
 
 **Automation Services:**
-- Process analysis and mapping
-- Workflow automation
-- Document management automation
-- Customer service automation
-- Marketing automation
-- Financial process automation
-- HR process automation
-
-**Automation Technologies:**
-- Robotic Process Automation (RPA)
-- Workflow management systems
-- API integrations
-- Custom automation tools
-- AI and machine learning
-- Business intelligence tools
-
-**Process Areas:**
-- Data entry automation
-- Invoice processing
-- Customer onboarding
+- Web scraping scripts
+- Data processing automation
+- Email automation
+- File management scripts
+- API integration scripts
 - Report generation
-- Email marketing campaigns
-- Lead qualification
-- Inventory management
+- Task scheduling
 
-**Implementation Process:**
-1. **Assessment**: Current process analysis
-2. **Opportunity Identification**: Automation potential evaluation
-3. **Solution Design**: Custom automation strategy
-4. **Development**: Tool configuration and custom development
-5. **Testing**: Process validation and optimization
-6. **Deployment**: Live implementation with monitoring
-7. **Training**: User training and documentation
+**Common Use Cases:**
+- Data extraction from websites
+- Bulk file processing
+- Automated reporting
+- Social media posting
+- Database backups
+- System monitoring
+- Workflow automation
 
-**Automation Tools:**
-- Zapier and Microsoft Power Automate
-- UiPath and Automation Anywhere
-- Custom Python and JavaScript solutions
-- Salesforce Process Builder
-- HubSpot Workflows
-- Slack and Microsoft Teams integrations
-
-**Business Benefits:**
-- 70% reduction in manual tasks
-- 90% improvement in process accuracy
-- 50% reduction in processing time
-- Cost savings through efficiency
-- Improved employee satisfaction
-- Better customer experience
-
-**ROI & Metrics:**
-- Average 300% ROI within first year
-- Measurable productivity improvements
-- Error reduction tracking
-- Time savings quantification
-- Cost reduction analysis
-- Process efficiency metrics
-
-**Ongoing Support:**
-- Process monitoring and optimization
-- Regular automation updates
-- Performance reporting
-- User support and training
-- Scaling automation solutions
-- Integration with new systems''',
-                'price_range': '$4,000 - $35,000',
-                'delivery_time': '4-12 weeks',
-                'order_priority': 45
-            },
-            {
-                'title': 'Data Analytics & Reporting',
-                'description': 'Transform your data into actionable insights with advanced analytics solutions.',
-                'detailed_content': '''Unlock the power of your data with our comprehensive analytics and reporting services. We help businesses make data-driven decisions through advanced analytics and visualization.
-
-**Analytics Services:**
-- Data collection and integration
-- Business intelligence dashboards
-- Custom reporting solutions
-- Predictive analytics
-- Data visualization
-- Performance monitoring
-- KPI tracking and optimization
-
-**Data Integration:**
-- Multiple data source connection
-- Real-time data synchronization
-- Data cleaning and transformation
-- ETL pipeline development
-- Data warehouse setup
-- Cloud data migration
-
-**Dashboard Development:**
-- Interactive business dashboards
-- Real-time reporting systems
-- Mobile-responsive analytics
-- Custom KPI visualization
-- Automated report generation
-- Alert and notification systems
-
-**Analytics Technologies:**
-- Google Analytics and Google Data Studio
-- Power BI and Tableau
-- Python and R for data science
-- SQL databases and data warehouses
-- Machine learning platforms
-- Custom analytics applications
-
-**Reporting Solutions:**
-- Executive summary reports
-- Departmental performance reports
-- Customer behavior analysis
-- Sales and marketing analytics
-- Financial reporting automation
-- Operational efficiency reports
-
-**Data Visualization:**
-- Interactive charts and graphs
-- Geographic data mapping
-- Trend analysis visualizations
-- Comparative performance charts
-- Real-time monitoring displays
-- Mobile-optimized dashboards
-
-**Advanced Analytics:**
-- Predictive modeling
-- Customer segmentation
-- Churn analysis
-- Forecasting and planning
-- A/B testing analysis
-- Statistical analysis
-
-**Industry Applications:**
-- E-commerce analytics
-- Marketing campaign analysis
-- Financial performance tracking
-- Operations optimization
-- Customer journey analysis
-- Supply chain analytics
+**Technologies:**
+- Python (BeautifulSoup, Selenium)
+- Task schedulers (Cron, Celery)
+- API integrations
+- Database connections
+- Cloud functions
+- Email services
 
 **Deliverables:**
-- Custom analytics dashboards
-- Automated reporting systems
-- Data integration pipelines
-- Training and documentation
-- Ongoing support and maintenance
-- Regular insights and recommendations
-
-**Business Impact:**
-- 40% improvement in decision-making speed
-- 25% increase in operational efficiency
-- Better understanding of customer behavior
-- Reduced costs through optimization
-- Increased revenue through insights
-- Competitive advantage through data''',
-                'price_range': '$3,500 - $30,000',
-                'delivery_time': '4-10 weeks',
-                'order_priority': 40
-            }
-        ]
+- Working scripts
+- Documentation
+- Setup instructions
+- Basic UI (if needed)
+- Source code
+- 30 days support''',
+        'price_range': '$100 - $800',
+        'delivery_time': '3-10 days',
+        'order_priority': 30
+    }
+]
         
         created_services = []
         
